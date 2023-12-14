@@ -1,0 +1,19 @@
+﻿IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Order')
+BEGIN
+	
+	CREATE TABLE [Order] (
+		[Id]						UNIQUEIDENTIFIER			PRIMARY KEY			DEFAULT NEWID(),
+		[UserId]					UNIQUEIDENTIFIER			NOT NULL,
+		[TimeCreate]				DATETIME					NOT NULL			DEFAULT GETUTCDATE(),
+		[OrderStatus]				INT							NOT NULL,
+		[PaymentMethodId]			UNIQUEIDENTIFIER			NOT NULL,
+		[TotalPrice]				FLOAT						NOT NULL,
+	);
+
+	ALTER TABLE [Order]
+	ADD CONSTRAINT FK_Oder_Refer_PaymentMethod FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethod(Id);
+
+	ALTER TABLE [Order]
+	ADD CONSTRAINT FK_Order_Refer_User FOREIGN KEY (UserId) REFERENCES [User](Id);
+
+END

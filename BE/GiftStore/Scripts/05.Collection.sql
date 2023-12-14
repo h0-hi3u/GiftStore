@@ -1,0 +1,12 @@
+﻿IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Collection')
+
+BEGIN
+	
+	CREATE TABLE [Collection] (
+		[Id]						UNIQUEIDENTIFIER			PRIMARY KEY			DEFAULT NEWID(),
+		[Name]						NVARCHAR(50)				NOT NULL,
+		[Description]				NVARCHAR(100),
+		[IsDeleted]					BIT							NOT NULL,
+	);
+
+END

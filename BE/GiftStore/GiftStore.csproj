@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Scripts\01.Supplier.sql" />
+    <None Remove="Scripts\02.Tag.sql" />
+    <None Remove="Scripts\03.Category.sql" />
+    <None Remove="Scripts\04.Product.sql" />
+    <None Remove="Scripts\05.Collection.sql" />
+    <None Remove="Scripts\06.ProductTag.sql" />
+    <None Remove="Scripts\07.ImageProduct.sql" />
+    <None Remove="Scripts\08.BestSeller.sql" />
+    <None Remove="Scripts\09.User.sql" />
+    <None Remove="Scripts\10.PaymentMethod.sql" />
+    <None Remove="Scripts\11.Order.sql" />
+    <None Remove="Scripts\12.OrderDetail.sql" />
+    <None Remove="Scripts\13.ProductCollection.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\01.Supplier.sql" />
+    <EmbeddedResource Include="Scripts\02.Tag.sql" />
+    <EmbeddedResource Include="Scripts\03.Category.sql" />
+    <EmbeddedResource Include="Scripts\05.Collection.sql" />
+    <EmbeddedResource Include="Scripts\06.ProductTag.sql" />
+    <EmbeddedResource Include="Scripts\04.Product.sql" />
+    <EmbeddedResource Include="Scripts\07.ImageProduct.sql" />
+    <EmbeddedResource Include="Scripts\08.BestSeller.sql" />
+    <EmbeddedResource Include="Scripts\09.User.sql" />
+    <EmbeddedResource Include="Scripts\10.PaymentMethod.sql" />
+    <EmbeddedResource Include="Scripts\11.Order.sql" />
+    <EmbeddedResource Include="Scripts\12.OrderDetail.sql" />
+    <EmbeddedResource Include="Scripts\13.ProductCollection.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.5.0" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.25" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GiftStore.Core\GiftStore.Core.csproj" />
+    <ProjectReference Include="..\GiftStore.DAL\GiftStore.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

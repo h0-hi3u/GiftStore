@@ -1,0 +1,13 @@
+﻿IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'BestSeller')
+BEGIN
+
+	CREATE TABLE [BestSeller] (
+		[Id]						UNIQUEIDENTIFIER			PRIMARY KEY			DEFAULT NEWID(),
+		[ProductId]					UNIQUEIDENTIFIER			NOT NULL,
+		[NumberSelled]				INT							NOT NULL,
+		[TotalPriceSelled]			FLOAT						NOT NULL,
+	);
+	ALTER TABLE BestSeller
+	ADD CONSTRAINT FK_BestSeller_Refer_Product FOREIGN KEY (ProductId) REFERENCES Product(Id);
+
+END
