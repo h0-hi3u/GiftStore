@@ -20,27 +20,76 @@
     display: flex;
     justify-content: space-around;
     .dot {
-        cursor: pointer;
+      cursor: pointer;
       display: inline-block;
       width: 8px; /* You can adjust the size of the circle */
       height: 8px; /* Make sure width and height are the same for a perfect circle */
-      background-color: var(--primary-gray); /* Change the background color as desired */
+      background-color: var(
+        --primary-gray
+      ); /* Change the background color as desired */
       border-radius: 50%; /* This creates a circle by setting border-radius to 50% */
       text-align: center;
       font-weight: bold; /* Set font weight */
     }
     .dot-active {
-        background-color: var(--primary-pink) !important;
+      background-color: var(--primary-pink) !important;
     }
     .dot:hover {
-        background-color: var(--primary-pink);
+      background-color: var(--primary-pink);
     }
   }
 }
 .banner-collection {
   width: 100%;
   height: 160px;
-  background-color: bisque;
+  background-color: var(--primary-pink);
+  // padding-bottom: 40px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .container {
+    width: 75%;
+    height: 100px;
+    display: flex;
+    .line {
+      width: 2px;
+      height: 90%;
+      border-radius: 20%;
+      background-color: #fff;
+    }
+    .icon-collection {
+      width: calc((100% / 6) - 2px);
+      height: 100px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .image-collection {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        width: 55px;
+        height: 55px;
+        img {
+          width: 48px;
+          height: 48px;
+        }
+      }
+      .title-collection {
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 400;
+        text-overflow: ellipsis;
+        padding: 0 40px;
+      }
+    }
+    .icon-collection:hover .title-collection {
+      font-weight: 800;
+      transition: font-weight 0.2s linear;
+    }
+  }
 }
 .new-product {
   width: 100%;
