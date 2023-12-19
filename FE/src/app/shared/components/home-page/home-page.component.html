@@ -1,0 +1,27 @@
+<div class="banner-slideshow-image relative">
+    <img class="slide-image" src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/slider_1.jpg?1681832246171" alt="">
+    <img class="slide-image" src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/slider_2.jpg?1681832246171" alt="">
+    <img class="slide-image" src="https://preview.redd.it/mushrooms-i-3440x1440-v0-sm922fhmq57c1.png?width=1080&crop=smart&auto=webp&s=cb8c01899a0402eeb27603fffb7a25b4a4aa0bff" alt="">
+    <img class="slide-image" src="https://preview.redd.it/random-background-pack-3440x1440-v0-4te7vluziv6c1.jpg?width=1080&crop=smart&auto=webp&s=8bc229c9245194ed81de1782b8e63b69ecf46c57" alt="">
+    <button (click)="plusDiv(-1)" class="absolute w-8 h-8 bg-transparent text-[40px] top-[50%] text-[#b4b1b1] left-4 hover:text-[#c83252]">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+    <button (click)="plusDiv(+1)" class="absolute w-8 h-8 bg-transparent text-[40px] top-[50%] text-[#b4b1b1] right-4 hover:text-[#c83252]">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+    <div class="dots-slide">
+        <span (click)="showDiv(1)" class="dot"></span>
+        <span (click)="showDiv(2)" class="dot"></span>
+        <span (click)="showDiv(3)" class="dot"></span>
+        <span (click)="showDiv(4)" class="dot"></span>
+    </div>
+</div>
+<div class="banner-collection">
+    banner-collection
+</div>
+<div class="new-product">
+    new-product
+</div>
+<div class="best-seller">
+    best-seller
+</div>

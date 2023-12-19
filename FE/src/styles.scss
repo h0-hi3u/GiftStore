@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --primary-pink: #c83252;
+  --primary-black: #333;
+  --primary-gray: #777;
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+// scroll bar
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #fafafa;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  // background-image: linear-gradient(-45deg, #6a5af9, #d66efd);
+  background-image: linear-gradient(-45deg, #9a97b8, #837d85);
+  border-radius: 50px;
+}
