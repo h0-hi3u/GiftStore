@@ -10,6 +10,7 @@ export class HomePageComponent implements OnInit {
   slideIndex : number = 1;
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
+  timeoutId : any;
   ngOnInit(): void {
       this.showDiv(this.slideIndex);
   }
@@ -19,12 +20,14 @@ export class HomePageComponent implements OnInit {
     this.showDiv(this.slideIndex);
   }
   public carousel() {
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.slideIndex += 1;
       this.showDiv(this.slideIndex);
     }, 2000);
   }
   public showDiv(n : number) {
+    // clear timeout when user click next image
+    clearTimeout(this.timeoutId);
     //handle image
     let x = document.getElementsByClassName("slide-image");
     this.slideIndex = n;
@@ -35,7 +38,6 @@ export class HomePageComponent implements OnInit {
         x[i].classList.remove("slide-block");
       }  
     }
-    // const slideShow = x[this.slideIndex - 1];
     x[this.slideIndex - 1].classList.add("slide-block");
 
     //handle dots
@@ -45,9 +47,8 @@ export class HomePageComponent implements OnInit {
         dots[i].classList.remove("dot-active");
       }
     }
-    // const dotShow = dots[this.slideIndex - 1];
     dots[this.slideIndex - 1].classList.add("dot-active");
-    // this.carousel(); 
+    this.carousel(); 
   }
   //#endregion
 }
