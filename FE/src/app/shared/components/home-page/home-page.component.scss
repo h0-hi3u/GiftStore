@@ -24,9 +24,7 @@
       display: inline-block;
       width: 8px; /* You can adjust the size of the circle */
       height: 8px; /* Make sure width and height are the same for a perfect circle */
-      background-color: var(
-        --primary-gray
-      ); /* Change the background color as desired */
+      background-color: var( --primary-gray); /* Change the background color as desired */
       border-radius: 50%; /* This creates a circle by setting border-radius to 50% */
       text-align: center;
       font-weight: bold; /* Set font weight */
@@ -145,14 +143,51 @@
       display: flex;
       flex-wrap: wrap;
       .product {
+        cursor: pointer;
         width: 25%;
         height: 50%;
         padding: 0 10px;
+        position: relative;
+        .buy-product {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          width: 48px;
+          height: 48px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          background-color: #333;
+          svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+          }
+        }
+        .buy-product:hover {
+          background-color: var(--primary-pink);
+        }
         .thumbnail-product {
           height: 278px;
           img {
             margin: auto;
             border-radius: 5px;
+          }
+          .like-product {
+            position: absolute;
+            top: 55%;
+            right: 27px;
+            width: 20px;
+            height: 20px;
+            svg {
+              width: 100%;
+              height: 100%;
+              fill: #333;
+            }
+          }
+          .like-product:hover svg {
+            fill: var(--primary-pink);
           }
         }
         .title-product {
@@ -168,11 +203,11 @@
           color: var(--primary-gray);
           font-size: 12px;
           width: 100%;
-          line-height: normal;
-          overflow: hidden;
-          white-space: nowrap;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
           text-overflow: ellipsis;
-          display: block;
+          overflow: hidden;
         }
         .price-product {
           font-size: 24px;
@@ -239,14 +274,51 @@
       display: flex;
       flex-wrap: wrap;
       .product {
+        cursor: pointer;
         width: 25%;
         height: 50%;
         padding: 0 10px;
+        position: relative;
+        .buy-product {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          width: 48px;
+          height: 48px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          background-color: #333;
+          svg {
+            width: 20px;
+            height: 20px;
+            color: #fff;
+          }
+        }
+        .buy-product:hover {
+          background-color: var(--primary-pink);
+        }
         .thumbnail-product {
           height: 278px;
           img {
             margin: auto;
             border-radius: 5px;
+          }
+          .like-product {
+            position: absolute;
+            top: 55%;
+            right: 27px;
+            width: 20px;
+            height: 20px;
+            svg {
+              width: 100%;
+              height: 100%;
+              fill: #333;
+            }
+          }
+          .like-product:hover svg {
+            fill: var(--primary-pink);
           }
         }
         .title-product {
@@ -262,11 +334,11 @@
           color: var(--primary-gray);
           font-size: 12px;
           width: 100%;
-          line-height: normal;
-          overflow: hidden;
-          white-space: nowrap;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
           text-overflow: ellipsis;
-          display: block;
+          overflow: hidden;
         }
         .price-product {
           font-size: 24px;
