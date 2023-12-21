@@ -6,8 +6,8 @@ using GiftStore.Core.Contracts;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Supplier;
 using GiftStore.DAL.Model.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Data.Entity;
 
 namespace GiftStore.DAL.Implementations;
 

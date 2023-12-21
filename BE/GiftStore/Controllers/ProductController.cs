@@ -21,10 +21,10 @@ public class ProductController : ControllerBase
     #region Feature for user
 
     [HttpGet("paging")]
-    public IActionResult GetForUser(int pageSize, int pageIndex, int sortOption)
+    public async Task<IActionResult> GetProductForUser(int pageSize, int pageIndex, int sortOption)
     {
-        return Ok();
-
+        var result = await _productService.GetProductAll(pageSize, pageIndex, sortOption);
+        return Ok(result);
     }
 
     #endregion

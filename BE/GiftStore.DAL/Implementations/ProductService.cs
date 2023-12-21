@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using GiftStore.Core.Helper;
 using GiftStore.Core.Constants;
 using GiftStore.DAL.Model.Dto;
+using AutoMapper;
+using GiftStore.DAL.Model.Dto.Product;
+using GiftStore.DAL.Model.Dto.Tag;
 
 namespace GiftStore.DAL.Implementations;
 
@@ -19,14 +22,16 @@ public class ProductService : GenericService, IProductService
     private readonly IRepository<Collection> _collectionRepo;
     private readonly IRepository<Tag> _tagRepo;
     private readonly IRepository<BestSeller> _bestSellerRepo;
+    private readonly IMapper _mapper;
 
-    public ProductService(ILifetimeScope scope) : base(scope)
+    public ProductService(ILifetimeScope scope, IMapper mapper) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
         _productRepo = _unitOfWork.Repository<Product>();
         _collectionRepo = _unitOfWork.Repository<Collection>();
         _tagRepo = _unitOfWork.Repository<Tag>();
         _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
+        _mapper = mapper;
     }
 
     public Task<AppActionResult> AddProduct()
@@ -44,12 +49,12 @@ public class ProductService : GenericService, IProductService
     public async Task<AppActionResult> GetDetail(string id)
     {
         var actionResult = new AppActionResult();
-        if(!Guid.TryParse(id, out Guid productId))
+        if (!Guid.TryParse(id, out Guid productId))
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
         Product product = await _productRepo.GetAsync(p => p.Id == productId);
-        if(product == null)
+        if (product == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
         }
@@ -87,13 +92,13 @@ public class ProductService : GenericService, IProductService
         PagingDto pagingDto = new PagingDto();
         int skip = CalculateHelper.CalculatePaging(pageSize, pageIndex);
 
-        if(sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
+        if (sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
         {
             return actionResult.BuildError("Invalid sort");
         }
         string sortString = SortConstants.SortOptions[sortOption];
 
-        if(!Guid.TryParse(id, out Guid collectionId))
+        if (!Guid.TryParse(id, out Guid collectionId))
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
@@ -183,15 +188,27 @@ public class ProductService : GenericService, IProductService
         PagingDto pagingDto = new PagingDto();
         int skip = CalculateHelper.CalculatePaging(pageSize, pageIndex);
 
-        if(sortOption < 0 || sortOption > SortConstants.SortOptions.Length - 1)
+        if (sortOption < 0 || sortOption > SortConstants.SortOptions.Length - 1)
         {
             return actionResult.BuildError("Invalid sort");
         }
+        string sortString = SortConstants.SortOptions[sortOption];
+        var totalRecords = await _productRepo.Entities().Where(p => p.IsParent == true && p.IsDeleted == false).CountAsync();
+        IEnumerable<Product> result;
+        if (sortOption == 0)
+        {
+            result = await _productRepo.Entities().Where(p => p.IsParent == true && p.IsDeleted == false).Include(p => p.ImageProduct).Skip(skip).Take(pageSize).ToListAsync();
+        }
+        else
+        {
 
-        var totalRecords = await _productRepo.Entities().CountAsync();
-        var data = await _productRepo.Entities().Skip(skip).Take(pageSize).ToListAsync();
+            result = await _productRepo.Entities().Where(p => p.IsParent == true && p.IsDeleted == false).Include(p => p.ImageProduct).OrderBy(sortString).Skip(skip).Take(pageSize).ToListAsync();
+        }
 
         pagingDto.TotalRecords = totalRecords;
+
+        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(result);
+
         pagingDto.Data = data;
 
         return actionResult.BuildResult(pagingDto);

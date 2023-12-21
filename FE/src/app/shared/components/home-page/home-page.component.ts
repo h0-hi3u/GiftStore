@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faChevronRight, faChevronLeft} from '@fortawesome/free-solid-svg-icons';
+import { ProductService } from 'src/app/core/services/product.service';
+import { ProductShowDto } from 'src/app/modules/Product/productShowDto';
+import { ResponseDto } from 'src/app/modules/responseDto';
 
 @Component({
   selector: 'app-home-page',
@@ -11,8 +14,13 @@ export class HomePageComponent implements OnInit {
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
   timeoutId : any;
+  listNewProduct : ProductShowDto[] = [];
+
   ngOnInit(): void {
       this.showDiv(this.slideIndex);
+  }
+  constructor(private productService : ProductService){
+    this.getNewProduct();
   }
   //#region  slide show banner
   public plusDiv(n : number) {
@@ -49,6 +57,16 @@ export class HomePageComponent implements OnInit {
     }
     dots[this.slideIndex - 1].classList.add("dot-active");
     this.carousel(); 
+  }
+  //#endregion
+
+  //#region get new product
+  public getNewProduct() {
+    this.productService.getNewProduct(5, 1, 0).subscribe(
+      (res : ResponseDto) => {
+        this.listNewProduct = res.data;        
+      }
+    )
   }
   //#endregion
 }

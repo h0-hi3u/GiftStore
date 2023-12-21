@@ -11,7 +11,7 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { HomePageComponent } from './shared/components/home-page/home-page.component';
 import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import {HTTP_INTERCEPTORS,HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

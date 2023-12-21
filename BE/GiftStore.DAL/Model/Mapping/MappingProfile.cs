@@ -3,6 +3,7 @@ using GiftStore.DAL.Model.Dto.BestSeller;
 using GiftStore.DAL.Model.Dto.Category;
 using GiftStore.DAL.Model.Dto.Collection;
 using GiftStore.DAL.Model.Dto.ImageProduct;
+using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Dto.Supplier;
 using GiftStore.DAL.Model.Dto.Tag;
 using GiftStore.DAL.Model.Dto.User;
@@ -14,10 +15,23 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
+        
+        ProductMappingProfile();
         TagMappingProfile();
+        SupplierMappingProfile();
+        CategoryMappingProfile();
+        CollectionMappingProfile();
+        BestSellerMappingProfile();
+        ImageProductMappingProfile();
+        UserMappingProfile();
     }
 
-    public void TagMappingProfile()
+    private void ProductMappingProfile()
+    {
+        CreateMap<Product, ProductShowResponseDto>();
+    }
+
+    private void TagMappingProfile()
     {
         CreateMap<Tag, TagShowResponseDto>()
             .ForMember(tsr => tsr.Id, opt => opt.MapFrom(t => t.Id))
@@ -28,7 +42,7 @@ public class MappingProfile : Profile
         CreateMap<TagUpdateRequestDto, Tag>();
     }
 
-    public void SupplierMappingProfile()
+    private void SupplierMappingProfile()
     {
         CreateMap<Supplier, SupplierShowResponseDto>();
         CreateMap<SupplierCreateRequestDto, Supplier>();
@@ -36,34 +50,34 @@ public class MappingProfile : Profile
 
     }
 
-    public void CategoryMappingProfile()
+    private void CategoryMappingProfile()
     {
         CreateMap<Category, CategoryShowResponseDto>();
         CreateMap<CategoryCreateRequestDto, Category>();
         CreateMap<CategoryUpdateRequestDto, Category>();
     }
 
-    public void CollectionMappingProfile()
+    private void CollectionMappingProfile()
     {
         CreateMap<Collection, CollectionShowResponseDto>();
         CreateMap<CollectionCreateRequestDto, Collection>();
         CreateMap<CollectionUpdateRequestDto, Collection>();
     }
 
-    public void BestSellerMappingProfile()
+    private void BestSellerMappingProfile()
     {
         CreateMap<BestSeller, BestSellerShowResponseDto>();
         CreateMap<BestSellerCreateRequestDto, BestSeller>();
     }
 
-    public void ImageProductMappingProfile()
+    private void ImageProductMappingProfile()
     {
-        CreateMap<ImageProduct, ImageProductShowResponseDto>();
+        CreateMap<ImageProduct, ImageProductShowResponseDto>().ReverseMap();
         CreateMap<ImageProductCreateRequestDto, ImageProduct>();
         CreateMap<ImageProductUpdateRequestDto, ImageProduct>();
     }
 
-    public void UserMappingProfile()
+    private void UserMappingProfile()
     {
         CreateMap<User, UserShowResponseDto>();
         CreateMap<UserUpdateRequestDto, User>();
