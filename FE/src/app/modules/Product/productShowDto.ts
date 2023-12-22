@@ -19,5 +19,5 @@ export class ProductShowDto {
     variant: string = '';
     isParent?: boolean;
     description?: string;
-    productImage: ImageProduct[] = [];
+    imageProduct: ImageProduct[] = [];
 }

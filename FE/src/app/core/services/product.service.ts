@@ -12,11 +12,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  public getNewProduct(
-    pageSize: number,
-    pageIndex: number,
-    sortOption: number
-  ) : Observable<ResponseDto> {
+  public getNewProduct(pageSize: number, pageIndex: number, sortOption: number) : Observable<ResponseDto> {
     return this.http.get<ResponseDto>(
       `${environment.urlApi}/${this.urlGetWithPaging}?pageSize=${pageSize}&pageIndex=${pageIndex}&sortOption=${sortOption}`
     );

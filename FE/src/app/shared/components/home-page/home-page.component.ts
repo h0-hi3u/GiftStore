@@ -20,7 +20,7 @@ export class HomePageComponent implements OnInit {
       this.showDiv(this.slideIndex);
   }
   constructor(private productService : ProductService){
-    this.getNewProduct();
+     this.getNewProduct();
   }
   //#region  slide show banner
   public plusDiv(n : number) {
@@ -62,9 +62,9 @@ export class HomePageComponent implements OnInit {
 
   //#region get new product
   public getNewProduct() {
-    this.productService.getNewProduct(5, 1, 0).subscribe(
+    this.productService.getNewProduct(8, 1, 6).subscribe(
       (res : ResponseDto) => {
-        this.listNewProduct = res.data;        
+        this.listNewProduct = res.data.data;
       }
     )
   }
