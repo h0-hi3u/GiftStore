@@ -12,6 +12,7 @@ import { HomePageComponent } from './shared/components/home-page/home-page.compo
 import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {HTTP_INTERCEPTORS,HttpClient, HttpClientModule} from '@angular/common/http';
+import { SocialFixedComponent } from './shared/layout/social-fixed/social-fixed.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HTTP_INTERCEPTORS,HttpClient, HttpClientModule} from '@angular/common/ht
     HeaderComponent,
     FooterComponent,
     HomePageComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    SocialFixedComponent
   ],
   imports: [
     BrowserModule,
