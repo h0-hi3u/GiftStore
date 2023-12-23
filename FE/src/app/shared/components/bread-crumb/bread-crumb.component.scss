@@ -1,0 +1,27 @@
+.bread-crumb {
+    padding: 15px 0;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .container {
+        width: 79%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .breadcrumb-main {
+            font-size: 12px;
+            text-align: left;
+            display: block;
+            li {
+                display: inline;
+                .slash {
+                    padding: 0 3px;
+                }
+                strong {
+                    color: var(--primary-gray);
+                }
+            }
+        }
+    }
+}

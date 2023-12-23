@@ -1,6 +1,6 @@
 <div class="top-header">
     <div>
-        <div class="logo-store">
+        <div class="logo-store" (click)="backToHome()">
             <img src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171" alt="">
         </div>
         <div class="input-search-header">
@@ -47,7 +47,7 @@
 </div>
 <div class="bottom-header">
     <div class="header-nav w-[79%] h-[100%] flex">
-        <div class="home-header">TRANG CHỦ</div>
+        <div class="home-header" (click)="backToHome()">TRANG CHỦ</div>
         <div class="product-header flex items-center gap-1">SẢN PHẨM 
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
             <div class="dropdown-product">

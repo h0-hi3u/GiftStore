@@ -1,0 +1,30 @@
+ul {
+    display: flex;
+    list-style: none;
+    li {
+        cursor: pointer;
+        margin: 0 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        font-size: 14px;
+        color: var(--primary-black);
+    }
+    li:hover {
+        background-color: var(--primary-pink);
+        color: #fff;
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+    .active {
+        cursor: auto;
+        background-color: var(--primary-pink);
+        color: #fff;
+    }
+}

@@ -10,6 +10,7 @@
     width: 79%;
     display: flex;
     .logo-store {
+      cursor: pointer;
       width: 17%;
       height: 100%;
       padding: 0 10px;
@@ -157,11 +158,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-bottom: solid rgb(212, 208, 208) 1px;
   .header-nav {
     align-items: center;
     padding: 0 10px;
     position: relative;
     .home-header {
+      cursor: pointer;
       font-size: 14px;
       font-weight: bold;
       color: #424242;
