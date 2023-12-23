@@ -121,10 +121,7 @@
                 </div>
                 <h4 class="title-product">{{product.name}}</h4>
                 <span class="description-product">{{product.description}}</span>
-                <h3 class="price-product">{{product.price.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0,
-                  })}}₫</h3>
+                <h3 class="price-product">{{helperNumber.formatPrice(product.price)}}</h3>
             </div>
             <!-- -------------------------------------------- -->
             <div class="product">

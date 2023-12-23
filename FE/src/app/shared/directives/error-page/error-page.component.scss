@@ -1,0 +1,32 @@
+.error-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 40px 0;
+    .container {
+        width: 79%;
+        text-align: center;
+        h1 {
+            width: 100%;
+            font-size: 160px;
+            font-weight: 700;
+            line-height: 160px;
+            border-bottom: 2px var(--primary-pink) solid;
+        }
+        p {
+            font-size: 20px;
+            color: var(--primary-black);
+            margin: 20px 0 15px;
+        }
+        button {
+            width: 134px;
+            height: 40px;
+            background-color: var(--primary-pink);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 5px;
+        }
+    }
+}
