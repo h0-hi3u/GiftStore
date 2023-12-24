@@ -12,6 +12,7 @@ export class SearchProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchProduct();
+    console.log("init");
   }
   public searchProduct() {
     const inputSearchText = document.getElementById("input-search-text") as HTMLInputElement;
