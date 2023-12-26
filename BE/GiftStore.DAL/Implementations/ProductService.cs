@@ -60,32 +60,6 @@ public class ProductService : GenericService, IProductService
         }
         return actionResult.BuildResult(product);
     }
-
-    public async Task<AppActionResult> GetProductBySearch(string searchText, int pageSize, int pageIndex, int sortOption)
-    {
-        var actionResult = new AppActionResult();
-        PagingDto pagingDto = new PagingDto();
-
-        if (sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
-        {
-            return actionResult.BuildError("Invalid sort");
-        }
-        string sortString = SortConstants.SortOptions[sortOption];
-
-        int skip = CalculateHelper.CalculatePaging(pageSize, pageIndex);
-        var all = _productRepo.Entities()
-            .Where(p => p.Name.Contains(searchText))
-            .OrderBy(sortString);
-
-        var totalRecords = await all.CountAsync();
-        var data = all.Skip(skip).Take(pageSize);
-
-        pagingDto.TotalRecords = totalRecords;
-        pagingDto.Data = data;
-
-        return actionResult.BuildResult(pagingDto);
-    }
-
     public async Task<AppActionResult> GetProductByCollection(string id, int pageSize, int pageIndex, int sortOption)
     {
         var actionResult = new AppActionResult();
@@ -197,12 +171,23 @@ public class ProductService : GenericService, IProductService
         IEnumerable<Product> result;
         if (sortOption == 0)
         {
-            result = await _productRepo.Entities().Where(p => p.IsParent == true && p.IsDeleted == false).Include(p => p.ImageProduct).Skip(skip).Take(pageSize).ToListAsync();
+            result = await _productRepo.Entities()
+                .Where(p => p.IsParent == true && p.IsDeleted == false)
+                .Include(p => p.ImageProduct)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
         }
         else
         {
 
-            result = await _productRepo.Entities().Where(p => p.IsParent == true && p.IsDeleted == false).Include(p => p.ImageProduct).OrderBy(sortString).Skip(skip).Take(pageSize).ToListAsync();
+            result = await _productRepo.Entities()
+                .Where(p => p.IsParent == true && p.IsDeleted == false)
+                .Include(p => p.ImageProduct)
+                .OrderBy(sortString)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         pagingDto.TotalRecords = totalRecords;
@@ -213,6 +198,49 @@ public class ProductService : GenericService, IProductService
 
         return actionResult.BuildResult(pagingDto);
     }
+    public async Task<AppActionResult> GetProductBySearch(string searchText, int pageSize, int pageIndex, int sortOption)
+    {
+        var actionResult = new AppActionResult();
+        PagingDto pagingDto = new PagingDto();
+
+        if (sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
+        {
+            return actionResult.BuildError("Invalid sort");
+        }
+        string sortString = SortConstants.SortOptions[sortOption];
+        var totalRecords = await _productRepo.Entities()
+                       .Where(p => p.Name.Contains(searchText) && p.IsParent && !p.IsDeleted).CountAsync();
+        int skip = CalculateHelper.CalculatePaging(pageSize, pageIndex);
+        IEnumerable<Product> result;
+        if (sortOption == 0)
+        {
+            result = await _productRepo.Entities()
+            .Where(p => p.Name.Contains(searchText) && p.IsParent)
+            .Include(p => p.ImageProduct)
+            .Skip(skip)
+            .Take(pageSize)
+            .ToListAsync();
+        }
+        else
+        {
+            result = await _productRepo.Entities()
+            .Where(p => p.Name.Contains(searchText) && p.IsParent)
+            .Include(p => p.ImageProduct)
+            .OrderBy(sortString)
+            .Skip(skip)
+            .Take(pageSize)
+            .ToListAsync();
+        }
+
+        pagingDto.TotalRecords = totalRecords;
+
+        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(result);
+
+        pagingDto.Data = data;
+
+        return actionResult.BuildResult(pagingDto);
+    }
+
 
     public async Task<AppActionResult> GetProductNew()
     {

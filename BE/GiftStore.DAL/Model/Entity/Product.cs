@@ -10,7 +10,7 @@ public class Product
 
     public int Quantity { get; set; }
 
-    public string Variant { get; set; }
+    public string? Variant { get; set; }
 
     public DateTime CreateDate { get; set; }
 

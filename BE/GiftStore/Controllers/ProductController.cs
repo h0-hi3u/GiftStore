@@ -21,12 +21,17 @@ public class ProductController : ControllerBase
     #region Feature for user
 
     [HttpGet("paging")]
-    public async Task<IActionResult> GetProductForUser(int pageSize, int pageIndex, int sortOption)
+    public async Task<IActionResult> GetProduct(int pageSize, int pageIndex, int sortOption)
     {
         var result = await _productService.GetProductAll(pageSize, pageIndex, sortOption);
         return Ok(result);
     }
-
+    [HttpGet("search")]
+    public async Task<IActionResult> SearchProduct(string searchText, int pageSize, int pageIndex, int sortOption)
+    {
+        var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex, sortOption);
+        return Ok(result);
+    }
     #endregion
 
     #region Feature for admin
