@@ -8,7 +8,7 @@ public interface IProductService
     Task<AppActionResult> GetAllAsync();
     Task<AppActionResult> GetDetail(string id);
     Task<AppActionResult> AddProduct();
-    Task<AppActionResult> GetProductBySearch(string searchText, int pageSize, int pageIndex, int sortOption);
+    Task<AppActionResult> GetProductBySearch(string? searchText, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductByCollection(string id, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductByTag(string id, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductByCategory(string id, int pageSize, int pageIndex, int sortOption);

@@ -15,6 +15,7 @@ import {HTTP_INTERCEPTORS,HttpClient, HttpClientModule} from '@angular/common/ht
 import { SocialFixedComponent } from './shared/components/social-fixed/social-fixed.component';
 import { BreadCrumbComponent } from './shared/components/bread-crumb/bread-crumb.component';
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
+import { UserCartComponent } from './shared/components/user-cart/user-cart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
     ErrorPageComponent,
     SocialFixedComponent,
     BreadCrumbComponent,
-    PaginationComponent
+    PaginationComponent,
+    UserCartComponent
   ],
   imports: [
     BrowserModule,

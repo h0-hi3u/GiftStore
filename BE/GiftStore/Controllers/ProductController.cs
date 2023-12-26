@@ -27,7 +27,7 @@ public class ProductController : ControllerBase
         return Ok(result);
     }
     [HttpGet("search")]
-    public async Task<IActionResult> SearchProduct(string searchText, int pageSize, int pageIndex, int sortOption)
+    public async Task<IActionResult> SearchProduct(string? searchText, int pageSize, int pageIndex, int sortOption)
     {
         var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex, sortOption);
         return Ok(result);

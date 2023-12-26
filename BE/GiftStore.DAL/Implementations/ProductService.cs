@@ -198,11 +198,14 @@ public class ProductService : GenericService, IProductService
 
         return actionResult.BuildResult(pagingDto);
     }
-    public async Task<AppActionResult> GetProductBySearch(string searchText, int pageSize, int pageIndex, int sortOption)
+    public async Task<AppActionResult> GetProductBySearch(string? searchText, int pageSize, int pageIndex, int sortOption)
     {
         var actionResult = new AppActionResult();
         PagingDto pagingDto = new PagingDto();
-
+        if(searchText == null)
+        {
+            searchText = "";
+        }
         if (sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
         {
             return actionResult.BuildError("Invalid sort");
