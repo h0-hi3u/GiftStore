@@ -3,10 +3,16 @@
    <div class="container-title">
         <div class="title">
             <h1>Trang tìm kiếm</h1>
-            <p>
+            <p *ngIf="listProductSearch.length != 0">
                 Đã tìm thấy {{totalRecords}} kết quả phù hợp
             </p>
         </div>
+   </div>
+   <div *ngIf="listProductSearch.length == 0" class="no-result">
+    <div>
+        <img src="../../../../assets/image/no-result.svg" alt="">
+    </div>
+    <p>Không có kết quả nào phù hợp</p>
    </div>
     <div class="container-product">
         <div class="container">
@@ -35,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="container-pagination">
+    <div *ngIf="listProductSearch.length != 0" class="container-pagination">
         <pagination></pagination>
     </div>
 </div>

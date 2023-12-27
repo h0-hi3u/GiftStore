@@ -36,7 +36,7 @@ import { UserCartComponent } from './shared/components/user-cart/user-cart.compo
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

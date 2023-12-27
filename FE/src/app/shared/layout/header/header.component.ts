@@ -1,5 +1,6 @@
+import { HelperReloadSearch } from '../../pipes/helperReloadSearch';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 @Component({
   selector: 'header',
@@ -7,19 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-  constructor(private router : Router) {
+  constructor(private router : Router, private helperReloadSearch: HelperReloadSearch) {
   }
   ngOnInit(): void {
+    this.clearSearchText();
   }
   public clearSearchText() {
     const searchText = document.getElementById("input-search-text") as HTMLInputElement;
     searchText.value = "";
   }
   public search() {
-    const searchText = document.getElementById("input-search-text") as HTMLInputElement;
-    if(searchText) {
-      this.router.navigate(["/search", {searchText: `${searchText.value}`}],);
-    }
+    const inputSearchText = document.getElementById(
+      'input-search-text'
+    ) as HTMLInputElement;
+    this.helperReloadSearch.searchText = inputSearchText.value || "";
+      if(!this.router.url.includes("search")) {
+        this.router.navigate(["/search"],);
+      } else{
+        this.helperReloadSearch.triggerReload();
+      }
   }
   public checkEnter(e : any) {
     if(e.code == "Enter") {
