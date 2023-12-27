@@ -32,6 +32,13 @@ public class ProductController : ControllerBase
         var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex, sortOption);
         return Ok(result);
     }
+
+    [HttpGet("detail")]
+    public async Task<IActionResult> GetDetail(string id)
+    {
+        var result = await _productService.GetDetail(id);
+        return Ok(result);
+    }
     #endregion
 
     #region Feature for admin

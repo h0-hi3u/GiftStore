@@ -31,6 +31,24 @@
                 height: 15px;
             }
         }
+        .no-item {
+            div {
+                display: flex;
+                margin: 15px;
+                justify-content: center;
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            p {
+                width: 100%;
+                height: 340px;
+                font-size: 14px;
+                color: var(--primary-black);
+                text-align: center;
+            }
+        }
         .body-cart {
             width: 100%;
             height: 70%;
@@ -67,8 +85,10 @@
                             .input-quantity {
                                 display: flex;
                                 input {
+                                    text-align: center;
                                     width: 35px;
                                     height: 28px;
+                                    font-size: 14px;
                                     border-top: #e5e5e5 1px solid;
                                     border-bottom: #e5e5e5 1px solid;
 

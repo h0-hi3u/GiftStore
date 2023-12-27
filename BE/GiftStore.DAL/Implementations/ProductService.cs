@@ -53,12 +53,13 @@ public class ProductService : GenericService, IProductService
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
-        Product product = await _productRepo.GetAsync(p => p.Id == productId);
+        Product? product = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == productId);
         if (product == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
         }
-        return actionResult.BuildResult(product);
+        var result = _mapper.Map<ProductShowResponseDto>(product);
+        return actionResult.BuildResult(result);
     }
     public async Task<AppActionResult> GetProductByCollection(string id, int pageSize, int pageIndex, int sortOption)
     {

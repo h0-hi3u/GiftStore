@@ -1,6 +1,6 @@
 import { HelperReloadSearch } from '../../pipes/helperReloadSearch';
 import { Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'header',
@@ -8,11 +8,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
+
   constructor(private router : Router, private helperReloadSearch: HelperReloadSearch) {
   }
   ngOnInit(): void {
     this.clearSearchText();
   }
+ 
   public clearSearchText() {
     const searchText = document.getElementById("input-search-text") as HTMLInputElement;
     searchText.value = "";
