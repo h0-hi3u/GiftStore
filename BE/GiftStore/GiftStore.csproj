@@ -19,7 +19,7 @@
     <None Remove="Scripts\10.PaymentMethod.sql" />
     <None Remove="Scripts\11.Order.sql" />
     <None Remove="Scripts\12.OrderDetail.sql" />
-    <None Remove="Scripts\13.ProductCollection.sql" />
+    <None Remove="Scripts\13.CollectionProduct.sql" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +35,7 @@
     <EmbeddedResource Include="Scripts\10.PaymentMethod.sql" />
     <EmbeddedResource Include="Scripts\11.Order.sql" />
     <EmbeddedResource Include="Scripts\12.OrderDetail.sql" />
-    <EmbeddedResource Include="Scripts\13.ProductCollection.sql" />
+    <EmbeddedResource Include="Scripts\13.CollectionProduct.sql" />
   </ItemGroup>
 
   <ItemGroup>

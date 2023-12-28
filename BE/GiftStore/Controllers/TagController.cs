@@ -19,7 +19,7 @@ public class TagController : ControllerBase
         _tagService = _scope.Resolve<ITagService>();
     }
 
-    [HttpGet]
+    [HttpGet("all")]
     public async Task<IActionResult> GetAllAsync()
     {
         var result = await _tagService.GetAllAsync();

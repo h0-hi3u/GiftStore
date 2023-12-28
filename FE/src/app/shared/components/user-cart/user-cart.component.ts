@@ -1,7 +1,6 @@
 import { HelperNumber } from './../../pipes/helperNumber';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/core/services/product.service';
-import { ProductShowDto } from 'src/app/modules/Product/productShowDto';
 import { CartItem } from 'src/app/modules/cartItem';
 import { ResponseDto } from 'src/app/modules/responseDto';
 
@@ -18,7 +17,10 @@ export class UserCartComponent implements OnInit {
     this.cartUser.reduce((total, current) => {
       return total + current.price * current.quantity;
     }, 0) || 0;
-  isHidden: boolean = true;
+
+  @Input() isHiddenCart!: boolean;
+  @Output() isHiddenCartChange = new EventEmitter<boolean>();
+
   constructor(
     private productService: ProductService,
     public helperNumber: HelperNumber
@@ -26,8 +28,9 @@ export class UserCartComponent implements OnInit {
   ngOnInit(): void {
     // this.initCart();
   }
-  public hiddenCart() {
-    this.isHidden = false;
+  public changeHiddenCart() {
+
+    this.isHiddenCartChange.emit(!this.isHiddenCart);
   }
   // public initCart() {
   //   const cart = localStorage.getItem('cartUser');

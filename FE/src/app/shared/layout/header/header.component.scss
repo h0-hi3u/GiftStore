@@ -190,7 +190,6 @@
     .product-header {
       .dropdown-product {
         z-index: 99;
-        cursor: pointer;
         position: absolute;
         padding: 0;
         top: 100%;
@@ -203,14 +202,19 @@
         visibility: hidden;
         opacity: 0;
         .dropdown-tag-category {
+          cursor: pointer;
           width: 25%;
           height: 94%;
           display: block;
           overflow: auto;
+          gap: 0;
           .tag-category {
             width: 100%;
-            display: list-item;
+            height: fit-content;
+            display: block;
+            list-style: none;
             .product-tag {
+              height: 34px;
               width: 100%;
               padding: 10px 5px 10px 0px;
               text-transform: uppercase;
@@ -218,9 +222,9 @@
               font-weight: 700;
             }
             .product-category {
+              height: 34px;
               width: 100%;
               padding: 8px 5px 8px 0px;
-              height: fit-content;
               font-size: 14px;
               font-weight: 400;
             }

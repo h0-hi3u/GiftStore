@@ -32,7 +32,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   }
   public searchProduct() {
     this.productService
-      .searchProduct(this.helperReloadSearch.searchText, 12, 1, 0)
+      .searchProduct(this.helperReloadSearch.searchText, 12, 1)
       .subscribe((res: ResponseDto) => {
         this.listProductSearch = res.data.data;
         this.totalRecords = res.data.totalRecords;

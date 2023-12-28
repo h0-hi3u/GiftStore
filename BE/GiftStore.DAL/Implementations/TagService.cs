@@ -7,6 +7,7 @@ using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Tag;
 using GiftStore.DAL.Model.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace GiftStore.DAL.Implementations;
 
@@ -22,13 +23,11 @@ public class TagService : GenericService, ITagService
         _tagRepo = _unitOfWork.Repository<Tag>();
         _mapper = mapper;
     }
-
     public async Task<AppActionResult> GetAllAsync()
     {
         var actionResult = new AppActionResult();
-        IEnumerable<Tag> listTag = await _tagRepo.Entities().Where(t => t.IsDeleted == false).ToListAsync();
-        IEnumerable<Tag> listActive = listTag.Where(t => t.IsDeleted == false);
-        IEnumerable<TagShowResponseDto> result = _mapper.Map<IEnumerable<TagShowResponseDto>>(listActive);
+        IEnumerable<Tag> listTag = await _tagRepo.Entities().Include(t => t.Category).Where(t => !t.IsDeleted).ToListAsync();
+        IEnumerable<TagShowResponseDto> result = _mapper.Map<IEnumerable<TagShowResponseDto>>(listTag);
         return actionResult.BuildResult(result);
     }
 

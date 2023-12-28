@@ -20,23 +20,46 @@ public class ProductController : ControllerBase
 
     #region Feature for user
 
-    [HttpGet("paging")]
-    public async Task<IActionResult> GetProduct(int pageSize, int pageIndex, int sortOption)
+    [HttpGet("new")]
+    public async Task<IActionResult> GetProductNew()
     {
-        var result = await _productService.GetProductAll(pageSize, pageIndex, sortOption);
+        var result = await _productService.GetProductNew();
         return Ok(result);
     }
     [HttpGet("search")]
-    public async Task<IActionResult> SearchProduct(string? searchText, int pageSize, int pageIndex, int sortOption)
+    public async Task<IActionResult> SearchProduct(string? searchText, int pageSize, int pageIndex)
     {
-        var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex, sortOption);
+        var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex);
         return Ok(result);
     }
-
     [HttpGet("detail")]
     public async Task<IActionResult> GetDetail(string id)
     {
         var result = await _productService.GetDetail(id);
+        return Ok(result);
+    }
+    [HttpGet("all")]
+    public async Task<IActionResult> GetProductAll(int pageSize, int pageIndex, int sortOption)
+    {
+        var result = await _productService.GetProductAll(pageSize, pageIndex, sortOption);
+        return Ok(result);
+    }
+    [HttpGet("tag")]
+    public async Task<IActionResult> GetProductWithTag(string id, int pageSize, int pageIndex, int sortOption)
+    {
+        var result = await _productService.GetProductByTag(id, pageSize, pageIndex, sortOption);
+        return Ok(result);
+    }
+    [HttpGet("collection")]
+    public async Task<IActionResult> GetProductWithCollection(string id, int pageSize, int pageIndex, int sortOption)
+    {
+        var result = await _productService.GetProductByCollection(id, pageSize, pageIndex, sortOption);
+        return Ok(result);
+    }
+    [HttpGet("category")]
+    public async Task<IActionResult> GetProductWithCategory(string id, int pageSize, int pageIndex, int sortOption)
+    {
+        var result = await _productService.GetProductByCategory(id, pageSize, pageIndex, sortOption);
         return Ok(result);
     }
     #endregion

@@ -72,8 +72,8 @@ export class HomePageComponent implements OnInit {
 
   //#region get new product
   public getNewProduct() {
-    this.productService.getNewProduct(8, 1, 6).subscribe((res: ResponseDto) => {
-      this.listNewProduct = res.data.data;
+    this.productService.getNewProduct().subscribe((res: ResponseDto) => {
+      this.listNewProduct = res.data;
     });
   }
   //#endregion

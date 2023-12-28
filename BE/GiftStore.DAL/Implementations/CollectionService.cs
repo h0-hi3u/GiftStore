@@ -6,12 +6,8 @@ using GiftStore.Core.Contracts;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Collection;
 using GiftStore.DAL.Model.Entity;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace GiftStore.DAL.Implementations;
 
@@ -30,7 +26,7 @@ public class CollectionService : GenericService, ICollectionService
     public async Task<AppActionResult> GetAllAsync()
     {
         var actionResult = new AppActionResult();
-        var list = await _collectionRepo.Entities().Where(c => c.IsDeleted == false).ToListAsync();
+        var list = await _collectionRepo.Entities().Where(c => !c.IsDeleted).ToListAsync();
         var result = _mapper.Map<IEnumerable<CollectionShowResponseDto>>(list);
         return actionResult.BuildResult(result);
     }
