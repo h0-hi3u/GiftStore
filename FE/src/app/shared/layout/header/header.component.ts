@@ -17,15 +17,16 @@ export class HeaderComponent implements OnInit{
     localStorage.getItem('cartUser') || JSON.stringify([])
   );
   listTag: Tag[] = [];
-
+  arrUrl: string[] = [];
   constructor(private router : Router, private helperReloadSearch: HelperReloadSearch, private tagService: TagService) {
 
   }
   ngOnInit(): void {
     this.tagService.getTagAll().subscribe((res: ResponseDto) => {
       this.listTag = res.data;
-    })
+    });
     this.clearSearchText();
+    this.arrUrl = this.router.url.split("/");
   }
  
   public clearSearchText() {
@@ -52,13 +53,18 @@ export class HeaderComponent implements OnInit{
     this.clearSearchText();
     this.router.navigate(["/"]);
   }
-  public navigationTag(url: string) {
-    this.router.navigate([`tag/${url}`]).then(() => {
+  public navigationAll() {
+    this.router.navigate(["all"]).then(() => {
       location.reload();
     });
   }
-  public navigationCategory(url: string) {
-    this.router.navigate([`category/${url}`]).then(() => {
+  public navigationTag(id: string) {
+    this.router.navigate([`tag/${id}`]).then(() => {
+      location.reload();
+    });
+  }
+  public navigationCategory(id: string) {
+    this.router.navigate([`category/${id}`]).then(() => {
       location.reload();
     });
   }

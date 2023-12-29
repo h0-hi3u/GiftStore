@@ -36,7 +36,7 @@ export class ProductService {
   }
   public getProductDetail(id: string): Observable<ResponseDto> {
     return this.http.get<ResponseDto>(
-      `${environment.urlApi}/${this.urlGetProductDetail}?id=${id}`
+      `${environment.urlApi}/${this.urlGetProductDetail}/${id}`
     );
   }
 

@@ -11,6 +11,7 @@ public interface IProductService
     Task<AppActionResult> GetProductBySearch(string? searchText, int pageSize, int pageIndex);
     Task<AppActionResult> GetProductByCollection(string id, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductByTag(string id, int pageSize, int pageIndex, int sortOption);
+    //Task<AppActionResult> GetProductByTag2(string id, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductByCategory(string id, int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductAll(int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductNew();

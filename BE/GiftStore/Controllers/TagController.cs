@@ -26,7 +26,7 @@ public class TagController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("detail/{id}")]
     public async Task<IActionResult> GetDetailAsync(string id)
     {
         var result = await _tagService.GetDetailAsync(id);

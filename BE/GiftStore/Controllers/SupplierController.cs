@@ -13,7 +13,7 @@ namespace GiftStore.Controllers
         ILifetimeScope _scope;
         ISupplierService _supplierService;
 
-        public SupplierController(ILifetimeScope scope, ISupplierService supplierService)
+        public SupplierController(ILifetimeScope scope)
         {
             _scope = scope;
             _supplierService = _scope.Resolve<ISupplierService>();
@@ -25,7 +25,7 @@ namespace GiftStore.Controllers
             var result = await _supplierService.GetAllAsync();
             return Ok(result);
         }
-        [HttpGet("{id}")]
+        [HttpGet("detail/{id}")]
         public async Task<IActionResult> GetDatailAsync(string id)
         {
             var result = await _supplierService.GetDetailAsync(id);

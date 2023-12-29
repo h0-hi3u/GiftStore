@@ -163,6 +163,9 @@
     align-items: center;
     padding: 0 10px;
     position: relative;
+    .active {
+      color: var(--primary-pink) !important;
+    }
     .home-header {
       cursor: pointer;
       font-size: 14px;
@@ -207,12 +210,12 @@
           height: 94%;
           display: block;
           overflow: auto;
-          gap: 0;
           .tag-category {
             width: 100%;
             height: fit-content;
             display: block;
             list-style: none;
+            padding: 0;
             .product-tag {
               height: 34px;
               width: 100%;

@@ -23,6 +23,7 @@ public class ProductService : GenericService, IProductService
     private readonly IRepository<Tag> _tagRepo;
     private readonly IRepository<ImageProduct> _imageRepo;
     private readonly IRepository<BestSeller> _bestSellerRepo;
+    private readonly IRepository<Category> _categoryRepo;
     private readonly IMapper _mapper;
 
     public ProductService(ILifetimeScope scope, IMapper mapper) : base(scope)
@@ -33,6 +34,7 @@ public class ProductService : GenericService, IProductService
         _tagRepo = _unitOfWork.Repository<Tag>();
         _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
         _imageRepo = _unitOfWork.Repository<ImageProduct>();
+        _categoryRepo = _unitOfWork.Repository<Category>();
         _mapper = mapper;
     }
 
@@ -109,6 +111,53 @@ public class ProductService : GenericService, IProductService
         return actionResult.BuildResult(pagingDto);
     }
 
+    //public async Task<AppActionResult> GetProductByTag2(string id, int pageSize, int pageIndex, int sortOption)
+    //{
+    //    var actionResult = new AppActionResult();
+    //    PagingDto pagingDto = new PagingDto();
+    //    int skip = CalculateHelper.CalculatePaging(pageSize, pageIndex);
+
+    //    if (sortOption < 0 || sortOption > (SortConstants.SortOptions.Length - 1))
+    //    {
+    //        return actionResult.BuildError("Invalid sort");
+    //    }
+    //    string sortString = SortConstants.SortOptions[sortOption];
+
+    //    if (!Guid.TryParse(id, out Guid tagId))
+    //    {
+    //        return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
+    //    }
+
+    //    var all = await _tagRepo.Entities().Include(c => c.Product).SingleOrDefaultAsync(c => c.Id == tagId);
+
+    //    if (all == null)
+    //    {
+    //        return actionResult.BuildError("Invalid tagId");
+    //    }
+    //    var totalRecords = all.Product.Where(p => p.IsDeleted == false).Count();
+    //    IEnumerable<Product> result;
+
+    //    if(sortOption == 0)
+    //    {
+    //        result = all.Product.Where(p => p.IsDeleted == false).Skip(skip).Take(pageSize);
+    //    }
+    //    else
+    //    {
+    //        result = all.Product.AsQueryable().Where(p => p.IsDeleted == false).OrderBy(sortString).Skip(skip).Take(pageSize);
+    //    }
+
+    //    foreach (var a in result)
+    //    {
+    //        a.ImageProduct = await _imageRepo.Entities().Where(i => i.ProductId == a.Id).ToListAsync();
+    //    }
+    //    var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(result);
+
+    //    pagingDto.TotalRecords = totalRecords;
+    //    pagingDto.Data = data;
+
+    //    return actionResult.BuildResult(pagingDto);
+    //}
+
     public async Task<AppActionResult> GetProductByTag(string id, int pageSize, int pageIndex, int sortOption)
     {
         var actionResult = new AppActionResult();
@@ -126,22 +175,29 @@ public class ProductService : GenericService, IProductService
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
 
-        var all = await _tagRepo.Entities().Include(c => c.Product).SingleOrDefaultAsync(c => c.Id == tagId);
-        if (all == null)
+        var tag = await _tagRepo.Entities().SingleOrDefaultAsync(c => c.Id == tagId);
+
+        if (tag == null)
         {
             return actionResult.BuildError("Invalid tagId");
         }
-
-        var totalRecords = all.Product.Where(p => p.IsDeleted == false).Count();
+        //=================================================
+        var test = from t in _tagRepo.Entities()
+                                    join c in _categoryRepo.Entities() on t.Id equals c.TagId
+                                    join p in _productRepo.Entities() on c.Id equals p.CategoryId
+                                    where t.Id == tagId && p.IsParent && !p.IsDeleted
+                                    select p;
+        //=================================================
+        var totalRecords = test.Count();
         IEnumerable<Product> result;
 
-        if(sortOption == 0)
+        if (sortOption == 0)
         {
-            result = all.Product.Where(p => p.IsDeleted == false).Skip(skip).Take(pageSize);
+            result = await test.Skip(skip).Take(pageSize).ToListAsync();
         }
         else
         {
-            result = all.Product.AsQueryable().Where(p => p.IsDeleted == false).OrderBy(sortString).Skip(skip).Take(pageSize);
+            result = await test.OrderBy(sortString).Skip(skip).Take(pageSize).ToListAsync();
         }
 
         foreach (var a in result)
@@ -154,6 +210,8 @@ public class ProductService : GenericService, IProductService
         pagingDto.Data = data;
 
         return actionResult.BuildResult(pagingDto);
+        //var ketqua = _mapper.Map<IEnumerable<ProductShowResponseDto>>(test);
+        //return actionResult.BuildResult(ketqua);
     }
 
     public async Task<AppActionResult> GetProductByCategory(string id, int pageSize, int pageIndex, int sortOption)

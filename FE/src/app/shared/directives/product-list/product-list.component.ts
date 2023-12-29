@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit{
         });
         break;
     }
-    this.collectionService.GetCollectionAll().subscribe((res: ResponseDto) => {
+    this.collectionService.getCollectionAll().subscribe((res: ResponseDto) => {
       this.listCollection = res.data;
       this.listCollection.sort((a, b) => {
         return a.name.length - b.name.length;

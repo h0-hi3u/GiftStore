@@ -47,8 +47,8 @@
 </div>
 <div class="bottom-header">
     <div class="header-nav w-[79%] h-[100%] flex">
-        <div class="home-header" (click)="backToHome()">TRANG CHỦ</div>
-        <div class="product-header flex items-center gap-1">SẢN PHẨM 
+        <div class="home-header" (click)="backToHome()" [ngClass]="{'active': arrUrl[1] == ''}">TRANG CHỦ</div>
+        <div class="product-header flex items-center gap-1" [ngClass]="{'active': arrUrl[1] == 'all'}">SẢN PHẨM 
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
             <div class="dropdown-product">
                 <div class="dropdown-tag-category">
@@ -57,30 +57,6 @@
                         <div *ngFor="let category of tag.category" class="product-category">
                             <span (click)="navigationCategory(category.id)">{{category.name}}</span>
                         </div>
-                    </div>
-                    <!-- ----------------------------------- -->
-                    <div class="tag-category">
-                        <div class="product-tag">Mềm mại</div>
-                        <div class="product-category">Gấu bông</div>
-                        <div class="product-category">Gối ôm</div>
-                        <div class="product-category">Tự lưng, gối cổ</div>
-                    </div>
-                    <div class="tag-category">
-                        <div class="product-tag">Thư giãn</div>
-                        <div class="product-category">Đèn ngủ</div>
-                        <div class="product-category">Máy phun sương</div>
-                        <div class="product-category">Mùi hương</div>
-                        <div class="product-category">Đồ chơi</div>
-                        <div class="product-category">Nghe nhạc</div>
-                    </div>
-                    <div class="tag-category">
-                        <div class="product-tag">Cuộc sống hằng ngày</div>
-                        <div class="product-category">Bình nước</div>
-                        <div class="product-category">Cốc</div>
-                        <div class="product-category">Phòng ngủ</div>
-                        <div class="product-category">Quạt</div>
-                        <div class="product-category">Đồng hồ</div>
-                        <div class="product-category">Đồ gia dụng</div>   
                     </div>
                 </div>
                 <div class="dropdown-product-image">

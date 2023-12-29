@@ -130,6 +130,18 @@
             }
             .row {
                 width: 75%;
+                .no-result {
+                    // display: flex;
+                    text-align: center;
+                    div {
+                      display: flex;
+                      justify-content: center;
+                    }
+                    p {
+                      font-size: 18px;
+                      margin: 0 0 15px 0;
+                    }
+                }
                 .container-product {
                     width: 100%;
                     display: flex;
@@ -137,7 +149,6 @@
                     .product {
                         cursor: pointer;
                         width: 33.3%;
-                        height: 50%;
                         padding: 0 10px;
                         position: relative;
                         .buy-product {

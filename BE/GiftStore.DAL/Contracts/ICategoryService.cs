@@ -3,7 +3,7 @@ using GiftStore.DAL.Model.Dto.Category;
 
 namespace GiftStore.DAL.Contracts;
 
-public interface ICatogoryService
+public interface ICategoryService
 {
     Task<AppActionResult> GetAllAsync();
     Task<AppActionResult> GetDetailAsync(string id);

@@ -10,12 +10,18 @@ import { environment } from "src/environment/environment";
 })
 export class CollectionService {
     private urlCollectionAll = "Collection/all";
+    private urlDetail = "Collection/detail";
 
     constructor(private http: HttpClient) {}
 
-    public GetCollectionAll() : Observable<ResponseDto> {
+    public getCollectionAll() : Observable<ResponseDto> {
         return this.http.get<ResponseDto>(
             `${environment.urlApi}/${this.urlCollectionAll}`
+        )
+    }
+    public getCollectionDetail(id: string): Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlDetail}/${id}`
         )
     }
 }

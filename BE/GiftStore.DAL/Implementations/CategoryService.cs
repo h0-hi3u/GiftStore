@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 
 namespace GiftStore.DAL.Implementations;
 
-public class CategoryService : GenericService, ICatogoryService
+public class CategoryService : GenericService, ICategoryService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepository<Category> _categoryRepo;

@@ -32,7 +32,7 @@ public class ProductController : ControllerBase
         var result = await _productService.GetProductBySearch(searchText, pageSize, pageIndex);
         return Ok(result);
     }
-    [HttpGet("detail")]
+    [HttpGet("detail/{id}")]
     public async Task<IActionResult> GetDetail(string id)
     {
         var result = await _productService.GetDetail(id);
