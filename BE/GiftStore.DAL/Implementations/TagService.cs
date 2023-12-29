@@ -40,7 +40,7 @@ public class TagService : GenericService, ITagService
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
 
-        var tag = await _tagRepo.GetAsync(tagId);
+        var tag = await _tagRepo.Entities().Include(t => t.Category).SingleOrDefaultAsync(t => t.Id == tagId);
 
         if (tag == null)
         {

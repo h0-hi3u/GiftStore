@@ -24,6 +24,9 @@ export class HeaderComponent implements OnInit{
   ngOnInit(): void {
     this.tagService.getTagAll().subscribe((res: ResponseDto) => {
       this.listTag = res.data;
+      this.listTag.sort((a, b) => {
+        return a.name.length - b.name.length;
+      })
     });
     this.clearSearchText();
     this.arrUrl = this.router.url.split("/");

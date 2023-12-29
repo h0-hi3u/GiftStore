@@ -1,14 +1,18 @@
 <bread-crumb></bread-crumb>
 <div class="wrapper">
     <div class="container">
-        <h1 class="title">Tất cả sản phẩm</h1>
+        <h1 class="title">{{stringTitle}}</h1>
         <div class="category-group">
             <div class="category-sort">
-                <div class="content-category"><span> Đèn ngủ </span></div>
+                <div *ngFor="let item of listCategorySort" class="content-category">
+                    <span (click)="navigation(item.id)">{{item.name}}</span>
+                </div>
+                <!-- ----------------- -->
+                <!-- <div class="content-category"><span> Đèn ngủ </span></div>
                 <div class="content-category"><span> Máy phun sương </span></div>
                 <div class="content-category"><span> Mùi hương </span></div>
                 <div class="content-category"><span> Đồ chơi </span></div>
-                <div class="content-category"><span> Nghe nhạc </span></div>
+                <div class="content-category"><span> Nghe nhạc </span></div> -->
             </div>
             <div class="sort-bar">
                 <label class="title-sort">Sắp xếp theo</label>
