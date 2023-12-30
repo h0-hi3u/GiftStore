@@ -42,6 +42,6 @@
         </div>
     </div>
     <div *ngIf="listProductSearch.length != 0" class="container-pagination">
-        <pagination></pagination>
+        <pagination [(pageIndex)]="pageIndex" [pageSize]="pageSize" [totalRecords]="totalRecords"></pagination>
     </div>
 </div>

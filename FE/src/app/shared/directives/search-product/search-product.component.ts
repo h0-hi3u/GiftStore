@@ -15,6 +15,8 @@ import { ConstantsService } from 'src/app/core/helpers/constantsService';
 export class SearchProductComponent implements OnInit, OnDestroy {
   listProductSearch: ProductShowDto[] = [];
   totalRecords: number = 0;
+  pageIndex = 1;
+  pageSize = ConstantsService.PAGE_SIZE_SEARCH_PAGE;
   private reloadSub: Subscription = new Subscription();
   constructor(
     private productService: ProductService,
@@ -33,7 +35,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   }
   public searchProduct() {
     this.productService
-      .searchProduct(this.helperReloadSearch.searchText, ConstantsService.PAGE_SIZE_SEARCH_PAGE, 1)
+      .searchProduct(this.helperReloadSearch.searchText, this.pageSize, this.pageIndex)
       .subscribe((res: ResponseDto) => {
         this.listProductSearch = res.data.data;
         this.totalRecords = res.data.totalRecords;

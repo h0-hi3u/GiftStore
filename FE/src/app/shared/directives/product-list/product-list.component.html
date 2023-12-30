@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div *ngIf="listProduct.length > 1" class="container-pagination">
-                    <pagination></pagination>
+                    <pagination [(pageIndex)]="pageIndex" [totalRecords]="totalRecords" [pageSize]="pageSize" (pageIndexChange)="initAll(id, searchFor)"></pagination>
                 </div>
             </div>
         </div>

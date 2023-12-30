@@ -27,6 +27,8 @@ export class ProductListComponent implements OnInit{
   stringTitle: string = "";
   sortOption: number = 0;
   pageIndex: number = 1;
+  totalRecords: number = 0;
+  pageSize: number = ConstantsService.PAGE_SIZE_LIST_PAGE;
   optionsSort = [
     { name: "Mặc định", value: 0 },
     { name: "A -> Z", value: 1 },
@@ -53,9 +55,10 @@ export class ProductListComponent implements OnInit{
   public initAll(id: string, searchFor: string) {
     switch(searchFor) {
       case "collection": 
-        this.productService.getProductWithCollection(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        this.productService.getProductWithCollection(id, this.pageSize, this.pageIndex, this.sortOption)
         .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
+          this.totalRecords = res.data.totalRecords;
         });
 
         this.collectionService.getCollectionDetail(id)
@@ -64,9 +67,10 @@ export class ProductListComponent implements OnInit{
         })
         break;
       case "tag":
-        this.productService.getProductWithTag(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        this.productService.getProductWithTag(id, this.pageSize, this.pageIndex, this.sortOption)
         .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
+          this.totalRecords = res.data.totalRecords;
         });
 
         this.tagService.getTagDetail(id).subscribe((res: ResponseDto) => {
@@ -78,9 +82,10 @@ export class ProductListComponent implements OnInit{
         });
         break;
       case "category":
-        this.productService.getProductWithCategory(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        this.productService.getProductWithCategory(id, this.pageSize, this.pageIndex, this.sortOption)
         .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
+          this.totalRecords = res.data.totalRecords;
         });
 
         this.categoryService.getCategoryDetail(id)
@@ -89,9 +94,10 @@ export class ProductListComponent implements OnInit{
         });
         break;
       default:
-        this.productService.getProductAll(ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        this.productService.getProductAll(this.pageSize, 1, this.sortOption)
         .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
+          this.totalRecords = res.data.totalRecords;
         });
 
         this.tagService.getTagAll().subscribe((res: ResponseDto) => {
@@ -125,6 +131,7 @@ export class ProductListComponent implements OnInit{
   }
   public changeSort(e: any) {
     this.sortOption = e.selectedIndex;
+    this.pageIndex = 1;
     this.initAll(this.id, this.searchFor);
   }
 }

@@ -1,5 +1,5 @@
 <div>
-    <ul>
+    <!-- <ul>
         <li>
             <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
                 <path d="M0.0892945 5.02722C0.0892945 5.19658 0.15214 5.36593 0.277626 5.49493L4.22912 9.55692C4.4805 9.81534 4.88808 9.81534 5.13925 9.55692C5.39043 9.2987 5.39043 8.87971 5.13925 8.62129L1.64293 5.02722L5.13925 1.43295C5.39043 1.17452 5.39043 0.755739 5.13925 0.497526C4.88808 0.239105 4.4805 0.239105 4.22912 0.497526L0.277626 4.55951C0.15214 4.68872 0.0892945 4.85787 0.0892945 5.02722Z" fill="#B8B8B8"></path>
@@ -28,6 +28,26 @@
                 <path d="M5.60071 5.00867C5.60071 4.83931 5.53786 4.66996 5.41237 4.54096L1.46083 0.478972C1.20945 0.220551 0.801868 0.220551 0.550689 0.478972C0.29951 0.737185 0.29951 1.15618 0.550689 1.4146L4.04706 5.00867L0.550689 8.60294C0.29951 8.86136 0.29951 9.28015 0.550689 9.53836C0.801868 9.79678 1.20945 9.79678 1.46083 9.53836L5.41237 5.47638C5.53786 5.34717 5.60071 5.17802 5.60071 5.00867Z" fill="#B8B8B8"></path>
             </svg>
         </li>
+    </ul> -->
+    <ul>
+        <li (click)="changePageIndex(pageIndex - 1)" *ngIf="pageIndex > 1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                <path d="M0.0892945 5.02722C0.0892945 5.19658 0.15214 5.36593 0.277626 5.49493L4.22912 9.55692C4.4805 9.81534 4.88808 9.81534 5.13925 9.55692C5.39043 9.2987 5.39043 8.87971 5.13925 8.62129L1.64293 5.02722L5.13925 1.43295C5.39043 1.17452 5.39043 0.755739 5.13925 0.497526C4.88808 0.239105 4.4805 0.239105 4.22912 0.497526L0.277626 4.55951C0.15214 4.68872 0.0892945 4.85787 0.0892945 5.02722Z" fill="#B8B8B8"></path>
+            </svg>  
+        </li>
+        <li *ngIf="pageIndex > 3"><span (click)="changePageIndex(1)">1</span></li>
+        <li *ngIf="pageIndex > 4">...</li>
+        <li *ngIf="pageIndex > 2"><span (click)="changePageIndex(pageIndex - 2)">{{pageIndex - 2}}</span></li>
+        <li *ngIf="pageIndex > 1"><span (click)="changePageIndex(pageIndex - 1)">{{pageIndex - 1}}</span></li>
+        <li class="active">{{pageIndex}}</li>
+        <li *ngIf="totalPage > 2 && pageIndex < totalPage - 1"><span (click)="changePageIndex(pageIndex + 1)">{{pageIndex + 2}}</span></li>
+        <li *ngIf="pageIndex > 3 && pageIndex < totalPage - 2"><span (click)="changePageIndex(pageIndex + 2)">{{pageIndex + 2}}</span></li>
+        <li *ngIf="pageIndex < totalPage - 3">...</li>
+        <li *ngIf="pageIndex != totalPage"><span (click)="changePageIndex(totalPage)">{{totalPage}}</span></li>
+        <li (click)="changePageIndex(pageIndex + 1)" *ngIf="pageIndex < totalPage">
+            <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+                <path d="M5.60071 5.00867C5.60071 4.83931 5.53786 4.66996 5.41237 4.54096L1.46083 0.478972C1.20945 0.220551 0.801868 0.220551 0.550689 0.478972C0.29951 0.737185 0.29951 1.15618 0.550689 1.4146L4.04706 5.00867L0.550689 8.60294C0.29951 8.86136 0.29951 9.28015 0.550689 9.53836C0.801868 9.79678 1.20945 9.79678 1.46083 9.53836L5.41237 5.47638C5.53786 5.34717 5.60071 5.17802 5.60071 5.00867Z" fill="#B8B8B8"></path>
+            </svg>
+        </li>
     </ul>
-    
 </div>
