@@ -4,9 +4,9 @@ import {
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import { ProductService } from 'src/app/core/services/product.service';
-import { ProductShowDto } from 'src/app/modules/Product/productShowDto';
-import { ResponseDto } from 'src/app/modules/responseDto';
-import { HelperNumber } from '../../pipes/helperNumber';
+import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
+import { ResponseDto } from 'src/app/core/models/responseDto';
+import { HelperNumber } from '../../../core/helpers/helperNumber';
 
 @Component({
   selector: 'app-home-page',

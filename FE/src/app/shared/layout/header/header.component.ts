@@ -1,10 +1,10 @@
-import { HelperReloadSearch } from '../../pipes/helperReloadSearch';
+import { HelperReloadSearch } from '../../../core/helpers/helperReloadSearch';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CartItem } from 'src/app/modules/cartItem';
+import { CartItem } from 'src/app/core/models/cartItem';
 import { TagService } from 'src/app/core/services/tag.service';
-import { Tag } from 'src/app/modules/Tag/tag';
-import { ResponseDto } from 'src/app/modules/responseDto';
+import { Tag } from 'src/app/core/models/Tag/tag';
+import { ResponseDto } from 'src/app/core/models/responseDto';
 
 @Component({
   selector: 'header',

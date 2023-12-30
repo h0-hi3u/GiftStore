@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ResponseDto } from "src/app/modules/responseDto";
+import { ResponseDto } from "src/app/core/models/responseDto";
 import { environment } from "src/environment/environment";
 
 @Injectable({

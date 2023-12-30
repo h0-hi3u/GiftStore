@@ -16,14 +16,15 @@
             </div>
             <div class="sort-bar">
                 <label class="title-sort">Sắp xếp theo</label>
-                <select class="select-sort" name="" id="">
-                    <option value="0">Mặc định</option>
+                <select (change)="changeSort($event.target)" class="select-sort">
+                    <option *ngFor="let sort of optionsSort" value="{{sort.value}}">{{sort.name}}</option>
+                    <!-- <option value="0">Mặc định</option>
                     <option value="1">A -> Z</option>
                     <option value="2">Z -> A</option>
                     <option value="3">Giá tăng dần</option>
                     <option value="4">Giá giảm dần</option>
                     <option value="5">Hàng mới nhất</option>
-                    <option value="6">Hàng cũ nhất</option>
+                    <option value="6">Hàng cũ nhất</option> -->
                 </select>
             </div>
         </div>

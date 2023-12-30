@@ -1,10 +1,11 @@
-import { HelperReloadSearch } from '../../pipes/helperReloadSearch';
-import { ResponseDto } from './../../../modules/responseDto';
+import { HelperReloadSearch } from '../../../core/helpers/helperReloadSearch';
+import { ResponseDto } from '../../../core/models/responseDto';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/core/services/product.service';
-import { ProductShowDto } from 'src/app/modules/Product/productShowDto';
-import { HelperNumber } from '../../pipes/helperNumber';
+import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
+import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { Subscription } from 'rxjs';
+import { ConstantsService } from 'src/app/core/helpers/constantsService';
 
 @Component({
   selector: 'app-search-product',
@@ -32,7 +33,7 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   }
   public searchProduct() {
     this.productService
-      .searchProduct(this.helperReloadSearch.searchText, 12, 1)
+      .searchProduct(this.helperReloadSearch.searchText, ConstantsService.PAGE_SIZE_SEARCH_PAGE, 1)
       .subscribe((res: ResponseDto) => {
         this.listProductSearch = res.data.data;
         this.totalRecords = res.data.totalRecords;

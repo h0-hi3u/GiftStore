@@ -1,15 +1,16 @@
 import { CategoryService } from './../../../core/services/category.service';
-import { HelperNumber } from './../../pipes/helperNumber';
+import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CollectionService } from 'src/app/core/services/collection.service';
 import { ProductService } from 'src/app/core/services/product.service';
 import { TagService } from 'src/app/core/services/tag.service';
-import { Category } from 'src/app/modules/Category/category';
-import { Collection } from 'src/app/modules/Collection/collection';
-import { ProductShowDto } from 'src/app/modules/Product/productShowDto';
-import { Tag } from 'src/app/modules/Tag/tag';
-import { ResponseDto } from 'src/app/modules/responseDto';
+import { Category } from 'src/app/core/models/Category/category';
+import { Collection } from 'src/app/core/models/Collection/collection';
+import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
+import { Tag } from 'src/app/core/models/Tag/tag';
+import { ResponseDto } from 'src/app/core/models/responseDto';
+import { ConstantsService } from 'src/app/core/helpers/constantsService';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +25,17 @@ export class ProductListComponent implements OnInit{
   listCollection: Collection[] = [];
   listCategorySort: any;
   stringTitle: string = "";
-
+  sortOption: number = 0;
+  pageIndex: number = 1;
+  optionsSort = [
+    { name: "Mặc định", value: 0 },
+    { name: "A -> Z", value: 1 },
+    { name: "Z -> A", value: 2 },
+    { name: "Giá tăng dần", value: 3 },
+    { name: "Giá giảm dần", value: 4 },
+    { name: "Hàng mới nhất", value: 5 },
+    { name: "Hàng cũ nhất", value: 6 },
+  ]
   constructor(
     private router: Router,
     private productService: ProductService,
@@ -42,42 +53,54 @@ export class ProductListComponent implements OnInit{
   public initAll(id: string, searchFor: string) {
     switch(searchFor) {
       case "collection": 
-        this.productService.getProductWithCollection(id, 9, 1, 1).subscribe((res:ResponseDto) => {
+        this.productService.getProductWithCollection(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
         });
-        this.collectionService.getCollectionDetail(id).subscribe((res: ResponseDto) => {
+
+        this.collectionService.getCollectionDetail(id)
+        .subscribe((res: ResponseDto) => {
           this.stringTitle = res.data.name;
         })
         break;
       case "tag":
-        this.productService.getProductWithTag(id, 9, 1, 1).subscribe((res:ResponseDto) => {
+        this.productService.getProductWithTag(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
         });
+
         this.tagService.getTagDetail(id).subscribe((res: ResponseDto) => {
           this.listCategorySort = res.data.category as Category[];
-        })
+        });
+
         this.tagService.getTagDetail(id).subscribe((res: ResponseDto) => {
           this.stringTitle = res.data.name;
-        })
+        });
         break;
       case "category":
-        this.productService.getProductWithCategory(id, 9, 1, 1).subscribe((res:ResponseDto) => {
+        this.productService.getProductWithCategory(id, ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
         });
-        this.categoryService.getCategoryDetail(id).subscribe((res: ResponseDto) => {
+
+        this.categoryService.getCategoryDetail(id)
+        .subscribe((res: ResponseDto) => {
           this.stringTitle = res.data.name;
-        })
+        });
         break;
       default:
-        this.productService.getProductAll(9, 1, 1).subscribe((res:ResponseDto) => {
+        this.productService.getProductAll(ConstantsService.PAGE_SIZE_LIST_PAGE, 1, this.sortOption)
+        .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
         });
+
         this.tagService.getTagAll().subscribe((res: ResponseDto) => {
           this.listCategorySort = res.data as Tag[];
         });
+
         this.stringTitle = "Tất cả sản phẩm";
         break;
-    }
+    };
     this.collectionService.getCollectionAll().subscribe((res: ResponseDto) => {
       this.listCollection = res.data;
       this.listCollection.sort((a, b) => {
@@ -99,5 +122,9 @@ export class ProductListComponent implements OnInit{
     this.router.navigate([`${this.searchFor}/${id}`]).then(() => {
       location.reload();
     })
+  }
+  public changeSort(e: any) {
+    this.sortOption = e.selectedIndex;
+    this.initAll(this.id, this.searchFor);
   }
 }

@@ -1,8 +1,8 @@
-import { HelperNumber } from './../../pipes/helperNumber';
+import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/core/services/product.service';
-import { CartItem } from 'src/app/modules/cartItem';
-import { ResponseDto } from 'src/app/modules/responseDto';
+import { CartItem } from 'src/app/core/models/cartItem';
+import { ResponseDto } from 'src/app/core/models/responseDto';
 
 @Component({
   selector: 'user-cart',

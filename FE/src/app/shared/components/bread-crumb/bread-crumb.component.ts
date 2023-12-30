@@ -3,7 +3,7 @@ import { TagService } from './../../../core/services/tag.service';
 import { CollectionService } from './../../../core/services/collection.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResponseDto } from 'src/app/modules/responseDto';
+import { ResponseDto } from 'src/app/core/models/responseDto';
 
 @Component({
   selector: 'bread-crumb',
