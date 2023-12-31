@@ -1,3 +1,4 @@
+import { CommunicationService } from './../../../core/services/communication.service';
 import { Component, OnInit } from '@angular/core';
 import {
   faChevronRight,
@@ -7,6 +8,7 @@ import { ProductService } from 'src/app/core/services/product.service';
 import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
 import { ResponseDto } from 'src/app/core/models/responseDto';
 import { HelperNumber } from '../../../core/helpers/helperNumber';
+import { CartItem } from 'src/app/core/models/cartItem';
 
 @Component({
   selector: 'app-home-page',
@@ -19,11 +21,14 @@ export class HomePageComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   timeoutId: any;
   listNewProduct: ProductShowDto[] = [];
+  cartUser: CartItem[] = JSON.parse(
+    localStorage.getItem('cartUser') || JSON.stringify([])
+  );
 
   ngOnInit(): void {
     this.showDiv(this.slideIndex);
   }
-  constructor(private productService: ProductService, public helperNumber : HelperNumber) {
+  constructor(private productService: ProductService, public helperNumber : HelperNumber, private communicationService: CommunicationService) {
     this.getNewProduct();
   }
   //#region  slide show banner
@@ -77,4 +82,7 @@ export class HomePageComponent implements OnInit {
     });
   }
   //#endregion
+  public addToCart(id: string) {
+    this.communicationService.triggerFunction(id);
+  }
 }

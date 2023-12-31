@@ -1,5 +1,5 @@
 import { HelperNumber } from '../../../core/helpers/helperNumber';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, Component, DoCheck, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ProductService } from 'src/app/core/services/product.service';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { ResponseDto } from 'src/app/core/models/responseDto';

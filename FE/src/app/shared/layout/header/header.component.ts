@@ -1,26 +1,39 @@
+import { CommunicationService } from './../../../core/services/communication.service';
+import { UserCartComponent } from './../../components/user-cart/user-cart.component';
 import { HelperReloadSearch } from '../../../core/helpers/helperReloadSearch';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { TagService } from 'src/app/core/services/tag.service';
 import { Tag } from 'src/app/core/models/Tag/tag';
 import { ResponseDto } from 'src/app/core/models/responseDto';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
+
+  @ViewChild(UserCartComponent) userCartComp!: UserCartComponent;
+
   isHiddenCart: boolean = true;
-  cartUser: CartItem[] = JSON.parse(
-    localStorage.getItem('cartUser') || JSON.stringify([])
-  );
+  // cartUser: CartItem[] = JSON.parse(
+  //   localStorage.getItem('cartUser') || JSON.stringify([])
+  // );
+  cartUser: CartItem[] = [];
   listTag: Tag[] = [];
   arrUrl: string[] = [];
-  constructor(private router : Router, private helperReloadSearch: HelperReloadSearch, private tagService: TagService) {
+  private triggerSub: Subscription = new Subscription();
 
+  constructor(
+    private router : Router,
+    private helperReloadSearch: HelperReloadSearch,
+    private tagService: TagService,
+    private communicationService: CommunicationService) {
   }
+
   ngOnInit(): void {
     this.tagService.getTagAll().subscribe((res: ResponseDto) => {
       this.listTag = res.data;
@@ -30,13 +43,25 @@ export class HeaderComponent implements OnInit{
     });
     this.clearSearchText();
     this.arrUrl = this.router.url.split("/");
+
+    this.triggerSub = this.communicationService.triggerFunction$.subscribe((data) => {
+      const temp = new String(data).valueOf();
+      this.addToCart(temp);
+    })
   }
- 
-  public clearSearchText() {
+  ngAfterContentChecked(): void {
+    if(this.userCartComp) {
+      this.cartUser = this.userCartComp.cartUser;
+    }
+  }
+  ngOnDestroy(): void {
+      this.triggerSub.unsubscribe();
+  }
+  public clearSearchText(): void {
     const searchText = document.getElementById("input-search-text") as HTMLInputElement;
     searchText.value = "";
   }
-  public search() {
+  public search(): void {
     const inputSearchText = document.getElementById(
       'input-search-text'
     ) as HTMLInputElement;
@@ -50,7 +75,11 @@ export class HeaderComponent implements OnInit{
   public checkEnter(e : any) {
     if(e.code == "Enter") {
       this.search();
-    }
+    };
+  }
+  public addToCart(id: string) {
+    this.userCartComp.increaseCart(id);
+    this.isHiddenCart = false;
   }
   public backToHome() {
     this.clearSearchText();

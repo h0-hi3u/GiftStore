@@ -1,3 +1,4 @@
+import { CommunicationService } from './../../../core/services/communication.service';
 import { CategoryService } from './../../../core/services/category.service';
 import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
@@ -44,7 +45,8 @@ export class ProductListComponent implements OnInit{
     public helperNumber: HelperNumber,
     private collectionService: CollectionService,
     private tagService: TagService,
-    private categoryService: CategoryService ) {
+    private categoryService: CategoryService,
+    private communicationService: CommunicationService ) {
   }
   ngOnInit(): void {
       this.arrUrl = this.router.url.split('/');
@@ -133,5 +135,8 @@ export class ProductListComponent implements OnInit{
     this.sortOption = e.selectedIndex;
     this.pageIndex = 1;
     this.initAll(this.id, this.searchFor);
+  }
+  public addToCart(id: string) {
+    this.communicationService.triggerFunction(id);
   }
 }

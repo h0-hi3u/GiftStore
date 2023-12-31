@@ -1,4 +1,4 @@
-<div id="container-cart">
+<div *ngIf="!isHiddenCart" id="container-cart">
     <div class="space" (click)="changeHiddenCart()">
     </div>
     <div id="cart">

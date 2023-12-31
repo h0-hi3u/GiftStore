@@ -1,3 +1,4 @@
+import { CommunicationService } from './../../../core/services/communication.service';
 import { HelperReloadSearch } from '../../../core/helpers/helperReloadSearch';
 import { ResponseDto } from '../../../core/models/responseDto';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -21,7 +22,8 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     public helperNumber: HelperNumber,
-    private helperReloadSearch: HelperReloadSearch
+    private helperReloadSearch: HelperReloadSearch,
+    private communicationService: CommunicationService
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +42,8 @@ export class SearchProductComponent implements OnInit, OnDestroy {
         this.listProductSearch = res.data.data;
         this.totalRecords = res.data.totalRecords;
       });
+  }
+  public addToCart(id: string) {
+    this.communicationService.triggerFunction(id);
   }
 }
