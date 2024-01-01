@@ -72,6 +72,13 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
         this.helperReloadSearch.triggerReload();
       }
   }
+  public login() {
+    console.log("Login");
+  }
+  public register() {
+    console.log("Register");
+    
+  }
   public checkEnter(e : any) {
     if(e.code == "Enter") {
       this.search();
@@ -84,6 +91,10 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   public backToHome() {
     this.clearSearchText();
     this.router.navigate(["/"]);
+  }
+  public showAll() {
+    console.log("all");
+    
   }
   public navigationAll() {
     this.router.navigate(["all"]).then(() => {

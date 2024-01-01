@@ -16,6 +16,7 @@ import { SocialFixedComponent } from './shared/components/social-fixed/social-fi
 import { BreadCrumbComponent } from './shared/components/bread-crumb/bread-crumb.component';
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
 import { UserCartComponent } from './shared/components/user-cart/user-cart.component';
+import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserCartComponent } from './shared/components/user-cart/user-cart.compo
     SocialFixedComponent,
     BreadCrumbComponent,
     PaginationComponent,
-    UserCartComponent
+    UserCartComponent,
+    DetailPageComponent
   ],
   imports: [
     BrowserModule,

@@ -20,10 +20,10 @@
                         <path d="M12 2C9.243 2 7 4.243 7 7C7 9.757 9.243 12 12 12C14.757 12 17 9.757 17 7C17 4.243 14.757 2 12 2ZM12 10C10.346 10 9 8.654 9 7C9 5.346 10.346 4 12 4C13.654 4 15 5.346 15 7C15 8.654 13.654 10 12 10ZM21 21V20C21 16.141 17.859 13 14 13H10C6.14 13 3 16.141 3 20V21H5V20C5 17.243 7.243 15 10 15H14C16.757 15 19 17.243 19 20V21H21Z" fill="#333333"></path>
                     </svg>
                     <div class="dropdown-person">
-                        <div class="dropdown-login" (click)="search()">
+                        <div class="dropdown-login" (click)="login()">
                             Đăng nhập
                         </div>
-                        <div class="dropdown-register" (click)="search()">
+                        <div class="dropdown-register" (click)="register()">
                             Đăng ký
                         </div>
                     </div>
@@ -48,14 +48,15 @@
 <div class="bottom-header">
     <div class="header-nav w-[79%] h-[100%] flex">
         <div class="home-header" (click)="backToHome()" [ngClass]="{'active': arrUrl[1] == ''}">TRANG CHỦ</div>
-        <div class="product-header flex items-center gap-1" [ngClass]="{'active': arrUrl[1] == 'all'}">SẢN PHẨM 
+        <div (click)="navigationAll();$event.stopPropagation();" class="product-header flex items-center gap-1" [ngClass]="{'active': arrUrl[1] == 'all'}">SẢN PHẨM 
             <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
             <div class="dropdown-product">
                 <div class="dropdown-tag-category">
                     <div *ngFor="let tag of listTag" class="tag-category">
-                        <div class="product-tag" (click)="navigationTag(tag.id)">{{tag.name}}</div>
-                        <div *ngFor="let category of tag.category" class="product-category">
-                            <span (click)="navigationCategory(category.id)">{{category.name}}</span>
+                        <div class="product-tag" (click)="navigationTag(tag.id);$event.stopPropagation();">{{tag.name}}</div>
+                        <div *ngFor="let category of tag.category" class="product-category" (click)="navigationCategory(category.id);$event.stopPropagation();">
+                            {{category.name}}
+                            <!-- <span (click)="navigationCategory(category.id);$event.stopPropagation();">{{category.name}}</span> -->
                         </div>
                     </div>
                 </div>

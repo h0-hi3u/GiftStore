@@ -5,6 +5,7 @@ import { SearchProductComponent } from './shared/directives/search-product/searc
 import { ProductListComponent } from './shared/directives/product-list/product-list.component';
 import { HomePageComponent } from './shared/directives/home-page/home-page.component';
 import { ErrorPageComponent } from './shared/directives/error-page/error-page.component';
+import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', component: HomePageComponent },
       { path: 'search', component: SearchProductComponent },
+      { path: 'detail/:id', component: DetailPageComponent},
       { path: 'all', component: ProductListComponent },
       { path: 'collection/:id', component: ProductListComponent},
       { path: 'category/:id', component: ProductListComponent},
