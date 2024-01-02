@@ -1,3 +1,4 @@
+import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,6 +11,8 @@ export class DetailPageComponent implements OnInit {
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
   slideIndex: number = 1;
+
+  constructor(public helperNumber: HelperNumber){}
   ngOnInit(): void {
       this.showDiv(this.slideIndex)
   }
