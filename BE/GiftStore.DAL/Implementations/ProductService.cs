@@ -57,12 +57,16 @@ public class ProductService : GenericService, IProductService
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
-        Product? product = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == productId);
+        var product = await _productRepo.Entities().Where(p => (p.Id == productId || p.ParentId == productId) && !p.IsDeleted).ToListAsync();
         if (product == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
         }
-        var result = _mapper.Map<ProductShowResponseDto>(product);
+        foreach (var a in product)
+        {
+            a.ImageProduct = await _imageRepo.Entities().Where(i => i.ProductId == a.Id).ToListAsync();
+        }
+        var result = _mapper.Map<IEnumerable<ProductShowResponseDto>>(product);
         return actionResult.BuildResult(result);
     }
 
@@ -344,5 +348,25 @@ public class ProductService : GenericService, IProductService
         var actionResult = new AppActionResult();
         var result = await _bestSellerRepo.Entities().Include(p => p.Product).ToListAsync();
         return actionResult.BuildResult(result);
+    }
+    public async Task<AppActionResult> GetProductRelative(string id, int pageSize)
+    {
+        var actionResult = new AppActionResult();
+        if(!Guid.TryParse(id, out Guid productId))
+        {
+            return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
+        }
+
+        var product = await _productRepo.GetAsync(productId);
+        if (product == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
+        }
+
+        var result = await _productRepo.Entities().Where(p => p.Id != productId && p.CategoryId == product.CategoryId && p.IsParent && !p.IsDeleted).Include(p => p.ImageProduct).Skip(0).Take(pageSize).ToListAsync();
+
+        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(result);
+        return actionResult.BuildResult(data);
+
     }
 }

@@ -16,5 +16,6 @@ public interface IProductService
     Task<AppActionResult> GetProductAll(int pageSize, int pageIndex, int sortOption);
     Task<AppActionResult> GetProductNew();
     Task<AppActionResult> GetProductBestSeller();
+    Task<AppActionResult> GetProductRelative(string id, int pageSize);
 
 }

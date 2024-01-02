@@ -96,7 +96,7 @@ export class ProductListComponent implements OnInit{
         });
         break;
       default:
-        this.productService.getProductAll(this.pageSize, 1, this.sortOption)
+        this.productService.getProductAll(this.pageSize, this.pageIndex, this.sortOption)
         .subscribe((res:ResponseDto) => {
           this.listProduct = res.data.data;
           this.totalRecords = res.data.totalRecords;
@@ -138,5 +138,8 @@ export class ProductListComponent implements OnInit{
   }
   public addToCart(id: string) {
     this.communicationService.triggerFunction(id);
+  }
+  public moveToDetail(id: string) {
+    this.router.navigate([`detail/${id}`]);
   }
 }

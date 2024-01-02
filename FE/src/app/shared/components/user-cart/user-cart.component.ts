@@ -57,7 +57,7 @@ export class UserCartComponent implements OnInit {
       }
     }
     if (a) {
-      a.quantity += 1;
+      a.quantity++;
       this.totalPrice += a.price;
     } else {
       let product;

@@ -1,5 +1,5 @@
 import { CommunicationService } from './../../../core/services/communication.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   faChevronRight,
   faChevronLeft,
@@ -9,13 +9,14 @@ import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
 import { ResponseDto } from 'src/app/core/models/responseDto';
 import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { CartItem } from 'src/app/core/models/cartItem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   slideIndex: number = 1;
   faChevronRight = faChevronRight;
   faChevronLeft = faChevronLeft;
@@ -28,7 +29,14 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.showDiv(this.slideIndex);
   }
-  constructor(private productService: ProductService, public helperNumber : HelperNumber, private communicationService: CommunicationService) {
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutId);
+  }
+  constructor(
+    private productService: ProductService,
+    public helperNumber : HelperNumber,
+    private communicationService: CommunicationService,
+    private router: Router  ) {
     this.getNewProduct();
   }
   //#region  slide show banner
@@ -85,4 +93,7 @@ export class HomePageComponent implements OnInit {
   public addToCart(id: string) {
     this.communicationService.triggerFunction(id);
   }
+  public moveToDetail(id: string) {
+    this.router.navigate([`detail/${id}`]);
+  } 
 }

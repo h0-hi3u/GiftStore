@@ -62,6 +62,12 @@ public class ProductController : ControllerBase
         var result = await _productService.GetProductByCategory(id, pageSize, pageIndex, sortOption);
         return Ok(result);
     }
+    [HttpGet("relative")]
+    public async Task<IActionResult> GetProductRelative(string id, int pageSize)
+    {
+        var result = await _productService.GetProductRelative(id, pageSize);
+        return Ok(result);
+    }
     #endregion
 
     #region Feature for admin

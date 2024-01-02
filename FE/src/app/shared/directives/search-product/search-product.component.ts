@@ -7,6 +7,7 @@ import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
 import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { Subscription } from 'rxjs';
 import { ConstantsService } from 'src/app/core/helpers/constantsService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-product',
@@ -23,7 +24,8 @@ export class SearchProductComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     public helperNumber: HelperNumber,
     private helperReloadSearch: HelperReloadSearch,
-    private communicationService: CommunicationService
+    private communicationService: CommunicationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -45,5 +47,8 @@ export class SearchProductComponent implements OnInit, OnDestroy {
   }
   public addToCart(id: string) {
     this.communicationService.triggerFunction(id);
+  }
+  public moveToDetail(id: string) {
+    this.router.navigate([`detail/${id}`]);
   }
 }
