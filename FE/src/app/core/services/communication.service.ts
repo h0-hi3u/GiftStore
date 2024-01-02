@@ -11,6 +11,8 @@ export class CommunicationService {
   triggerFunction$ = this.triggerFunctionSubject.asObservable();
 
   triggerFunction(data: any) {
+    console.log("trigger: " + data);
+    
     this.triggerFunctionSubject.next(data);
   }
 }

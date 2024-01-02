@@ -38,6 +38,12 @@ public class ProductController : ControllerBase
         var result = await _productService.GetDetail(id);
         return Ok(result);
     }
+    [HttpGet("detailCart/{id}")]
+    public async Task<IActionResult> GetDetailCart(string id)
+    {
+        var result = await _productService.GetDetailCart(id);
+        return Ok(result);
+    }
     [HttpGet("all")]
     public async Task<IActionResult> GetProductAll(int pageSize, int pageIndex, int sortOption)
     {

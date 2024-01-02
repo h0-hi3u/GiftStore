@@ -116,6 +116,8 @@ export class DetailPageComponent implements OnInit {
     this.currentProduct = this.listProduct[n];
   }
   public addToCart(id: string) {
+    console.log(id);
+    
     this.communicationService.triggerFunction(id);
   }
   public moveToDetail(id: string) {

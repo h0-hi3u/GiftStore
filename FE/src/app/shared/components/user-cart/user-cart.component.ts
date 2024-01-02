@@ -61,7 +61,7 @@ export class UserCartComponent implements OnInit {
       this.totalPrice += a.price;
     } else {
       let product;
-      this.productService.getProductDetail(id).subscribe((res: ResponseDto) => {
+      this.productService.getProductDetailCart(id).subscribe((res: ResponseDto) => {
         product = res.data;
         if (product) {
           const cartItem = {

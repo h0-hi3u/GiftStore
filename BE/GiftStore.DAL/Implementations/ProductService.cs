@@ -70,6 +70,23 @@ public class ProductService : GenericService, IProductService
         return actionResult.BuildResult(result);
     }
 
+    public async Task<AppActionResult> GetDetailCart(string id)
+    {
+        var actionResult = new AppActionResult();
+        if (!Guid.TryParse(id, out Guid productId))
+        {
+            return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
+        }
+        var product = await _productRepo.Entities().SingleOrDefaultAsync(p => p.Id == productId && !p.IsDeleted);
+        if (product == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
+        }
+        product.ImageProduct = await _imageRepo.Entities().Where(i => i.ProductId == product.Id).ToListAsync();
+        var result = _mapper.Map<ProductShowResponseDto>(product);
+        return actionResult.BuildResult(result);
+    }
+
     public async Task<AppActionResult> GetProductByCollection(string id, int pageSize, int pageIndex, int sortOption)
     {
         var actionResult = new AppActionResult();

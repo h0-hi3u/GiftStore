@@ -12,6 +12,7 @@ export class ProductService {
   private urlGetBestSeller = `Product/new`;
   private urlSearchProduct = `Product/search`;
   private urlGetProductDetail = 'Product/detail';
+  private urlGetProductDetailCart = 'Product/detailCart';
   private urlGetProductAll = 'Product/all';
   private urlGetProductCollection = 'Product/collection';
   private urlGetProductCategory = 'Product/category';
@@ -39,6 +40,10 @@ export class ProductService {
   public getProductDetail(id: string): Observable<ResponseDto> {
     return this.http.get<ResponseDto>(
       `${environment.urlApi}/${this.urlGetProductDetail}/${id}`
+    );
+  }  public getProductDetailCart(id: string): Observable<ResponseDto> {
+    return this.http.get<ResponseDto>(
+      `${environment.urlApi}/${this.urlGetProductDetailCart}/${id}`
     );
   }
   public getProductAll(pageSize: number, pageIndex: number, sortOption: number): Observable<ResponseDto> {
