@@ -23,7 +23,7 @@
                 <img class="image-product" src="{{item.image}}" alt="">
                 <div class="content-product">
                     <div class="name">
-                        <span class="name-product">{{item.name}}</span>
+                        <div class="name-product">{{item.name}}</div>
                     </div>
                     <div class="quantity-price">
                         <div class="number-product">
@@ -47,7 +47,7 @@
                 <div class="title">Tổng tiền:</div>
                 <div class="price">{{helperNumber.formatPrice(totalPrice)}}</div>
             </div>
-            <button class="payment">
+            <button class="payment" (click)="navigationCheckout()">
                 Thanh toán
             </button>
         </div>

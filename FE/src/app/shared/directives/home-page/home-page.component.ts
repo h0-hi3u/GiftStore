@@ -95,5 +95,8 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
   public moveToDetail(id: string) {
     this.router.navigate([`detail/${id}`]);
-  } 
+  }
+  public moveToCollection(id: string) {
+    this.router.navigate([`collection/${id}`]);
+  }
 }

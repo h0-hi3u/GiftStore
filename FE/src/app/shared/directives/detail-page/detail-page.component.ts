@@ -116,11 +116,13 @@ export class DetailPageComponent implements OnInit {
     this.currentProduct = this.listProduct[n];
   }
   public addToCart(id: string) {
-    console.log(id);
-    
     this.communicationService.triggerFunction(id);
   }
   public moveToDetail(id: string) {
     this.router.navigate([`detail/${id}`]);
+  }
+  public buyNow(id: string) {
+    this.communicationService.triggerFunction(id);
+    this.router.navigateByUrl('checkout');
   }
 }

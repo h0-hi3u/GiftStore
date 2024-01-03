@@ -3,6 +3,7 @@ import { AfterContentChecked, Component, DoCheck, EventEmitter, Input, OnChanges
 import { ProductService } from 'src/app/core/services/product.service';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { ResponseDto } from 'src/app/core/models/responseDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'user-cart',
@@ -23,31 +24,15 @@ export class UserCartComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    public helperNumber: HelperNumber
+    public helperNumber: HelperNumber,
+    private router: Router
   ) {}
   ngOnInit(): void {
-    // this.initCart();
   }
   public changeHiddenCart() {
 
     this.isHiddenCartChange.emit(!this.isHiddenCart);
   }
-  // public initCart() {
-  //   const cart = localStorage.getItem('cartUser');
-  //   if(cart) {
-  //     this.cartUser = JSON.parse(cart);
-  //   }
-  //   if(this.cartUser.length == 0) {
-  //     for(let i = 0; i < 5; i++) {
-  //       let a = {id: i.toString(), name: "Gấu trúc bông xù cao cấp Fufu", image: "https://bizweb.dktcdn.net/thumb/compact/100/450/808/products/aa73afd0-498d-4212-a7da-e108a05a96eb.jpg", quantity: i + 1, price: i + 1} as CartItem
-  //       this.cartUser.push(a);
-  //     }
-  //   }
-  //   this.totalPrice = this.cartUser.reduce((total, current) => {
-  //     return total + (current.price * current.quantity);
-  //   }, 0);
-  //   localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
-  // }
   public increaseCart(id: string) {
     let a;
     for (let i = 0; i < this.cartUser.length; i++) {
@@ -59,6 +44,7 @@ export class UserCartComponent implements OnInit {
     if (a) {
       a.quantity++;
       this.totalPrice += a.price;
+      localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
     } else {
       let product;
       this.productService.getProductDetailCart(id).subscribe((res: ResponseDto) => {
@@ -70,14 +56,14 @@ export class UserCartComponent implements OnInit {
             price: product.price,
             image: product.imageProduct[0].image,
             quantity: 1,
+            variant: product.variant,
           } as CartItem;
           this.cartUser.push(cartItem);
           this.totalPrice += cartItem.price;
-
         }
+        localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
       });
     }
-    localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
   }
   public decreaseCart(id: string) {
     let a;
@@ -139,5 +125,8 @@ export class UserCartComponent implements OnInit {
       console.log("error change quantity");
     }
     localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
+  }
+  public navigationCheckout() {
+    this.router.navigate(['checkout'])
   }
 }

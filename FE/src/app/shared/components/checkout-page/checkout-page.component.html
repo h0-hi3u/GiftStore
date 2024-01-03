@@ -1,0 +1,83 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="customer-payment">
+            <div class="logo" (click)="backToHome()">
+                <img src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/logo.png?1681832246171" alt="">
+            </div>
+            <div class="main-content">
+                <div class="info-customer">
+                    <form class="form">
+                        <div class="title">
+                            <span>Thông tin mua hàng</span>
+                            <div class="login">
+                                <fa-icon [icon]="faCircleUser"></fa-icon>
+                                <span>Đăng nhập</span>
+                            </div>
+                        </div>
+                        <label for="">email</label>
+                        <input class="email" type="text">
+                        <label for="">fullname</label>
+                        <input class="fullname" type="text">
+                        <label for="">phone-number</label>
+                        <input class="phone-number" type="text">
+                        <label for="">address</label>
+                        <input class="address" type="text">
+                        <label for="">province</label>
+                        <input class="province" type="text">
+                        <label for="">district</label>
+                        <input class="district" type="text">
+                        <label for="">wards</label>
+                        <input class="wards" type="text">
+                    </form>
+                    <div class="other-receiver">
+                        <input type="checkbox">
+                        <label for="">other-receiver</label>
+                    </div>
+                    <form class="form">
+                        <label for="">email</label>
+                        <input class="email" type="text">
+                        <label for="">fullname</label>
+                        <input class="fullname" type="text">
+                        <label for="">phone-number</label>
+                        <input class="phone-number" type="text">
+                        <label for="">address</label>
+                        <input class="address" type="text">
+                        <label for="">province</label>
+                        <input class="province" type="text">
+                        <label for="">district</label>
+                        <input class="district" type="text">
+                        <label for="">wards</label>
+                        <input class="wards" type="text">
+                    </form>
+                    <div class="note">
+                        <textarea name="note" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="delivery-payment">
+                    <div class="delivery">
+                        
+                    </div>
+                    <div class="payment">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-order">
+            <div class="title">Đơn hàng ({{totalProduct}} sản phẩm)</div>
+            <div class="container-product">
+                <div class="product" *ngFor="let item of cartUser">
+                    <div class="image-product">
+                        <img src="{{item.image}}" alt="">
+                        <div class="quantity">{{item.quantity}}</div>
+                    </div>
+                    <div class="name-variant">
+                        <div class="name">{{item.name}}</div>
+                        <div class="variant">{{item.variant}}</div>
+                    </div>
+                    <div class="price">{{helperNumber.formatPrice(item.price)}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
