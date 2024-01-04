@@ -1,7 +1,7 @@
 import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { CartItem } from 'src/app/core/models/cartItem';
 
 @Component({
@@ -11,7 +11,7 @@ import { CartItem } from 'src/app/core/models/cartItem';
 })
 export class CheckoutPageComponent {
   faCircleUser = faCircleUser;
-
+  faCaretLeft = faCaretLeft;
   cartUser: CartItem[] = JSON.parse(
     localStorage.getItem('cartUser') || JSON.stringify([])
   );

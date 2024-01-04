@@ -118,13 +118,70 @@ export class UserCartComponent implements OnInit {
       if(element.value < 1) {
         currentQuantity = 1;
         element.value = 1;
-      } 
+      }
       this.totalPrice += (currentQuantity - a.quantity) * a.price;
       this.cartUser[index].quantity = currentQuantity;
+      localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
     } else {
-      console.log("error change quantity");
+      let product;
+      this.productService.getProductDetailCart(id).subscribe((res: ResponseDto) => {
+        product = res.data;
+        if (product) {
+          const cartItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.imageProduct[0].image,
+            quantity: element.value,
+            variant: product.variant,
+          } as CartItem;
+          this.cartUser.push(cartItem);
+          this.totalPrice += cartItem.price;
+        }
+        localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
+      });
     }
-    localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
+  }
+  public addManyToCart(data: any) {
+    let id = data.id;
+    let element = data.element;
+    let a;
+    let index = -1;
+    for (let i = 0; i < this.cartUser.length; i++) {
+      if (this.cartUser[i].id == id) {
+        a = this.cartUser[i];
+        index = i;
+        break;
+      }
+    }
+    if(a) {
+      let currentQuantity = element.value;
+      if(element.value < 1) {
+        currentQuantity = 1;
+        element.value = 1;
+      }
+      this.totalPrice += parseInt(currentQuantity) * a.price;
+      this.cartUser[index].quantity += parseInt(currentQuantity);
+      localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
+    } else {
+      let product;
+      this.productService.getProductDetailCart(id).subscribe((res: ResponseDto) => {
+        product = res.data;
+        if (product) {
+          const cartItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.imageProduct[0].image,
+            quantity: parseInt(element.value),
+            variant: product.variant,
+          } as CartItem;
+          this.cartUser.push(cartItem);
+          this.totalPrice += cartItem.price * cartItem.quantity;
+        }
+        localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
+      });
+    }
   }
   public navigationCheckout() {
     this.router.navigate(['checkout'])

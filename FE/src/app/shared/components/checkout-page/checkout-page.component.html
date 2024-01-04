@@ -33,7 +33,7 @@
                         <input type="checkbox">
                         <label for="">other-receiver</label>
                     </div>
-                    <form class="form">
+                    <!-- <form class="form">
                         <label for="">email</label>
                         <input class="email" type="text">
                         <label for="">fullname</label>
@@ -48,17 +48,17 @@
                         <input class="district" type="text">
                         <label for="">wards</label>
                         <input class="wards" type="text">
-                    </form>
+                    </form> -->
                     <div class="note">
-                        <textarea name="note" id="" cols="30" rows="10"></textarea>
+                        <textarea name="note" id="" cols="30" rows="4"></textarea>
                     </div>
                 </div>
                 <div class="delivery-payment">
                     <div class="delivery">
-                        
+                        delivery
                     </div>
                     <div class="payment">
-
+                        payment
                     </div>
                 </div>
             </div>
@@ -73,9 +73,46 @@
                     </div>
                     <div class="name-variant">
                         <div class="name">{{item.name}}</div>
-                        <div class="variant">{{item.variant}}</div>
+                        <span class="variant">{{item.variant}}</span>
                     </div>
                     <div class="price">{{helperNumber.formatPrice(item.price)}}</div>
+                </div>
+            </div>
+            <div class="discount-code">
+                <input type="text">
+                <div class="apply">Áp dụng</div>
+            </div>
+            <div class="draft-total">
+                <div>
+                    <span>
+                        Tạm tính
+                    </span>
+                    <span>
+                        {{helperNumber.formatPrice(totalPrice)}}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        Phí vận chuyển
+                    </span>
+                    <span>
+                        Miễn phí
+                    </span>
+                </div>
+            </div>
+            <div class="total">
+                <div class="total-price">
+                    <span class="text-[17px] text-[#717171]">Tổng cộng</span>
+                    <span class="text-[21px]">{{helperNumber.formatPrice(totalPrice)}}</span>
+                </div>
+                <div class="back-to-cart">
+                    <div class="back">
+                        <fa-icon class="icon" [icon]="faCaretLeft"></fa-icon>
+                        Quay về giỏ hàng
+                    </div>
+                    <div class="done">
+                        Đặt hàng
+                    </div>
                 </div>
             </div>
         </div>

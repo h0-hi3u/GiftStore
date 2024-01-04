@@ -39,6 +39,7 @@ export class DetailPageComponent implements OnInit {
   currentProduct: ProductShowDto = {} as ProductShowDto;
   listProductRelative: ProductShowDto[] = [];
   currentChoose: number = 0;
+  defaultNumber = 1;
   private reloadSub: Subscription = new Subscription();
 
   constructor(
@@ -118,11 +119,25 @@ export class DetailPageComponent implements OnInit {
   public addToCart(id: string) {
     this.communicationService.triggerFunction(id);
   }
+  public addManyToCart(id: string) {
+    const element = document.getElementById("inputAddMany");
+    const data = {
+      id: id,
+      element: element 
+    }
+    this.communicationService.triggerFunctionChangNumber(data);
+  }
   public moveToDetail(id: string) {
     this.router.navigate([`detail/${id}`]);
   }
   public buyNow(id: string) {
     this.communicationService.triggerFunction(id);
     this.router.navigateByUrl('checkout');
+  }
+  public changeDefaultValue(number: number) {
+    this.defaultNumber += number;
+    if(this.defaultNumber <= 1) {
+      this.defaultNumber = 1;
+    }
   }
 }

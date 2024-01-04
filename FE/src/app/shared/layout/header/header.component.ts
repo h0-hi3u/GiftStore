@@ -2,7 +2,7 @@ import { CommunicationService } from './../../../core/services/communication.ser
 import { UserCartComponent } from './../../components/user-cart/user-cart.component';
 import { HelperReloadSearch } from '../../../core/helpers/helperReloadSearch';
 import { Router } from '@angular/router';
-import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterContentChecked, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { TagService } from 'src/app/core/services/tag.service';
 import { Tag } from 'src/app/core/models/Tag/tag';
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   listTag: Tag[] = [];
   arrUrl: string[] = [];
   private triggerSub: Subscription = new Subscription();
-
+  private triggerSubChangeNumber: Subscription = new Subscription();
   constructor(
     private router : Router,
     private helperReloadSearch: HelperReloadSearch,
@@ -47,6 +47,9 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
     this.triggerSub = this.communicationService.triggerFunction$.subscribe((data) => {
       const temp = new String(data).valueOf();
       this.addToCart(temp);
+    });
+    this.triggerSubChangeNumber = this.communicationService.triggerFunctionChangNumber$.subscribe((data) => {
+      this.addManyToCart(data);
     })
   }
   ngAfterContentChecked(): void {
@@ -56,6 +59,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   }
   ngOnDestroy(): void {
       this.triggerSub.unsubscribe();
+      this.triggerSubChangeNumber.unsubscribe();
   }
   public clearSearchText(): void {
     const searchText = document.getElementById("input-search-text") as HTMLInputElement;
@@ -87,6 +91,11 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   public addToCart(id: string) {
     this.userCartComp.increaseCart(id);
     this.isHiddenCart = false;
+  }
+  public addManyToCart(data: any) {
+    this.userCartComp.addManyToCart(data);
+    this.isHiddenCart = false;
+
   }
   public backToHome() {
     this.clearSearchText();
