@@ -18,6 +18,7 @@ import { PaginationComponent } from './shared/components/pagination/pagination.c
 import { UserCartComponent } from './shared/components/user-cart/user-cart.component';
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 import { CheckoutPageComponent } from './shared/components/checkout-page/checkout-page.component';
+import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CheckoutPageComponent } from './shared/components/checkout-page/checkou
     PaginationComponent,
     UserCartComponent,
     DetailPageComponent,
-    CheckoutPageComponent
+    CheckoutPageComponent,
+    CartPageComponent,
   ],
   imports: [
     BrowserModule,

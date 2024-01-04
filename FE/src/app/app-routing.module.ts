@@ -7,6 +7,7 @@ import { HomePageComponent } from './shared/directives/home-page/home-page.compo
 import { ErrorPageComponent } from './shared/directives/error-page/error-page.component';
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 import { CheckoutPageComponent } from './shared/components/checkout-page/checkout-page.component';
+import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent},
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: 'collection/:id', component: ProductListComponent},
       { path: 'category/:id', component: ProductListComponent},
       { path: 'tag/:id', component: ProductListComponent},
+      { path: 'cart', component: CartPageComponent},
       { path: '**', component: ErrorPageComponent },
     ],
   },

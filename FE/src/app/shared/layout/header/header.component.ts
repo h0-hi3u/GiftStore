@@ -27,6 +27,10 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   arrUrl: string[] = [];
   private triggerSub: Subscription = new Subscription();
   private triggerSubChangeNumber: Subscription = new Subscription();
+  private triggerDecreaseCart: Subscription = new Subscription();
+  private triggerIncreaseCart: Subscription = new Subscription();
+  private triggerRemoveFromCart: Subscription = new Subscription();
+  private triggerChangeQuantity: Subscription = new Subscription();
   constructor(
     private router : Router,
     private helperReloadSearch: HelperReloadSearch,
@@ -43,14 +47,8 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
     });
     this.clearSearchText();
     this.arrUrl = this.router.url.split("/");
+    this.addTrigger();
 
-    this.triggerSub = this.communicationService.triggerFunction$.subscribe((data) => {
-      const temp = new String(data).valueOf();
-      this.addToCart(temp);
-    });
-    this.triggerSubChangeNumber = this.communicationService.triggerFunctionChangNumber$.subscribe((data) => {
-      this.addManyToCart(data);
-    })
   }
   ngAfterContentChecked(): void {
     if(this.userCartComp) {
@@ -60,6 +58,10 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   ngOnDestroy(): void {
       this.triggerSub.unsubscribe();
       this.triggerSubChangeNumber.unsubscribe();
+      this.triggerDecreaseCart.unsubscribe();
+      this.triggerIncreaseCart.unsubscribe();
+      this.triggerRemoveFromCart.unsubscribe();
+      this.triggerChangeQuantity.unsubscribe();
   }
   public clearSearchText(): void {
     const searchText = document.getElementById("input-search-text") as HTMLInputElement;
@@ -88,6 +90,32 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
       this.search();
     };
   }
+  //#region handle cart
+  private addTrigger() {
+    this.triggerSub = this.communicationService.triggerFunction$.subscribe((data) => {
+      const id = new String(data).valueOf();
+      this.addToCart(id);
+    });
+    this.triggerSubChangeNumber = this.communicationService.triggerFunctionChangNumber$.subscribe((data) => {
+      this.addManyToCart(data);
+    });
+    this.triggerDecreaseCart = this.communicationService.triggerDecreaseCart$.subscribe((data) => {
+      const id = new String(data).valueOf();
+      this.decreaseCart(id);
+    });
+    this.triggerIncreaseCart = this.communicationService.triggerIncreaseCart$.subscribe((data) => {
+      const id = new String(data).valueOf();
+      this.increaseCart(id);
+    });
+    this.triggerRemoveFromCart = this.communicationService.triggerRemoveFromCart$.subscribe((data) => {
+      const id = new String(data).valueOf();
+      this.removeFromCart(id);
+    });
+    this.triggerChangeQuantity = this.communicationService.triggerChangeQuantity$.subscribe((data) => {
+      this.changeQuantity(data);
+    });
+  }
+
   public addToCart(id: string) {
     this.userCartComp.increaseCart(id);
     this.isHiddenCart = false;
@@ -95,8 +123,20 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   public addManyToCart(data: any) {
     this.userCartComp.addManyToCart(data);
     this.isHiddenCart = false;
-
   }
+  public decreaseCart(id: string) {
+    this.userCartComp.decreaseCart(id);
+  }
+  public increaseCart(id: string) {
+    this.userCartComp.increaseCart(id);
+  }
+  public removeFromCart(id: string) {
+    this.userCartComp.removeFromCart(id);
+  }
+  public changeQuantity(data: any) {
+    this.userCartComp.changQuantity(data.id, data.element);
+  }
+  //#endregion
   public backToHome() {
     this.clearSearchText();
     this.router.navigate(["/"]);

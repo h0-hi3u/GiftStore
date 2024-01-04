@@ -1,0 +1,46 @@
+<bread-crumb></bread-crumb>
+<div class="wrapper">
+    <div class="container">
+        <div class="title">
+            <h1>Giỏ hàng</h1>
+        </div>
+        <div class="container-product">
+            <div class="header-product flex py-[11px]">
+                <div class="w-[55%] text-[14px]">Sản phẩm</div>
+                <div class="w-[15%] text-[14px] text-center">Đơn giá</div>
+                <div class="w-[15%] text-[14px] text-center">Số lượng</div>
+                <div class="w-[15%] text-[14px] text-center">Thành tiền</div>
+            </div>
+            <!-- ------------------- -->
+            <div class="product" *ngFor="let product of cartUser">
+                <div class="info-product">
+                    <div class="image">
+                        <img src="{{product.image}}" alt="">
+                    </div>
+                    <div class="name-variant">
+                        <div>
+                            <div class="name">{{product.name}}</div>
+                            <div class="variant">{{product.variant}}</div>
+                            <div (click)="removeFromCart(product.id)" class="remove">Xóa</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-product">{{helperNumber.formatPrice(product.price)}}</div>
+                <div class="quantity-product">
+                    <div class="input-form">
+                        <button (click)="decreaseCart(product.id)">-</button>
+                        <input id="inputAddMany" type="number" value="{{product.quantity}}" (blur)="changeQuantity(product.id, $event.target)">
+                        <button (click)="increaseCart(product.id)">+</button>
+                    </div>
+                </div>
+                <div class="total-product">{{helperNumber.formatPrice(product.quantity * product.price)}}</div>
+            </div>
+            <div class="payment">
+                <div class="total-payment">
+                    <h3 class="title-total">Tổng thanh toán: <span class="total-price">{{helperNumber.formatPrice(totalPrice)}}</span></h3>
+                    <button class="btn-payment">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
