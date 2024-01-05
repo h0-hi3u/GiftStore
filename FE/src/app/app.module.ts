@@ -17,7 +17,7 @@ import { BreadCrumbComponent } from './shared/components/bread-crumb/bread-crumb
 import { PaginationComponent } from './shared/components/pagination/pagination.component';
 import { UserCartComponent } from './shared/components/user-cart/user-cart.component';
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
-import { CheckoutPageComponent } from './shared/components/checkout-page/checkout-page.component';
+import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 
 @NgModule({

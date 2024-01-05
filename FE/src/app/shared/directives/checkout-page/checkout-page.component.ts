@@ -23,7 +23,11 @@ export class CheckoutPageComponent {
     return total + current.quantity;
   }, 0) || 0;
   constructor(private router: Router, public helperNumber: HelperNumber){}
+
   public backToHome() {
     this.router.navigate(["/"]);
+  }
+  public backToCart() {
+    this.router.navigate(['cart']);
   }
 }

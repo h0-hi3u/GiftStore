@@ -6,7 +6,7 @@ import { ProductListComponent } from './shared/directives/product-list/product-l
 import { HomePageComponent } from './shared/directives/home-page/home-page.component';
 import { ErrorPageComponent } from './shared/directives/error-page/error-page.component';
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
-import { CheckoutPageComponent } from './shared/components/checkout-page/checkout-page.component';
+import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 
 const routes: Routes = [

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CommunicationService } from './../../../core/services/communication.service';
 import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +20,8 @@ export class CartPageComponent implements OnInit{
 
     constructor(
       public helperNumber: HelperNumber,
-      private communicationService: CommunicationService
+      private communicationService: CommunicationService,
+      private router: Router
       ) {}
 
     ngOnInit(): void {
@@ -55,5 +57,8 @@ export class CartPageComponent implements OnInit{
         return total + current.price * current.quantity;
       }, 0) || 0;
   
+    }
+    public checkout() {
+      this.router.navigate(['checkout']);
     }
 }
