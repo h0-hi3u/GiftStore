@@ -14,24 +14,25 @@
                                 <span>Đăng nhập</span>
                             </div>
                         </div>
-                        <label for="">email</label>
+                        <label for="">Email</label>
                         <input class="email" type="text">
-                        <label for="">fullname</label>
+                        <label for="">Họ và tên</label>
                         <input class="fullname" type="text">
-                        <label for="">phone-number</label>
-                        <input class="phone-number" type="text">
-                        <label for="">address</label>
+                        <label for="">Số điện thoại</label>
+                        <input class="phone-number" type="number">
+                        <label for="">Địa chỉ</label>
                         <input class="address" type="text">
-                        <label for="">province</label>
+                        <label for="">Thành phố/Tỉnh</label>
                         <input class="province" type="text">
-                        <label for="">district</label>
+                        <label for="">Quận/Huyện</label>
                         <input class="district" type="text">
-                        <label for="">wards</label>
+                        <label for="">Phường/Xã</label>
                         <input class="wards" type="text">
                     </form>
+
                     <div class="other-receiver">
-                        <input type="checkbox">
-                        <label for="">other-receiver</label>
+                        <input type="checkbox" class="mr-2">
+                        <label for="">Giao hàng đến địa chỉ khác</label>
                     </div>
                     <!-- <form class="form">
                         <label for="">email</label>
@@ -50,15 +51,26 @@
                         <input class="wards" type="text">
                     </form> -->
                     <div class="note">
-                        <textarea name="note" id="" cols="30" rows="4"></textarea>
+                        <textarea name="note" id="" cols="30" rows="2"></textarea>
                     </div>
                 </div>
                 <div class="delivery-payment">
                     <div class="delivery">
-                        delivery
+                        <div class="title">Vận chuyển</div>
+                        <div class="price-delivery">
+                            <input type="radio">
+                            <label>Giao hàng tận nơi</label>
+                            <span>20000d</span>
+                        </div>
                     </div>
                     <div class="payment">
-                        payment
+                        <div class="title">Thanh toán</div>
+                        <div class="cod">
+                            COD
+                        </div>
+                        <div class="qr-code">
+                            QR CODE
+                        </div>
                     </div>
                 </div>
             </div>

@@ -120,7 +120,7 @@ export class UserCartComponent implements OnInit {
         element.value = 1;
       }
       this.totalPrice += (currentQuantity - a.quantity) * a.price;
-      this.cartUser[index].quantity = currentQuantity;
+      this.cartUser[index].quantity = parseInt(currentQuantity);
       localStorage.setItem('cartUser', JSON.stringify(this.cartUser));
     } else {
       let product;

@@ -30,4 +30,5 @@ export class CheckoutPageComponent {
   public backToCart() {
     this.router.navigate(['cart']);
   }
+  
 }

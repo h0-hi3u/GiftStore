@@ -7,37 +7,114 @@
         display: flex;
         .customer-payment {
             width: 68%;
-            background-color: aquamarine;
             padding: 28px 28px 0 28px;
             .logo {
                 cursor: pointer;
                 display: flex;
                 justify-content: center;
+                padding: 0 0 21px 0;
                 img {
                     width: 342px;
                     height: 88px;
                 }
             }
             .main-content {
+                display: flex;
                 .info-customer {
                     width: 50%;
+                    padding: 0 14px;
                     .form {
+                        .title {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            > span {
+                                font-size: 19px;
+                                font-weight: 600;
+                            }
+                            .login {
+                                .icon {
+                                    font-size: 18px;
+                                }
+                                > span {
+                                    font-size: 14px;
+                                }
+                            }
+                        }
                         input {
                             width: 100%;
-                            // margin: 10px 0;
-                            border: 1px solid var(--primary-gray);
+                            margin: 3px 0;
+                            height: 30px;
+                            border: 1px solid #545454;
+                            padding: 0 10px;
+                            overflow: hidden;
+                            border-radius: 5px;
+                        }
+                        .phone-number:focus {
+                            outline: none;
+                        }
+                        .phone-number::-webkit-outer-spin-button,
+                        .phone-number::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                        }
+                    }
+                    .other-receiver {
+                        padding: 5px 0;
+                        display: flex;
+                        align-items: center;
+                        > input {
+                            width: 18px;
+                            height: 18px;
+                            background-color: #000;
                         }
                     }
                     .note {
                         textarea {
+                            border: 1px solid #545454;
                             height: auto;
                             width: 100%;
                             resize: vertical;
                         }
                     }
                 }
-                .delivery-payment {
+                .delivery-payment {                    
                     width: 50%;
+                    padding: 0 14px;
+                    .delivery {
+                        .title {
+                            font-size: 19px;
+                            font-weight: 600;
+                            margin: 0 0 13px 0;
+                        } 
+                        .price-delivery {
+                            display: flex;
+                            align-items: center;
+                            height: 48px;
+                            border: 1px solid #545454;
+                            border-radius: 5px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            input {
+                                width: 18px;
+                                height: 18px;
+                                margin: 0 10px;
+                            }
+                            label {
+                                flex-grow: 1;
+                            }
+                            span {
+                                padding: 0 10px 0 0;
+                            }
+                        }
+                    }
+                    .payment {
+                        padding: 28px 0 0 0;
+                        .title {
+                            font-size: 19px;
+                            font-weight: 600;
+                        }
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   //   localStorage.getItem('cartUser') || JSON.stringify([])
   // );
   cartUser: CartItem[] = [];
+  totalProduct: number  = 0;
   listTag: Tag[] = [];
   arrUrl: string[] = [];
   private triggerSub: Subscription = new Subscription();
@@ -53,6 +54,9 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   ngAfterContentChecked(): void {
     if(this.userCartComp) {
       this.cartUser = this.userCartComp.cartUser;
+      this.totalProduct = this.cartUser.reduce((total, current) => {
+        return total + current.quantity;
+      }, 0) || 0;
     }
   }
   ngOnDestroy(): void {

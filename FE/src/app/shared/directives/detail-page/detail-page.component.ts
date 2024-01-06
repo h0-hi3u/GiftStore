@@ -50,8 +50,6 @@ export class DetailPageComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    const arrUrl = this.router.url.split('/');
-    this.init(arrUrl[2]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
