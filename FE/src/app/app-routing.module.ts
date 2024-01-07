@@ -8,9 +8,11 @@ import { ErrorPageComponent } from './shared/directives/error-page/error-page.co
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
+import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent},
+  { path: 'check-quantity', component: CheckQuantityComponent},
   {
     path: '',
     component: LayoutComponent,

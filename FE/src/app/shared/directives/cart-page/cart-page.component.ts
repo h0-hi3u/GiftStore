@@ -59,6 +59,6 @@ export class CartPageComponent implements OnInit{
   
     }
     public checkout() {
-      this.router.navigate(['checkout']);
+      this.router.navigate(['check-quantity']);
     }
 }

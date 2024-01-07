@@ -19,6 +19,7 @@ import { UserCartComponent } from './shared/components/user-cart/user-cart.compo
 import { DetailPageComponent } from './shared/directives/detail-page/detail-page.component';
 import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
+import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CartPageComponent } from './shared/directives/cart-page/cart-page.compo
     DetailPageComponent,
     CheckoutPageComponent,
     CartPageComponent,
+    CheckQuantityComponent,
   ],
   imports: [
     BrowserModule,
