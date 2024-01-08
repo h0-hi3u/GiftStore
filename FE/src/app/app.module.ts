@@ -20,6 +20,8 @@ import { DetailPageComponent } from './shared/directives/detail-page/detail-page
 import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
+import { LoginPageComponent } from './shared/directives/login-page/login-page.component';
+import { RegisterPageComponent } from './shared/directives/register-page/register-page.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { CheckQuantityComponent } from './shared/directives/check-quantity/check
     CheckoutPageComponent,
     CartPageComponent,
     CheckQuantityComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
   ],
   imports: [
     BrowserModule,

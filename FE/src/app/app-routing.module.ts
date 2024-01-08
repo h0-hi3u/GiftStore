@@ -9,6 +9,8 @@ import { DetailPageComponent } from './shared/directives/detail-page/detail-page
 import { CheckoutPageComponent } from './shared/directives/checkout-page/checkout-page.component';
 import { CartPageComponent } from './shared/directives/cart-page/cart-page.component';
 import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
+import { LoginPageComponent } from './shared/directives/login-page/login-page.component';
+import { RegisterPageComponent } from './shared/directives/register-page/register-page.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
       { path: 'collection/:id', component: ProductListComponent},
       { path: 'category/:id', component: ProductListComponent},
       { path: 'tag/:id', component: ProductListComponent},
+      { path: 'login', component: LoginPageComponent},
+      { path: 'register', component: RegisterPageComponent},
       { path: 'cart', component: CartPageComponent},
       { path: '**', component: ErrorPageComponent },
     ],

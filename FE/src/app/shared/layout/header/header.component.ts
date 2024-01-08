@@ -82,13 +82,6 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
         this.helperReloadSearch.triggerReload();
       }
   }
-  public login() {
-    console.log("Login");
-  }
-  public register() {
-    console.log("Register");
-    
-  }
   public checkEnter(e : any) {
     if(e.code == "Enter") {
       this.search();
@@ -163,5 +156,11 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
     this.router.navigate([`category/${id}`]).then(() => {
       location.reload();
     });
+  }
+  public goToLogin(): void {
+    this.router.navigate(['login']);
+  }
+  public goToRegister(): void {
+    this.router.navigate(['register']);
   }
 }
