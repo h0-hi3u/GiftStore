@@ -6,7 +6,7 @@ BEGIN
 		[FirstName]					NVARCHAR(50)				NOT NULL,
 		[LastName]					NVARCHAR(50)				NOT NULL,
 		[Email]						NVARCHAR(250)				NOT NULL,
-		[Password]					NVARCHAR(50)				NOT NULL,
+		[Password]					NVARCHAR(MAX)				NOT NULL,
 		[Phone]						VARCHAR(10)					NOT NULL,
 		[Address]					NVARCHAR(250),
 		[VIP]						INT							NOT NULL,

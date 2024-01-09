@@ -81,6 +81,6 @@ public class MappingProfile : Profile
     {
         CreateMap<User, UserShowResponseDto>();
         CreateMap<UserUpdateRequestDto, User>();
-        CreateMap<UserCreateRequestDto, User>();
+        CreateMap<UserRegisterRequestDto, User>();
     }
 }

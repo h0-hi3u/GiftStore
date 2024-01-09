@@ -7,7 +7,8 @@ public interface IUserService
 {
     Task<AppActionResult> GetAllAsync();
     Task<AppActionResult> GetDetailAsync(string id);
-    Task<AppActionResult> CreateAsync(UserCreateRequestDto userCreateRequestDto);
+    Task<AppActionResult> LoginAsync(UserLoginRequestDto userLoginRequestDto);
+    Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto);
     Task<AppActionResult> UpdateAsync(UserUpdateRequestDto userUpdateRequestDto);
     Task<AppActionResult> DeleteAsync(string id);
 }

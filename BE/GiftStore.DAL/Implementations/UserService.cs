@@ -1,11 +1,20 @@
 ﻿using Autofac;
 using AutoMapper;
+using Azure.Core;
 using GiftStore.Core.Common;
 using GiftStore.Core.Constants;
 using GiftStore.Core.Contracts;
+using GiftStore.DAL.Constants;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.User;
 using GiftStore.DAL.Model.Entity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
+using System.Data.Entity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace GiftStore.DAL.Implementations;
 
@@ -14,9 +23,12 @@ public class UserService : GenericService, IUserService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepository<User> _userRepo;
     private readonly IMapper _mapper;
+    private readonly IConfiguration _configuration;
+
     public UserService(ILifetimeScope scope, IMapper mapper) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
+        _configuration = Resolve<IConfiguration>();
         _userRepo = _unitOfWork.Repository<User>();
         _mapper = mapper;
     }
@@ -47,24 +59,7 @@ public class UserService : GenericService, IUserService
         return actionResult.BuildResult(result);
     }
 
-    public async Task<AppActionResult> CreateAsync(UserCreateRequestDto userCreateRequestDto)
-    {
-        var actionResult = new AppActionResult();
 
-        try
-        {
-            var user = _mapper.Map<User>(userCreateRequestDto);
-            user.VIP = VIPContants.VIP0;
-            await _userRepo.AddAsync(user);
-            await _unitOfWork.Commit();
-            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
-
-        }
-        catch
-        {
-            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
-        }
-    }
 
     public async Task<AppActionResult> UpdateAsync(UserUpdateRequestDto userUpdateRequestDto)
     {
@@ -109,6 +104,64 @@ public class UserService : GenericService, IUserService
         } catch
         {
             return actionResult.BuildError(MessageConstants.ERR_DELETE_FAIL);
+        }
+    }
+
+    public async Task<AppActionResult> LoginAsync(UserLoginRequestDto userLoginRequestDto)
+    {
+        var actionResult = new AppActionResult();
+        var user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == userLoginRequestDto.Email);
+        if(user == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
+        }
+
+        if(!BCrypt.Net.BCrypt.Verify(userLoginRequestDto.Password, user.Password))
+        {
+            return actionResult.BuildError(MessageConstants.ERR_INVALID_ACCOUNT);
+        }
+        string token = CreateToken(user);
+        return actionResult.BuildResult(token);
+    }
+    private string CreateToken(User user)
+    {
+        List<Claim> claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, user.Email)
+        };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            _configuration.GetSection("AppSettings:Token").Value!));
+
+        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var token = new JwtSecurityToken(
+            claims: claims,
+            expires: DateTime.Now.AddDays(1),
+            signingCredentials: cred
+            );
+
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        return jwt;
+    }
+
+
+    public async Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto)
+    {
+        var actionResult = new AppActionResult();
+
+        try
+        {
+            var user = _mapper.Map<User>(userRegisterRequestDto);
+            string hashPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Password = hashPassword;
+            user.VIP = VIPConstants.VIP_0;
+            await _userRepo.AddAsync(user);
+            await _unitOfWork.Commit();
+            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
+        }
+        catch
+        {
+            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
         }
     }
 }

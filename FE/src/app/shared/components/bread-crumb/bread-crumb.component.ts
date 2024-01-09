@@ -55,6 +55,12 @@ export class BreadCrumbComponent implements OnInit {
       case 'cart':
         this.stringShow = 'Giỏ hàng';
         break;
+        case 'login':
+          this.stringShow = 'Đăng nhập';
+          break;
+          case 'register':
+            this.stringShow = 'Đăng kí';
+            break;
       default:
         this.stringShow = 'Tất cả sản phẩm';
         break;

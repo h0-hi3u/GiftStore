@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GiftStore.DAL.Model.Dto.User;
 
-public class UserCreateRequestDto
+public class UserRegisterRequestDto
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
