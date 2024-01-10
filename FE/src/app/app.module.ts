@@ -22,6 +22,7 @@ import { CartPageComponent } from './shared/directives/cart-page/cart-page.compo
 import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
 import { LoginPageComponent } from './shared/directives/login-page/login-page.component';
 import { RegisterPageComponent } from './shared/directives/register-page/register-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { RegisterPageComponent } from './shared/directives/register-page/registe
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

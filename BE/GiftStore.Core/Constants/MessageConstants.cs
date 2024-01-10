@@ -15,5 +15,6 @@ public class MessageConstants
     public const string MSG_DELETE_SUCCESS = "Delete success";
 
     public const string ERR_INVALID_ACCOUNT = "Incorrect email or password";
+    public const string ERR_EXIST_EMAIL = "Email is existing in system";
     public const string ERR_NOT_EXIST_EMAIL = "Email is not registered";
 }

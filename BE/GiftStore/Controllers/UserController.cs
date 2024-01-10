@@ -19,16 +19,16 @@ namespace GiftStore.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterUser(UserRegisterRequestDto userRegisterRequestDto)
+        public async Task<IActionResult> Register(UserRegisterRequestDto userRegisterRequestDto)
         {
             var result = await _userService.RegisterAsync(userRegisterRequestDto);
             return Ok(result);
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserRegisterRequestDto userRegisterRequestDto)
+        public async Task<IActionResult> Login(UserLoginRequestDto userLoginRequestDto)
         {
-            var result = await _userService.RegisterAsync(userRegisterRequestDto);
+            var result = await _userService.LoginAsync(userLoginRequestDto);
             return Ok(result);
         }
     }

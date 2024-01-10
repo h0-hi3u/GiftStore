@@ -10,8 +10,6 @@ using GiftStore.DAL.Model.Dto.User;
 using GiftStore.DAL.Model.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
-using System.Data.Entity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -24,12 +22,14 @@ public class UserService : GenericService, IUserService
     private readonly IRepository<User> _userRepo;
     private readonly IMapper _mapper;
     private readonly IConfiguration _configuration;
+    private readonly IRepository<Product> _productRepo;
 
     public UserService(ILifetimeScope scope, IMapper mapper) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
         _configuration = Resolve<IConfiguration>();
         _userRepo = _unitOfWork.Repository<User>();
+        _productRepo = _unitOfWork.Repository<Product>();
         _mapper = mapper;
     }
 
@@ -110,13 +110,13 @@ public class UserService : GenericService, IUserService
     public async Task<AppActionResult> LoginAsync(UserLoginRequestDto userLoginRequestDto)
     {
         var actionResult = new AppActionResult();
-        var user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == userLoginRequestDto.Email);
-        if(user == null)
+        var user = _userRepo.Entities().SingleOrDefault(u => u.Email == userLoginRequestDto.Email);
+        if (user == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
         }
 
-        if(!BCrypt.Net.BCrypt.Verify(userLoginRequestDto.Password, user.Password))
+        if (!BCrypt.Net.BCrypt.Verify(userLoginRequestDto.Password, user.Password))
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_ACCOUNT);
         }
@@ -148,6 +148,11 @@ public class UserService : GenericService, IUserService
     public async Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto)
     {
         var actionResult = new AppActionResult();
+        var existing = _userRepo.Entities().SingleOrDefault(u => u.Email == userRegisterRequestDto.Email);
+        if (existing == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_EXIST_EMAIL);
+        }
 
         try
         {
