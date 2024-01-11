@@ -153,7 +153,6 @@ public class UserService : GenericService, IUserService
         {
             return actionResult.BuildError(MessageConstants.ERR_EXIST_EMAIL);
         }
-
         try
         {
             var user = _mapper.Map<User>(userRegisterRequestDto);

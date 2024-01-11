@@ -23,6 +23,9 @@ import { CheckQuantityComponent } from './shared/directives/check-quantity/check
 import { LoginPageComponent } from './shared/directives/login-page/login-page.component';
 import { RegisterPageComponent } from './shared/directives/register-page/register-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AccountPageComponent } from './shared/directives/account-page/account-page.component';
+import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
+import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CheckQuantityComponent,
     LoginPageComponent,
     RegisterPageComponent,
+    AccountPageComponent,
+    AccountOrdersComponent,
+    AccountInfoComponent,
   ],
   imports: [
     BrowserModule,

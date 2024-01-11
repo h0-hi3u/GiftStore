@@ -11,24 +11,36 @@ import { CartPageComponent } from './shared/directives/cart-page/cart-page.compo
 import { CheckQuantityComponent } from './shared/directives/check-quantity/check-quantity.component';
 import { LoginPageComponent } from './shared/directives/login-page/login-page.component';
 import { RegisterPageComponent } from './shared/directives/register-page/register-page.component';
+import { AccountPageComponent } from './shared/directives/account-page/account-page.component';
+import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
+import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
 
 const routes: Routes = [
-  { path: 'checkout', component: CheckoutPageComponent},
-  { path: 'check-quantity', component: CheckQuantityComponent},
+  { path: 'checkout', component: CheckoutPageComponent },
+  { path: 'check-quantity', component: CheckQuantityComponent },
   {
     path: '',
     component: LayoutComponent,
     children: [
       { path: '', component: HomePageComponent },
       { path: 'search', component: SearchProductComponent },
-      { path: 'detail/:id', component: DetailPageComponent},
+      { path: 'detail/:id', component: DetailPageComponent },
       { path: 'all', component: ProductListComponent },
-      { path: 'collection/:id', component: ProductListComponent},
-      { path: 'category/:id', component: ProductListComponent},
-      { path: 'tag/:id', component: ProductListComponent},
-      { path: 'login', component: LoginPageComponent},
-      { path: 'register', component: RegisterPageComponent},
-      { path: 'cart', component: CartPageComponent},
+      { path: 'collection/:id', component: ProductListComponent },
+      { path: 'category/:id', component: ProductListComponent },
+      { path: 'tag/:id', component: ProductListComponent },
+      { path: 'login', component: LoginPageComponent },
+      { path: 'register', component: RegisterPageComponent },
+      {
+        path: 'account',
+        component: AccountPageComponent,
+        children: [
+          {path: '', component: AccountInfoComponent},
+          {path: 'orders', component: AccountOrdersComponent},
+
+        ]
+      },
+      { path: 'cart', component: CartPageComponent },
       { path: '**', component: ErrorPageComponent },
     ],
   },

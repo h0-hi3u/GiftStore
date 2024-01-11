@@ -11,6 +11,8 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent {
+  errLogin: string = '';
+  isError: boolean = false;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -33,13 +35,14 @@ export class LoginPageComponent {
       this.authService.login(user).subscribe((res: ResponseDto) => {
         if(res.isSuccess) {
           localStorage.setItem("access_token", res.data);
+          this.router.navigate(['']);
         } else {
-          console.log("error");
-          
+          this.errLogin = res.detail;
+          this.isError = true;
         }
       });
     } else {
-      console.log('123');
+      this.loginForm.markAllAsTouched();
     }
   }
 }
