@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-account-info',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-info.component.scss']
 })
 export class AccountInfoComponent {
+  // @Input() name!: string;
+  // @Input() email!: string;
 
 }

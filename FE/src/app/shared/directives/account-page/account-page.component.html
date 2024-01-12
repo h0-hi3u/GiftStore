@@ -5,10 +5,10 @@
             <h1 class="title">TRANG TÀI KHOẢN</h1>
             <div class="full-name">Xin chào, Hồ Hiếu !</div>
             <ul>
-                <li>Thông tin tài khoản</li>
-                <li>Đơn hàng của bạn</li>
-                <li>Đổi mật khẩu</li>
-                <li>Số địa chỉ (0)</li>
+                <li (click)="goToInfo()" [ngClass]="{'active' : urlString == 'account'}">Thông tin tài khoản</li>
+                <li (click)="goToOrders()" [ngClass]="{'active' : urlString == 'orders'}">Đơn hàng của bạn</li>
+                <li (click)="goToChangePassword()" [ngClass]="{'active' : urlString == 'change-password'}">Đổi mật khẩu</li>
+                <li (click)="goToAddresses()" [ngClass]="{'active' : urlString == 'addresses'}">Số địa chỉ (0)</li>
                 <li>Đăng xuất</li>
             </ul>
         </div>
