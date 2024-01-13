@@ -14,6 +14,7 @@ import { RegisterPageComponent } from './shared/directives/register-page/registe
 import { AccountPageComponent } from './shared/directives/account-page/account-page.component';
 import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
 import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
+import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent },
@@ -35,8 +36,9 @@ const routes: Routes = [
         path: 'account',
         component: AccountPageComponent,
         children: [
-          {path: '', component: AccountInfoComponent},
-          {path: 'orders', component: AccountOrdersComponent},
+          { path: '', component: AccountInfoComponent},
+          { path: 'orders', component: AccountOrdersComponent},
+          { path: 'change-password', component: ChangePasswordComponent}
 
         ]
       },

@@ -20,6 +20,13 @@ export class AuthService {
   public getToken(): string | null {
     return localStorage.getItem('access_token');
   }
+  public getInfoToken(token: string): any {
+    const expiry = JSON.parse(window.atob(token.split('.')[1]));
+    return {
+      name: expiry['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+      email: expiry['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
+    };
+  }
   private tokenExpired(token: string) {
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(Date.now() / 1000) <= expiry;

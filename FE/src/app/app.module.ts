@@ -26,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountPageComponent } from './shared/directives/account-page/account-page.component';
 import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
 import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
+import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AccountInfoComponent } from './shared/directives/account-page/account-i
     AccountPageComponent,
     AccountOrdersComponent,
     AccountInfoComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

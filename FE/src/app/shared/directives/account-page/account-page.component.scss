@@ -23,6 +23,9 @@
                     margin: 0 0 10px 0;
                     font-size: 14px;
                 }
+                li:hover {
+                    color: var(--primary-pink);
+                }
                 .active {
                     color: var(--primary-pink);
                 }

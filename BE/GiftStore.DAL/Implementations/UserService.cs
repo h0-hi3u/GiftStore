@@ -125,9 +125,11 @@ public class UserService : GenericService, IUserService
     }
     private string CreateToken(User user)
     {
+        string fullName = user.FirstName + " " + user.LastName;
         List<Claim> claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, user.Email)
+            new Claim(ClaimTypes.Name, fullName),
+            new Claim(ClaimTypes.Email, user.Email)
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
             _configuration.GetSection("AppSettings:Token").Value!));

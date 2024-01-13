@@ -3,13 +3,13 @@
     <div class="container">
         <div class="nav-left">
             <h1 class="title">TRANG TÀI KHOẢN</h1>
-            <div class="full-name">Xin chào, Hồ Hiếu !</div>
+            <div class="full-name">Xin chào, {{fullName}} !</div>
             <ul>
                 <li (click)="goToInfo()" [ngClass]="{'active' : urlString == 'account'}">Thông tin tài khoản</li>
                 <li (click)="goToOrders()" [ngClass]="{'active' : urlString == 'orders'}">Đơn hàng của bạn</li>
                 <li (click)="goToChangePassword()" [ngClass]="{'active' : urlString == 'change-password'}">Đổi mật khẩu</li>
                 <li (click)="goToAddresses()" [ngClass]="{'active' : urlString == 'addresses'}">Số địa chỉ (0)</li>
-                <li>Đăng xuất</li>
+                <li (click)="getInfoUser()">Đăng xuất</li>
             </ul>
         </div>
         <div class="nav-right">
