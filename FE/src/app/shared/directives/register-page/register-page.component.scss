@@ -56,6 +56,9 @@
                 input:focus {
                     outline: none;
                 }
+                .invalid {
+                    border: 1px solid red;
+                }
             }
             .last-name {
                 padding: 0 0 10px 0;
@@ -77,6 +80,9 @@
                 }
                 input:focus {
                     outline: none;
+                }
+                .invalid {
+                    border: 1px solid red;
                 }
             }
             .phone-number {
@@ -100,6 +106,9 @@
                 input:focus {
                     outline: none;
                 }
+                .invalid {
+                    border: 1px solid red;
+                }
             }
             .email {
                 padding: 0 0 10px 0;
@@ -122,6 +131,9 @@
                 input:focus {
                     outline: none;
                 }
+                .invalid {
+                    border: 1px solid red;
+                }
             }
             .password {
                 padding: 0 0 10px 0;
@@ -143,6 +155,9 @@
                 }
                 input:focus {
                     outline: none;
+                }
+                .invalid {
+                    border: 1px solid red;
                 }
             }
             .btn-login {
