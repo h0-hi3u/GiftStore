@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   totalProduct: number  = 0;
   listTag: Tag[] = [];
   arrUrl: string[] = [];
-  isLogged: boolean = false;
+  isLoggedIn: boolean = false;
   private triggerSub: Subscription = new Subscription();
   private triggerSubChangeNumber: Subscription = new Subscription();
   private triggerDecreaseCart: Subscription = new Subscription();
@@ -52,7 +52,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
     this.clearSearchText();
     this.arrUrl = this.router.url.split("/");
     this.addTrigger();
-    this.isLogged = this.authService.isLoggedIn();
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
   ngAfterContentChecked(): void {
     if(this.userCartComp) {

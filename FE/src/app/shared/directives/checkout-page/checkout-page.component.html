@@ -9,13 +9,13 @@
                     <form class="form">
                         <div class="title">
                             <span>Thông tin mua hàng</span>
-                            <div class="login">
+                            <div class="login" *ngIf="!isLoggedIn">
                                 <fa-icon [icon]="faCircleUser"></fa-icon>
                                 <span>Đăng nhập</span>
                             </div>
                         </div>
                         <label for="">Email</label>
-                        <input class="email" type="text">
+                        <input class="email" type="text" [ngClass]="{'invalid': getForm.email.errors && getForm.email.touched}">
                         <label for="">Họ và tên</label>
                         <input class="fullname" type="text">
                         <label for="">Số điện thoại</label>
@@ -37,12 +37,16 @@
                             <option selected hidden></option>
                             <option *ngFor="let item of listWard" value="{{item.code}}">{{item.name}}</option>
                         </select>
+                        <label for="">Ghi chú cho shop nà <fa-icon class="text-red-600" [icon]="faHeart"></fa-icon></label>
+                        <div class="note">
+                            <textarea name="note" id="" cols="30" rows="2"></textarea>
+                        </div>
                     </form>
 
-                    <div class="other-receiver">
+                    <!-- <div class="other-receiver">
                         <input type="checkbox" class="mr-2">
                         <label for="">Giao hàng đến địa chỉ khác</label>
-                    </div>
+                    </div> -->
                     <!-- <form class="form">
                         <label for="">email</label>
                         <input class="email" type="text">
@@ -59,9 +63,7 @@
                         <label for="">wards</label>
                         <input class="wards" type="text">
                     </form> -->
-                    <div class="note">
-                        <textarea name="note" id="" cols="30" rows="2"></textarea>
-                    </div>
+
                 </div>
                 <div class="delivery-payment">
                     <div class="delivery">

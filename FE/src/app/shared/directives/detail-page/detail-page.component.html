@@ -35,6 +35,7 @@
                 <div *ngIf="listProduct.length > 1" class="variant-product">
                     <div class="variant" *ngFor="let item of listProduct; index as i" (click)="chooseVariant(i)" [ngClass]="{'active': i == currentChoose}">
                         {{item.variant}}
+                        <img [ngClass]="{'sold-out': item.quantity == 0}" src="https://bizweb.dktcdn.net/100/450/808/themes/855625/assets/soldout.png?1681832246171" alt="" sizes="" srcset="">
                     </div>
                 </div>
                 <div class="detail-product">
@@ -90,8 +91,9 @@
                         <button (click)="changeDefaultValue(+1)">+</button>
                     </div>
                     <div class="option-add-cart">
-                        <div class="add-to-cart" (click)="addManyToCart(currentProduct.id)">Thêm vào giỏ hàng</div>
-                        <div class="buy-now" (click)="buyNow(currentProduct.id)">Mua ngay</div>
+                        <div *ngIf="currentProduct.quantity != 0" class="add-to-cart" (click)="addManyToCart(currentProduct.id)">Thêm vào giỏ hàng</div>
+                        <div *ngIf="currentProduct.quantity != 0" class="buy-now" (click)="buyNow(currentProduct.id)">Mua ngay</div>
+                        <div *ngIf="currentProduct.quantity == 0" class="sold-out">Hết hàng</div>
                     </div>
                 </div>
             </div>

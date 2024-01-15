@@ -1,3 +1,5 @@
+import { AuthService } from './../../../core/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AddressService } from './../../../core/services/address.service';
 import { District } from './../../../core/models/Addresses/district';
 import { HelperNumber } from './../../../core/helpers/helperNumber';
@@ -7,6 +9,7 @@ import { faCircleUser, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { Province } from 'src/app/core/models/Addresses/province';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { Ward } from 'src/app/core/models/Addresses/ward';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-checkout-page',
@@ -16,6 +19,7 @@ import { Ward } from 'src/app/core/models/Addresses/ward';
 export class CheckoutPageComponent implements OnInit {
   faCircleUser = faCircleUser;
   faCaretLeft = faCaretLeft;
+  faHeart = faHeart;
   cartUser: CartItem[] = JSON.parse(
     localStorage.getItem('cartUser') || JSON.stringify([])
   );
@@ -31,16 +35,33 @@ export class CheckoutPageComponent implements OnInit {
   listProvince: Province[] = [];
   listDistrict: District[] = [];
   listWard: Ward[] = [];
+  isLoggedIn: boolean = false;
 
   constructor(
     private router: Router,
     public helperNumber: HelperNumber,
-    private addressService: AddressService
+    private addressService: AddressService,
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.addressService.getAllProvince().subscribe(res => {
       this.listProvince = res;
     })
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
+  orderForm = this.formBuilder.group({
+    email: new FormGroup("", [Validators.required, Validators.email]),
+    fullName: new FormGroup('', [Validators.required]),
+    phoneNumber: new FormGroup('', [Validators.required]),
+    address: new FormGroup(''),
+    province: new FormGroup('', [Validators.required]),
+    district: new FormGroup('', [Validators.required]),
+    ward: new FormGroup('', [Validators.required]),
+    note: new FormGroup('')
+  });
+  get getForm() {
+    return this.orderForm.controls;
   }
   public backToHome() {
     this.router.navigate(['/']);
