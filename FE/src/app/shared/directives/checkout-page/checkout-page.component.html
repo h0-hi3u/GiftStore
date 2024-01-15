@@ -23,11 +23,20 @@
                         <label for="">Địa chỉ</label>
                         <input class="address" type="text">
                         <label for="">Thành phố/Tỉnh</label>
-                        <input class="province" type="text">
+                        <select class="province" type="text" (change)="getDistrict($event.target)">
+                            <option selected hidden></option>
+                            <option *ngFor="let item of listProvince" value="{{item.code}}">{{item.name}}</option>
+                        </select>
                         <label for="">Quận/Huyện</label>
-                        <input class="district" type="text">
+                        <select class="district" type="text" (change)="getWard($event.target)">
+                            <option selected hidden></option>
+                            <option *ngFor="let item of listDistrict" (click)="getWard(item.code)" value="{{item.code}}">{{item.name}}</option>
+                        </select>
                         <label for="">Phường/Xã</label>
-                        <input class="wards" type="text">
+                        <select class="wards" type="text">
+                            <option selected hidden></option>
+                            <option *ngFor="let item of listWard" value="{{item.code}}">{{item.name}}</option>
+                        </select>
                     </form>
 
                     <div class="other-receiver">

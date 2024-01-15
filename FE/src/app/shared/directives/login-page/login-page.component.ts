@@ -35,7 +35,9 @@ export class LoginPageComponent {
       this.authService.login(user).subscribe((res: ResponseDto) => {
         if(res.isSuccess) {
           localStorage.setItem("access_token", res.data);
-          this.router.navigate(['']);
+          this.router.navigate(['']).then(() => {
+            location.reload()
+          });
         } else {
           this.errLogin = res.detail;
           this.isError = true;
