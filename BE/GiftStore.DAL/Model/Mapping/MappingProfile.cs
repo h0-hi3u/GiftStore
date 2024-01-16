@@ -3,6 +3,8 @@ using GiftStore.DAL.Model.Dto.BestSeller;
 using GiftStore.DAL.Model.Dto.Category;
 using GiftStore.DAL.Model.Dto.Collection;
 using GiftStore.DAL.Model.Dto.ImageProduct;
+using GiftStore.DAL.Model.Dto.Order;
+using GiftStore.DAL.Model.Dto.OrderDetail;
 using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Dto.Supplier;
 using GiftStore.DAL.Model.Dto.Tag;
@@ -24,11 +26,14 @@ public class MappingProfile : Profile
         BestSellerMappingProfile();
         ImageProductMappingProfile();
         UserMappingProfile();
+        OrderMappingProfile();
+        OrderDetailMappingProfile();
     }
 
     private void ProductMappingProfile()
     {
         CreateMap<Product, ProductShowResponseDto>();
+        CreateMap<Product, ProductShowOrderDetailDto>();
     }
 
     private void TagMappingProfile()
@@ -82,5 +87,13 @@ public class MappingProfile : Profile
         CreateMap<User, UserShowResponseDto>();
         CreateMap<UserUpdateRequestDto, User>();
         CreateMap<UserRegisterRequestDto, User>();
+    }
+    private void OrderMappingProfile()
+    {
+        CreateMap<Order, OrderShowResponse>();
+    }
+    private void OrderDetailMappingProfile()
+    {
+        CreateMap<OrderDetail, OrderDetailShowResponseDto>();
     }
 }

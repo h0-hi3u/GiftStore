@@ -138,6 +138,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
   }
   //#endregion
   public backToHome() {
+    this.arrUrl[1] = '';
     this.clearSearchText();
     this.router.navigate(["/"]);
   }
@@ -146,6 +147,7 @@ export class HeaderComponent implements OnInit, AfterContentChecked, OnDestroy{
     
   }
   public navigationAll() {
+    this.arrUrl[1] = 'all';
     this.router.navigate(["all"]).then(() => {
       location.reload();
     });

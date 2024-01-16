@@ -1,3 +1,4 @@
+import { OrderService } from './../../../../core/services/order.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-orders.component.scss']
 })
 export class AccountOrdersComponent {
-
+  constructor(private orderService: OrderService){}
 }
