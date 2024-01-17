@@ -1,0 +1,79 @@
+.wrapper {
+    padding: 0 10px;
+    h1 {
+        font-size: 19px;
+        margin: 10px 0 27px 0;
+    }
+    .container {
+        .product {
+            display: flex;
+            padding: 10px 0;
+            .info-product {
+                width: 55%;
+                display: flex;
+                .image {
+                    width: 70px;
+                    height: 70px;
+                    img {
+                        object-fit: cover;
+                    }
+                }
+                .name-variant {
+                    display: flex;
+                    align-items: center;
+                    div {
+                        height: fit-content;
+                        padding: 0 0 0 10px;
+                        .name {
+                            cursor: pointer;
+                            font-size: 14px;
+                            color: var(--primary-black);
+                        }
+                        .name:hover {
+                            color: var(--primary-pink);
+                        }
+                        .variant {
+                            font-size: 12px;
+                            color: var(--primary-pink);
+                        }
+                    }
+                }
+            }
+            .price-product {
+                width: 11.25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .quantity-product {
+                width: 11.25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .discount-product {
+                width: 11.25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .total-product {
+                width: 11.25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .total-price {
+            display: flex;
+            justify-content: space-between;
+            span {
+                font-size: 20px;
+                font-weight: 700;
+            }
+            .price {
+                color: var(--primary-pink);
+            }
+        }
+    }
+}

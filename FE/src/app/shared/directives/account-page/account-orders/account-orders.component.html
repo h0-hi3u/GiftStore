@@ -11,6 +11,14 @@
             </tr>
         </thead>
         <tbody class="list-orders">
+            <tr class="order" *ngFor="let order of listOrder">
+                <td>{{order.id}}</td>
+                <td>{{helperDate.formatDateYearMonthDay(order.timeCreate)}}</td>
+                <td>Địa chỉ</td>
+                <td>{{helperNumber.formatPrice(order.totalPrice)}}</td>
+                <td>{{order.paymentMethod.name}}</td>
+            </tr>
+            <!-- ------------------ -->
             <tr class="order">
                 <td>Đơn hàng</td>
                 <td>Ngày</td>

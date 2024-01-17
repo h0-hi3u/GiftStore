@@ -27,6 +27,8 @@ import { AccountPageComponent } from './shared/directives/account-page/account-p
 import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
 import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
 import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
+import { DatePipe } from '@angular/common';
+import { OrderDetailComponent } from './shared/directives/account-page/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { ChangePasswordComponent } from './shared/directives/account-page/change
     AccountOrdersComponent,
     AccountInfoComponent,
     ChangePasswordComponent,
+    OrderDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,7 @@ import { ChangePasswordComponent } from './shared/directives/account-page/change
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

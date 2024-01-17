@@ -8,12 +8,18 @@ import { environment } from 'src/environment/environment';
     providedIn: 'root'
 })
 export class OrderService {
-    private urlOrdersOfUser = 'api/Order/';
+    private urlOrdersOfUser = 'Order';
+    private urlOrderDetail = 'Order/detail'
     constructor(private http: HttpClient){}
 
     public getOrdersOfUser(email: string) : Observable<ResponseDto> {
         return this.http.get<ResponseDto>(
           `${environment.urlApi}/${this.urlOrdersOfUser}/${email}`  
+        );
+    }
+    public getOrderDetail(id: string) : Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlOrderDetail}/${id}`
         );
     }
 }

@@ -5,6 +5,7 @@ using GiftStore.DAL.Model.Dto.Collection;
 using GiftStore.DAL.Model.Dto.ImageProduct;
 using GiftStore.DAL.Model.Dto.Order;
 using GiftStore.DAL.Model.Dto.OrderDetail;
+using GiftStore.DAL.Model.Dto.PaymentMethod;
 using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Dto.Supplier;
 using GiftStore.DAL.Model.Dto.Tag;
@@ -28,6 +29,7 @@ public class MappingProfile : Profile
         UserMappingProfile();
         OrderMappingProfile();
         OrderDetailMappingProfile();
+        PaymentMethodMappingProfile();
     }
 
     private void ProductMappingProfile()
@@ -95,5 +97,9 @@ public class MappingProfile : Profile
     private void OrderDetailMappingProfile()
     {
         CreateMap<OrderDetail, OrderDetailShowResponseDto>();
+    }
+    private void PaymentMethodMappingProfile()
+    {
+        CreateMap<PaymentMethod, PaymentMethodShowResponseDto>();
     }
 }

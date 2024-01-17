@@ -7,4 +7,7 @@ export class HelperNumber {
     public formatPrice(number : number) : string {
         return (number.toLocaleString('en-US') + "₫").replaceAll(",", ".");
     }
+    public formatDiscount(number : number) : string {
+        return number + "%";
+    }
 }

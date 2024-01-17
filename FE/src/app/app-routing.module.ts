@@ -15,6 +15,7 @@ import { AccountPageComponent } from './shared/directives/account-page/account-p
 import { AccountInfoComponent } from './shared/directives/account-page/account-info/account-info.component';
 import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
 import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
+import { OrderDetailComponent } from './shared/directives/account-page/order-detail/order-detail.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent },
@@ -38,8 +39,8 @@ const routes: Routes = [
         children: [
           { path: '', component: AccountInfoComponent},
           { path: 'orders', component: AccountOrdersComponent},
-          { path: 'change-password', component: ChangePasswordComponent}
-
+          { path: 'change-password', component: ChangePasswordComponent},
+          { path: 'detail-order', component: OrderDetailComponent}
         ]
       },
       { path: 'cart', component: CartPageComponent },
