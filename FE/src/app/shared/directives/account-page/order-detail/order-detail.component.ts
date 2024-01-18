@@ -3,6 +3,7 @@ import { OrderDetailShowDto } from 'src/app/core/models/Order/orderDetailShowDto
 import { HelperNumber } from './../../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { ResponseDto } from 'src/app/core/models/responseDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-detail',
@@ -12,13 +13,16 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
 export class OrderDetailComponent implements OnInit{
   listOrderDetail: OrderDetailShowDto[] = [];
   totalPrice: number = 0;
+  urlArr: string[] = [];
   constructor(
     public helperNumber: HelperNumber,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private router: Router
   ){}
 
   ngOnInit(): void {
-      this.orderService.getOrderDetail('362A6217-BD26-4EC2-A2D4-4A18DAA61660').subscribe((res: ResponseDto) => {
+      this.urlArr = this.router.url.split('/');
+      this.orderService.getOrderDetail(this.urlArr[this.urlArr.length - 1]).subscribe((res: ResponseDto) => {
         this.listOrderDetail = res.data;
         this.totalPrice = this.listOrderDetail.reduce((total, current) =>  {
           return total + ((current.price * current.quantity) - ((current.price * current.quantity) * (current.discount / 100)));

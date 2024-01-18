@@ -40,7 +40,7 @@ const routes: Routes = [
           { path: '', component: AccountInfoComponent},
           { path: 'orders', component: AccountOrdersComponent},
           { path: 'change-password', component: ChangePasswordComponent},
-          { path: 'detail-order', component: OrderDetailComponent}
+          { path: 'detail-order/:id', component: OrderDetailComponent}
         ]
       },
       { path: 'cart', component: CartPageComponent },

@@ -40,6 +40,12 @@
                 td {
                     height: 35px;
                 }
+                .id {
+                    cursor: pointer;
+                }
+                .id:hover {
+                    color: var(--primary-pink);
+                }
             }
         }
         .no-order {

@@ -4,6 +4,7 @@ import { OrderShowResponseDto } from 'src/app/core/models/Order/orderShowRespons
 import { OrderService } from './../../../../core/services/order.service';
 import { Component, OnInit } from '@angular/core';
 import { ResponseDto } from 'src/app/core/models/responseDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-orders',
@@ -17,6 +18,7 @@ export class AccountOrdersComponent implements OnInit {
     private orderService: OrderService,
     public helperNumber: HelperNumber,
     public helperDate: HelperDate,
+    private router: Router
     ){}
   ngOnInit(): void {
       this.orderService.getOrdersOfUser('test@gmail.com').subscribe((res: ResponseDto) => {
@@ -24,5 +26,8 @@ export class AccountOrdersComponent implements OnInit {
         
         this.listOrder = res.data;
       })
+  }
+  public goToOrderDetail(id: string) {
+    this.router.navigate([`account/detail-order/${id}`]);
   }
 }
