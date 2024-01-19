@@ -8,6 +8,7 @@ using GiftStore.DAL.Constants;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.User;
 using GiftStore.DAL.Model.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -58,8 +59,6 @@ public class UserService : GenericService, IUserService
         var result = _mapper.Map<UserShowResponseDto>(user);
         return actionResult.BuildResult(result);
     }
-
-
 
     public async Task<AppActionResult> UpdateAsync(UserUpdateRequestDto userUpdateRequestDto)
     {
@@ -146,7 +145,6 @@ public class UserService : GenericService, IUserService
         return jwt;
     }
 
-
     public async Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto)
     {
         var actionResult = new AppActionResult();
@@ -168,6 +166,33 @@ public class UserService : GenericService, IUserService
         catch
         {
             return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+        }
+    }
+
+    public async Task<AppActionResult> CheckEmailExist(string email)
+    {
+        var actionResult = new AppActionResult();
+        var existing = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == email);
+        if (existing == null)
+        {
+            return actionResult.BuildResult(true);
+        } else
+        {
+            return actionResult.BuildResult(false);
+        }
+    }
+
+    public async Task<AppActionResult> CheckPhoneNumberExist(string phoneNumber)
+    {
+        var actionResult = new AppActionResult();
+        var existing = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Phone == phoneNumber);
+        if (existing == null)
+        {
+            return actionResult.BuildResult(true);
+        }
+        else
+        {
+            return actionResult.BuildResult(false);
         }
     }
 }

@@ -11,4 +11,6 @@ public interface IUserService
     Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto);
     Task<AppActionResult> UpdateAsync(UserUpdateRequestDto userUpdateRequestDto);
     Task<AppActionResult> DeleteAsync(string id);
+    Task<AppActionResult> CheckEmailExist(string email);
+    Task<AppActionResult> CheckPhoneNumberExist(string phoneNumber);
 }

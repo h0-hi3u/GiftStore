@@ -31,5 +31,17 @@ namespace GiftStore.Controllers
             var result = await _userService.LoginAsync(userLoginRequestDto);
             return Ok(result);
         }
+        [HttpGet("check-email")]
+        public async Task<IActionResult> CheckEmailExist(string email = "")
+        {
+            var result = await _userService.CheckEmailExist(email);
+            return Ok(result);
+        }
+        [HttpGet("check-phone")]
+        public async Task<IActionResult> CheckPhoneExist(string phone = "")
+        {
+            var result = await _userService.CheckPhoneNumberExist(phone);
+            return Ok(result);
+        }
     }
 }

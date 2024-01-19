@@ -19,16 +19,17 @@
             </div> 
             <div class="phone-number">
                 <div>SỐ ĐIỆN THOẠI <span>*</span></div>
-                <input [ngClass]="{'invalid' : getForm.phoneNumber.invalid && getForm.phoneNumber.touched}" formControlName="phoneNumber" type="text" placeholder="Nhập mật khẩu">
+                <input [ngClass]="{'invalid' : (getForm.phoneNumber.invalid && getForm.phoneNumber.touched) || !isPhoneNotExist}" formControlName="phoneNumber" type="text" placeholder="Nhập mật khẩu" (blur)="checkPhoneExist($event.target)">
                 <span *ngIf="registerForm.get('phoneNumber')?.hasError('required') && registerForm.get('phoneNumber')?.touched" class="text-red-600 text-[14px]">Please fill in blank</span>
-                <span *ngIf="(registerForm.get('phoneNumber')?.hasError('minlength') || registerForm.get('phoneNumber')?.hasError('maxlength')) && registerForm.get('phoneNumber')?.touched" class="text-red-600 text-[14px]">Phone number must be 10 numbers</span>
-                <span *ngIf="registerForm.get('phoneNumber')?.hasError('pattern') && registerForm.get('phoneNumber')?.touched" class="text-red-600 text-[14px]">Phone number must be start with 0</span>
+                <span *ngIf="(registerForm.get('phoneNumber')?.hasError('invalidStart') || registerForm.get('phoneNumber')?.hasError('invalidLength')) && registerForm.get('phoneNumber')?.touched" class="text-red-600 text-[14px]">Phone number must to start with 0 and have 10 number</span>
+                <span *ngIf="!isPhoneNotExist" class="text-red-600 text-[14px]">Phone number is exist in system</span>
             </div> 
             <div class="email">
                 <div>EMAIL <span>*</span></div>
-                <input [ngClass]="{'invalid' : getForm.email.invalid && getForm.email.touched}" formControlName="email" type="text" placeholder="Nhập mật khẩu">
+                <input [ngClass]="{'invalid' : (getForm.email.invalid && getForm.email.touched) || !isEmailNotExist}" formControlName="email" type="text" placeholder="Nhập mật khẩu" (blur)="checkEmailExist($event.target)">
                 <span *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched" class="text-red-600 text-[14px]">Please fill in blank</span>
                 <span *ngIf="registerForm.get('email')?.hasError('email')  && registerForm.get('email')?.touched" class="text-red-600 text-[14px]">Please include '@' in email address</span>
+                <span *ngIf="!isEmailNotExist" class="text-red-600 text-[14px]">Email is exist in system</span>
             </div> 
             <div class="password">
                 <div>MẬT KHẨU <span>*</span></div>
