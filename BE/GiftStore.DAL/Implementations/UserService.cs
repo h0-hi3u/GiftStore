@@ -109,7 +109,7 @@ public class UserService : GenericService, IUserService
     public async Task<AppActionResult> LoginAsync(UserLoginRequestDto userLoginRequestDto)
     {
         var actionResult = new AppActionResult();
-        var user = _userRepo.Entities().SingleOrDefault(u => u.Email == userLoginRequestDto.Email);
+        var user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == userLoginRequestDto.Email);
         if (user == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
@@ -148,8 +148,8 @@ public class UserService : GenericService, IUserService
     public async Task<AppActionResult> RegisterAsync(UserRegisterRequestDto userRegisterRequestDto)
     {
         var actionResult = new AppActionResult();
-        var existing = _userRepo.Entities().SingleOrDefault(u => u.Email == userRegisterRequestDto.Email);
-        if (existing == null)
+        var existingEmail = _userRepo.Entities().SingleOrDefault(u => u.Email == userRegisterRequestDto.Email);
+        if (existingEmail != null)
         {
             return actionResult.BuildError(MessageConstants.ERR_EXIST_EMAIL);
         }
@@ -182,17 +182,31 @@ public class UserService : GenericService, IUserService
         }
     }
 
-    public async Task<AppActionResult> CheckPhoneNumberExist(string phoneNumber)
+    public async Task<AppActionResult> ChangePasswordAsync(UserChangePasswordDto userChangePasswordDto)
     {
         var actionResult = new AppActionResult();
-        var existing = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Phone == phoneNumber);
-        if (existing == null)
+
+        var user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == userChangePasswordDto.Email);
+        if (user == null)
         {
-            return actionResult.BuildResult(true);
+            return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
         }
-        else
+
+        if (!BCrypt.Net.BCrypt.Verify(userChangePasswordDto.Password, user.Password))
         {
-            return actionResult.BuildResult(false);
+            return actionResult.BuildError(MessageConstants.ERR_INVALID_ACCOUNT);
+        }
+
+        try
+        {
+            string hashNewPassword = BCrypt.Net.BCrypt.HashPassword(userChangePasswordDto.NewPassword);
+            user.Password = hashNewPassword;
+            _userRepo.Update(user);
+             await _unitOfWork.Commit();
+            return actionResult.SetInfo(true);
+        } catch (Exception ex)
+        {
+            return actionResult.BuildError(ex.Message);
         }
     }
 }

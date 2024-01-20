@@ -8,7 +8,7 @@ public class User
     public string Email { get; set; }   
     public string Password { get; set; }
     public string Phone { get; set; }
-    public string Address { get; set; }
+    public string? Address { get; set; }
     public int VIP { get; set; }
     public virtual ICollection<Order> Order { get; set;}
 }

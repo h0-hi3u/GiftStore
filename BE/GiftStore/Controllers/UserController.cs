@@ -37,10 +37,10 @@ namespace GiftStore.Controllers
             var result = await _userService.CheckEmailExist(email);
             return Ok(result);
         }
-        [HttpGet("check-phone")]
-        public async Task<IActionResult> CheckPhoneExist(string phone = "")
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword(UserChangePasswordDto userChangePasswordDto)
         {
-            var result = await _userService.CheckPhoneNumberExist(phone);
+            var result = await _userService.ChangePasswordAsync(userChangePasswordDto);
             return Ok(result);
         }
     }

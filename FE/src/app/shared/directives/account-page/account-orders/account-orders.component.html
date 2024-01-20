@@ -18,24 +18,9 @@
                 <td>{{helperNumber.formatPrice(order.totalPrice)}}</td>
                 <td>{{order.paymentMethod.name}}</td>
             </tr>
-            <!-- ------------------ -->
-            <tr class="order">
-                <td>Đơn hàng</td>
-                <td>Ngày</td>
-                <td>Địa chỉ</td>
-                <td>Giá trị đơn hàng</td>
-                <td>Thanh toán</td>
-            </tr>
-            <tr class="order">
-                <td>Đơn hàng</td>
-                <td>Ngày</td>
-                <td>Địa chỉ</td>
-                <td>Giá trị đơn hàng</td>
-                <td>Thanh toán</td>
-            </tr>
-            <!-- <tr class="no-order">
+            <tr *ngIf="listOrder.length == 0" class="no-order">
                 <td colspan="5">Không có đơn hàng nào.</td>
-            </tr> -->
+            </tr>
         </tbody>
     </table>
 </div>

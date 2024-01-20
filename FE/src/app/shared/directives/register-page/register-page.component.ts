@@ -1,3 +1,4 @@
+import { UserRegisterDto } from './../../../core/models/User/userRegisterDto';
 import { UserService } from './../../../core/services/user.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -11,7 +12,6 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
 })
 export class RegisterPageComponent {
   isEmailNotExist: boolean = true;
-  isPhoneNotExist: boolean = true;
   constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) {}
   registerForm = this.formBuilder.group({
     firstName: new FormControl('', [Validators.required]),
@@ -34,12 +34,21 @@ export class RegisterPageComponent {
     return null;
   }
   public register() {
-    console.log(this.registerForm.controls.phoneNumber.errors);
-    
     if (this.registerForm.valid) {
-      console.log("valid");
+      const userRegisterDto: UserRegisterDto = {} as UserRegisterDto;
+      userRegisterDto.firstName = this.getForm.firstName.value || "";
+      userRegisterDto.lastName = this.getForm.lastName.value || "";
+      userRegisterDto.email = this.getForm.email.value || "";
+      userRegisterDto.phone = this.getForm.phoneNumber.value || "";
+      userRegisterDto.password = this.getForm.password.value || "";
+      this.userService.register(userRegisterDto).subscribe((res: ResponseDto) => {
+        if(res.isSuccess) {
+          this.router.navigate(['login']);
+        } else {
+          
+        }
+      })
     } else {
-      console.log('invalid');
       this.registerForm.markAllAsTouched();
     }
   }
@@ -51,13 +60,6 @@ export class RegisterPageComponent {
     const value = elementInput.value == "" ? "a" : elementInput.value;
     this.userService.checkEmail(value).subscribe((res: ResponseDto) => {
       this.isEmailNotExist = res.data;
-    })
-  }
-  public checkPhoneExist(element: any) {
-    const elementInput = element as HTMLInputElement;
-    const value = elementInput.value == "" ? "a" : elementInput.value;
-    this.userService.checkEmail(value).subscribe((res: ResponseDto) => {
-      this.isPhoneNotExist = res.data;
     })
   }
 }
