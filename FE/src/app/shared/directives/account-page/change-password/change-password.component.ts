@@ -1,7 +1,7 @@
 import { AuthService } from './../../../../core/services/auth.service';
 import { UserChangePasswordDto } from './../../../../core/models/User/userChangePasswordDto';
 import { UserService } from './../../../../core/services/user.service';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ResponseDto } from 'src/app/core/models/responseDto';
 
@@ -27,17 +27,15 @@ export class ChangePasswordComponent implements OnInit {
     password: new FormControl('',[ Validators.required]),
     newPassword: new FormControl('', [Validators.required]),
     confirmedPassword: new FormControl('',[Validators.required])
-  });
+  }, { validators: this.passwordMatchValidator });
   get getForm() {
     return this.changePassForm.controls;
   }
-  public RetypePasswordValidator(group: FormGroup) {
-    const newPassword = group.get('password')?.value;
-    const confirmedPassword = group.get('confirmedPassword')?.value;
-    if(newPassword != confirmedPassword) {
-      return { invalid: true};
-    }
-    return null;
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('newPassword')?.value;
+    const confirmPassword = control.get('confirmedPassword')?.value;
+
+    return password === confirmPassword ? null : { 'passwordMismatch': true };
   }
   public changePassword() {
     if(this.changePassForm.valid) {
