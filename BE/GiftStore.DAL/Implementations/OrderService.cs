@@ -3,6 +3,7 @@ using AutoMapper;
 using GiftStore.Core.Common;
 using GiftStore.Core.Constants;
 using GiftStore.Core.Contracts;
+using GiftStore.DAL.Constants;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Order;
 using GiftStore.DAL.Model.Dto.OrderDetail;
@@ -30,13 +31,13 @@ public class OrderService : GenericService, IOrderService
     public async Task<AppActionResult> GetDetailAsync(string id)
     {
         var actionResult = new AppActionResult();
-        if(!Guid.TryParse(id, out Guid orderId))
+        if (!Guid.TryParse(id, out Guid orderId))
         {
             return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
 
         var orderDetails = await _orderDetailRepo.Entities().Include(od => od.Product).Include(od => od.Product.ImageProduct).Where(od => od.OrderId == orderId).ToListAsync();
-        if(orderDetails == null)
+        if (orderDetails == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
         }
@@ -48,7 +49,7 @@ public class OrderService : GenericService, IOrderService
     {
         var actionResult = new AppActionResult();
         User user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == email);
-        if(user == null)
+        if (user == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
         }
@@ -57,13 +58,47 @@ public class OrderService : GenericService, IOrderService
         return actionResult.BuildResult(result);
 
     }
+    public async Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto)
+    {
+        var actionResult = new AppActionResult();
+        string email = orderCreateRequestDto.Email;
+        var user = await _userRepo.Entities().SingleOrDefaultAsync(o => o.Email == email);
+        if (user == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
+        }
+        try
+        {
+            var order = _mapper.Map<Order>(orderCreateRequestDto);
+            order.UserId = user.Id;
+            order.OrderStatus = OrderConstants.ORDER_STATUS_SPENDING;
+            order.TotalPrice = 0;
+            await _orderRepo.AddAsync(order);
+            await _unitOfWork.Commit();
+            double totalPrice = 0;
+            List<OrderDetail> listOD = new List<OrderDetail>();
+            foreach (var od in orderCreateRequestDto.OrderDetails)
+            {
+                double a = (double)(od.Price * od.Quantity - (od.Price * od.Quantity * (od.Discount / 100)));
+                totalPrice = totalPrice + a;
+                var orderDetail = _mapper.Map<OrderDetail>(od);
+                orderDetail.OrderId = order.Id;
+                await _orderDetailRepo.AddAsync(orderDetail);
+                await _unitOfWork.Commit();
+                listOD.Add(orderDetail);
+            }
+            _orderRepo.Update(order);
+            await _unitOfWork.Commit();
+            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
+        }
+        catch (Exception ex)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+        }
+    }
     public Task<AppActionResult> CreateOrderForGuest(OrderCreateRequestDto orderCreateRequestDto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto, string email)
-    {
-        throw new NotImplementedException();
-    }
 }

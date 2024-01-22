@@ -52,6 +52,9 @@
                             font-size: 16px;
                             color: #000;
                         }
+                        .invalid {
+                            border: 1px solid red;
+                        }
                         label {
                             font-size: 14px;
                             color: #717171;
@@ -73,7 +76,7 @@
                                 height: auto;
                                 width: 100%;
                                 resize: vertical;
-                                padding: 0 10px;
+                                padding: 5px 10px;
                             }
                         }
                     }
@@ -322,6 +325,9 @@
                         background-color: #000;
                         color: #fff;
                         border-radius: 5px;
+                    }
+                    .disabled {
+                        opacity: 0.5;
                     }
                 }
             }

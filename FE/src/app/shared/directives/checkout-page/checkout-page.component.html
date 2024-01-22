@@ -6,7 +6,7 @@
             </div>
             <div class="main-content">
                 <div class="info-customer">
-                    <form class="form">
+                    <form class="form" [formGroup]="orderForm">
                         <div class="title">
                             <span>Thông tin mua hàng</span>
                             <div class="login" *ngIf="!isLoggedIn">
@@ -14,32 +14,41 @@
                                 <span>Đăng nhập</span>
                             </div>
                         </div>
-                        <label for="">Email</label>
-                        <input class="email" type="text" [ngClass]="{'invalid': getForm.email.errors && getForm.email.touched}">
-                        <label for="">Họ và tên</label>
-                        <input class="fullname" type="text">
-                        <label for="">Số điện thoại</label>
-                        <input class="phone-number" type="number">
+                        <label for="">Email <span class="text-red-600">*</span></label>
+                        <span *ngIf="orderForm.get('email')?.hasError('required') && orderForm.get('email')?.touched" class="text-red-600 text-[14px]">Please fill in blank</span>
+                        <span *ngIf="orderForm.get('email')?.hasError('email')  && orderForm.get('email')?.touched" class="text-red-600 text-[14px]">Please include '@' in email address</span>
+                        <input class="email" type="text" formControlName="email" [ngClass]="{'invalid': getForm.email.errors && getForm.email.touched}">
+
+                        <label for="">Họ và tên <span class="text-red-600">*</span></label>
+                        <input class="fullname" formControlName="fullName" type="text" [ngClass]="{'invalid': getForm.fullName.errors && getForm.fullName.touched}">
+
+                        <label for="">Số điện thoại <span class="text-red-600">*</span></label>
+                        <input class="phone-number" formControlName="phoneNumber" type="text" [ngClass]="{'invalid': getForm.phoneNumber.errors && getForm.phoneNumber.touched}">
+
                         <label for="">Địa chỉ</label>
-                        <input class="address" type="text">
-                        <label for="">Thành phố/Tỉnh</label>
-                        <select class="province" type="text" (change)="getDistrict($event.target)">
+                        <input class="address" formControlName="address" type="text">
+
+                        <label for="">Thành phố/Tỉnh <span class="text-red-600">*</span></label>
+                        <select class="province" formControlName="province" type="text" (change)="getDistrict($event.target)">
                             <option selected hidden></option>
                             <option *ngFor="let item of listProvince" value="{{item.code}}">{{item.name}}</option>
                         </select>
-                        <label for="">Quận/Huyện</label>
-                        <select class="district" type="text" (change)="getWard($event.target)">
+
+                        <label for="">Quận/Huyện <span class="text-red-600">*</span></label>
+                        <select class="district" formControlName="district" type="text" (change)="getWard($event.target)">
                             <option selected hidden></option>
                             <option *ngFor="let item of listDistrict" (click)="getWard(item.code)" value="{{item.code}}">{{item.name}}</option>
                         </select>
-                        <label for="">Phường/Xã</label>
-                        <select class="wards" type="text">
+
+                        <label for="">Phường/Xã <span class="text-red-600">*</span></label>
+                        <select class="ward" formControlName="ward" type="text" (change)="setWard($event.target)">
                             <option selected hidden></option>
                             <option *ngFor="let item of listWard" value="{{item.code}}">{{item.name}}</option>
                         </select>
+
                         <label for="">Ghi chú cho shop nà <fa-icon class="text-red-600" [icon]="faHeart"></fa-icon></label>
                         <div class="note">
-                            <textarea name="note" id="" cols="30" rows="2"></textarea>
+                            <textarea name="note" id="" cols="30" rows="2" maxlength="250" placeholder="250 kí tự"></textarea>
                         </div>
                     </form>
                 </div>
@@ -127,9 +136,9 @@
                         <fa-icon class="icon" [icon]="faCaretLeft"></fa-icon>
                         Quay về giỏ hàng
                     </div>
-                    <div class="done">
+                    <button class="done" (click)="submitForm()" [ngClass]="{'disabled' : orderForm.invalid}" [disabled]="orderForm.invalid">
                         Đặt hàng
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>

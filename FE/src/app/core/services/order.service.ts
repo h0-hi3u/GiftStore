@@ -1,3 +1,4 @@
+import { OrderCreateRequestDto } from './../models/Order/orderCreateRequestDto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
@@ -9,7 +10,8 @@ import { environment } from 'src/environment/environment';
 })
 export class OrderService {
     private urlOrdersOfUser = 'Order';
-    private urlOrderDetail = 'Order/detail'
+    private urlOrderDetail = 'Order/detail';
+    private urlCreateOrderUser = 'Order/create-user';
     constructor(private http: HttpClient){}
 
     public getOrdersOfUser(email: string) : Observable<ResponseDto> {
@@ -20,6 +22,11 @@ export class OrderService {
     public getOrderDetail(id: string) : Observable<ResponseDto> {
         return this.http.get<ResponseDto>(
             `${environment.urlApi}/${this.urlOrderDetail}/${id}`
+        );
+    }
+    public createOrderForUser(orderCreateRequestDto: OrderCreateRequestDto) : Observable<ResponseDto> {
+        return this.http.post<ResponseDto>(
+            `${environment.urlApi}/${this.urlCreateOrderUser}`, orderCreateRequestDto
         );
     }
 }

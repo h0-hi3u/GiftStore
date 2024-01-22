@@ -1,11 +1,21 @@
+import { OrderService } from './../../../core/services/order.service';
 import { AuthService } from './../../../core/services/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { AddressService } from './../../../core/services/address.service';
 import { District } from './../../../core/models/Addresses/district';
 import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCircleUser, faCaretLeft, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCircleUser,
+  faCaretLeft,
+  faMoneyBill,
+} from '@fortawesome/free-solid-svg-icons';
 import { Province } from 'src/app/core/models/Addresses/province';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { Ward } from 'src/app/core/models/Addresses/ward';
@@ -39,32 +49,50 @@ export class CheckoutPageComponent implements OnInit {
   isLoggedIn: boolean = false;
   isChooseCOD: boolean = false;
   isChooseQR: boolean = false;
+  email: string = '';
+  fullName: string = '';
+  orderForm: any;
+  nameProvince: string = '';
+  nameDistrict: string = '';
+  nameWard: string = '';
   constructor(
     private router: Router,
     public helperNumber: HelperNumber,
     private addressService: AddressService,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private orderService: OrderService
   ) {}
   ngOnInit(): void {
-    this.addressService.getAllProvince().subscribe(res => {
+    this.getInfoUser();
+    this.addressService.getAllProvince().subscribe((res) => {
       this.listProvince = res;
-    })
+    });
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.orderForm = this.formBuilder.group({
+      email: new FormControl(this.email, [
+        Validators.required,
+        Validators.email,
+      ]),
+      fullName: new FormControl(this.fullName, [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      address: new FormControl(''),
+      province: new FormControl('', [Validators.required]),
+      district: new FormControl('', [Validators.required]),
+      ward: new FormControl('', [Validators.required]),
+      note: new FormControl(''),
+    });
   }
-  orderForm = this.formBuilder.group({
-    email: new FormGroup("", [Validators.required, Validators.email]),
-    fullName: new FormGroup('', [Validators.required]),
-    phoneNumber: new FormGroup('', [Validators.required]),
-    address: new FormGroup(''),
-    province: new FormGroup('', [Validators.required]),
-    district: new FormGroup('', [Validators.required]),
-    ward: new FormGroup('', [Validators.required]),
-    note: new FormGroup('')
-  });
+  public getInfoUser() {
+    const token = localStorage.getItem('access_token') || '';
+    let a = this.authService.getInfoToken(token);
+    this.fullName = a.name;
+    this.email = a.email;
+  }
   get getForm() {
     return this.orderForm.controls;
   }
+
   public backToHome() {
     this.router.navigate(['/']);
   }
@@ -74,17 +102,35 @@ export class CheckoutPageComponent implements OnInit {
   public getDistrict(element: any) {
     const a = element as HTMLSelectElement;
     const code = parseInt(a.value);
-    this.addressService.getDistrict(code).subscribe(res => {
+
+    this.addressService.getDistrict(code).subscribe((res) => {
       this.listDistrict = res.districts;
-    })
+    });
     this.listWard = [];
+    const p = this.listProvince.filter((value) => {
+      return (value.code == code);
+    });
+    this.nameProvince = p[0].name;
   }
   public getWard(element: any) {
     const a = element as HTMLSelectElement;
     const code = parseInt(a.value);
-    this.addressService.getWard(code).subscribe(res => {
+
+    this.addressService.getWard(code).subscribe((res) => {
       this.listWard = res.wards;
-    })
+    });
+    const d = this.listDistrict.filter((value) => {
+      return (value.code == code);
+    });
+    this.nameDistrict = d[0].name;
+  }
+  public setWard(element: any) {
+    const a = element as HTMLSelectElement;
+    const code = parseInt(a.value);
+    const w = this.listWard.filter((value) => {
+      return (value.code == code);
+    });
+    this.nameWard = w[0].name;
   }
   public chooseCOD(): void {
     this.isChooseCOD = true;
@@ -94,5 +140,8 @@ export class CheckoutPageComponent implements OnInit {
     this.isChooseQR = true;
     this.isChooseCOD = false;
   }
-  
+  public submitForm() {
+    const address = `${this.nameProvince}, ${this.nameDistrict}, ${this.nameWard}, ${this.getForm.address.value}`;
+    console.log(address);
+  }
 }

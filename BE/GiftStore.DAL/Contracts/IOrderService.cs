@@ -6,7 +6,7 @@ namespace GiftStore.DAL.Contracts;
 public interface IOrderService
 {
     Task<AppActionResult> GetOrdersOfUser(string email);
-    Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto, string email);
+    Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto);
     Task<AppActionResult> CreateOrderForGuest(OrderCreateRequestDto orderCreateRequestDto);
     Task<AppActionResult> GetDetailAsync(string id);
 }

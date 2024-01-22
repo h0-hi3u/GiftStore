@@ -93,10 +93,12 @@ public class MappingProfile : Profile
     private void OrderMappingProfile()
     {
         CreateMap<Order, OrderShowResponse>();
+        CreateMap<OrderCreateRequestDto, Order>();
     }
     private void OrderDetailMappingProfile()
     {
         CreateMap<OrderDetail, OrderDetailShowResponseDto>();
+        CreateMap<OrderDetailCreateDto, OrderDetail>();
     }
     private void PaymentMethodMappingProfile()
     {
