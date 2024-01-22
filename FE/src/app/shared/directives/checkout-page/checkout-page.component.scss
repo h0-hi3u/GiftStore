@@ -100,16 +100,12 @@
                         .price-delivery {
                             display: flex;
                             align-items: center;
+                            justify-content: space-around;
                             height: 48px;
                             border: 1px solid #545454;
                             border-radius: 5px;
                             font-size: 14px;
                             font-weight: 500;
-                            input {
-                                width: 18px;
-                                height: 18px;
-                                margin: 0 10px;
-                            }
                             label {
                                 flex-grow: 1;
                             }
@@ -123,6 +119,58 @@
                         .title {
                             font-size: 19px;
                             font-weight: 600;
+                        }
+                        .cod {
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            min-height: 57px;
+                            border: 1px solid var(--primary-gray);
+                            border-radius: 5px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            label {
+                                width: 70%;
+                            }
+                            .selected {
+                                background-color: var(--primary-pink) !important;
+                            }
+                        }
+                        .description-COD {
+                            width: 100%;
+                            height: 50px;
+                            background-color: #f8f8f8;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-left: 1px solid var(--primary-gray);
+                            border-right: 1px solid var(--primary-gray);
+                        }
+                        .qr-code {
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            min-height: 57px;
+                            border: 1px solid var(--primary-gray);
+                            border-radius: 5px;
+                            font-size: 14px;
+                            font-weight: 500;
+                            label {
+                                width: 70%;
+                            }
+                            .selected {
+                                background-color: var(--primary-pink) !important;
+                            }
+                        }
+                        .description-QR {
+                            width: 100%;
+                            background-color: #f8f8f8;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-left: 1px solid var(--primary-gray);
+                            border-right: 1px solid var(--primary-gray);
+                            border-bottom: 1px solid var(--primary-gray);
                         }
                     }
                 }
@@ -200,6 +248,7 @@
                 border-bottom: 1px solid #e1e1e1;
                 input {
                     border: 1px solid var(--primary-gray);
+                    padding: 0 10px;
                     height: 44px;
                     width: 70%;
                     border-radius: 5px;

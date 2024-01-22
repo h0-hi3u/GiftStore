@@ -57,14 +57,13 @@ public class OrderService : GenericService, IOrderService
         return actionResult.BuildResult(result);
 
     }
-    public Task<AppActionResult> CreateOrderForGuest()
+    public Task<AppActionResult> CreateOrderForGuest(OrderCreateRequestDto orderCreateRequestDto)
     {
         throw new NotImplementedException();
     }
 
-    public Task<AppActionResult> CreateOrderForUser(string email)
+    public Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto, string email)
     {
         throw new NotImplementedException();
     }
-
 }

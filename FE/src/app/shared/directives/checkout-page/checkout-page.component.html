@@ -42,45 +42,39 @@
                             <textarea name="note" id="" cols="30" rows="2"></textarea>
                         </div>
                     </form>
-
-                    <!-- <div class="other-receiver">
-                        <input type="checkbox" class="mr-2">
-                        <label for="">Giao hàng đến địa chỉ khác</label>
-                    </div> -->
-                    <!-- <form class="form">
-                        <label for="">email</label>
-                        <input class="email" type="text">
-                        <label for="">fullname</label>
-                        <input class="fullname" type="text">
-                        <label for="">phone-number</label>
-                        <input class="phone-number" type="text">
-                        <label for="">address</label>
-                        <input class="address" type="text">
-                        <label for="">province</label>
-                        <input class="province" type="text">
-                        <label for="">district</label>
-                        <input class="district" type="text">
-                        <label for="">wards</label>
-                        <input class="wards" type="text">
-                    </form> -->
-
                 </div>
                 <div class="delivery-payment">
                     <div class="delivery">
                         <div class="title">Vận chuyển</div>
                         <div class="price-delivery">
-                            <input type="radio">
+                            <div class="h-5 w-5 rounded-[50%] mx-4 bg-[#c83252] border border-gray-400" [ngClass]="{'selected' : isChooseQR}">
+                                
+                            </div>
                             <label>Giao hàng tận nơi</label>
                             <span>20000d</span>
                         </div>
                     </div>
                     <div class="payment">
                         <div class="title">Thanh toán</div>
-                        <div class="cod">
-                            COD
+                        <div class="cod" (click)="chooseCOD()">
+                            <div class="mx-4 h-5 w-5 rounded-[50%] bg-white border border-gray-400" [ngClass]="{'selected' : isChooseCOD}" >
+                                
+                            </div>
+                            <label>Thanh toán khi giao hàng (COD)</label>
+                            <fa-icon [icon]="faMoneyBill" size="xl"></fa-icon>
                         </div>
-                        <div class="qr-code">
-                            QR CODE
+                        <div class="description-COD" *ngIf="isChooseCOD">
+                            Bạn chỉ phải thanh toán khi nhận được hàng
+                        </div>
+                        <div class="qr-code" (click)="chooseQR()">
+                            <div class="mx-4 h-5 w-5 rounded-[50%] bg-white border border-gray-400" [ngClass]="{'selected' : isChooseQR}">
+                                
+                            </div>
+                            <label>Chuyển khoản qua ngân hàng </label>
+                            <fa-icon [icon]="faMoneyBill" size="xl"></fa-icon>
+                        </div>
+                        <div class="description-QR" *ngIf="isChooseQR">
+                            <img src="../../../../assets/image/QR_code_for_mobile_English_Wikipedia.svg" alt="">
                         </div>
                     </div>
                 </div>

@@ -8,6 +8,7 @@ BEGIN
 		[OrderStatus]				INT							NOT NULL,
 		[PaymentMethodId]			UNIQUEIDENTIFIER			NOT NULL,
 		[TotalPrice]				FLOAT						NOT NULL,
+		[Address]					NVARCHAR(MAX)				NOT NULL,
 	);
 
 	ALTER TABLE [Order]

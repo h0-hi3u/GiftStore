@@ -14,7 +14,7 @@
             <tr class="order" *ngFor="let order of listOrder">
                 <td class="id" (click)="goToOrderDetail(order.id)">{{order.id}}</td>
                 <td>{{helperDate.formatDateYearMonthDay(order.timeCreate)}}</td>
-                <td>Địa chỉ</td>
+                <td>{{order.address}}</td>
                 <td>{{helperNumber.formatPrice(order.totalPrice)}}</td>
                 <td>{{order.paymentMethod.name}}</td>
             </tr>

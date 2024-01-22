@@ -6,4 +6,5 @@ export interface OrderShowResponseDto {
     orderStatus: number,
     paymentMethod: PaymentMethodDto,
     totalPrice: number,
+    address: string,
 }

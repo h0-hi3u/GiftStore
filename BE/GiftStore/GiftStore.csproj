@@ -23,19 +23,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\01.Supplier.sql" />
-    <EmbeddedResource Include="Scripts\02.Tag.sql" />
-    <EmbeddedResource Include="Scripts\03.Category.sql" />
-    <EmbeddedResource Include="Scripts\05.Collection.sql" />
-    <EmbeddedResource Include="Scripts\06.ProductTag.sql" />
-    <EmbeddedResource Include="Scripts\04.Product.sql" />
-    <EmbeddedResource Include="Scripts\07.ImageProduct.sql" />
-    <EmbeddedResource Include="Scripts\08.BestSeller.sql" />
-    <EmbeddedResource Include="Scripts\09.User.sql" />
-    <EmbeddedResource Include="Scripts\10.PaymentMethod.sql" />
-    <EmbeddedResource Include="Scripts\11.Order.sql" />
-    <EmbeddedResource Include="Scripts\12.OrderDetail.sql" />
-    <EmbeddedResource Include="Scripts\13.CollectionProduct.sql" />
+    <EmbeddedResource Include="Scripts\V1\01.Supplier.sql" />
+    <EmbeddedResource Include="Scripts\V1\02.Tag.sql" />
+    <EmbeddedResource Include="Scripts\V1\03.Category.sql" />
+    <EmbeddedResource Include="Scripts\V1\05.Collection.sql" />
+    <EmbeddedResource Include="Scripts\V1\06.ProductTag.sql" />
+    <EmbeddedResource Include="Scripts\V1\04.Product.sql" />
+    <EmbeddedResource Include="Scripts\V1\07.ImageProduct.sql" />
+    <EmbeddedResource Include="Scripts\V1\08.BestSeller.sql" />
+    <EmbeddedResource Include="Scripts\V1\09.User.sql" />
+    <EmbeddedResource Include="Scripts\V1\10.PaymentMethod.sql" />
+    <EmbeddedResource Include="Scripts\V1\11.Order.sql" />
+    <EmbeddedResource Include="Scripts\V1\12.OrderDetail.sql" />
+    <EmbeddedResource Include="Scripts\V1\13.CollectionProduct.sql" />
   </ItemGroup>
 
   <ItemGroup>

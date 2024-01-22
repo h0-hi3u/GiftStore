@@ -5,7 +5,7 @@ import { District } from './../../../core/models/Addresses/district';
 import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faCircleUser, faCaretLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUser, faCaretLeft, faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 import { Province } from 'src/app/core/models/Addresses/province';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { Ward } from 'src/app/core/models/Addresses/ward';
@@ -20,6 +20,7 @@ export class CheckoutPageComponent implements OnInit {
   faCircleUser = faCircleUser;
   faCaretLeft = faCaretLeft;
   faHeart = faHeart;
+  faMoneyBill = faMoneyBill;
   cartUser: CartItem[] = JSON.parse(
     localStorage.getItem('cartUser') || JSON.stringify([])
   );
@@ -36,7 +37,8 @@ export class CheckoutPageComponent implements OnInit {
   listDistrict: District[] = [];
   listWard: Ward[] = [];
   isLoggedIn: boolean = false;
-
+  isChooseCOD: boolean = false;
+  isChooseQR: boolean = false;
   constructor(
     private router: Router,
     public helperNumber: HelperNumber,
@@ -84,4 +86,13 @@ export class CheckoutPageComponent implements OnInit {
       this.listWard = res.wards;
     })
   }
+  public chooseCOD(): void {
+    this.isChooseCOD = true;
+    this.isChooseQR = false;
+  }
+  public chooseQR(): void {
+    this.isChooseQR = true;
+    this.isChooseCOD = false;
+  }
+  
 }
