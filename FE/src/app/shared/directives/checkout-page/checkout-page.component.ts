@@ -1,3 +1,5 @@
+import { HelperValidate } from './../../../core/helpers/helperValidate';
+import { ResponseDto } from './../../../core/models/responseDto';
 import { OrderService } from './../../../core/services/order.service';
 import { AuthService } from './../../../core/services/auth.service';
 import {
@@ -20,6 +22,8 @@ import { Province } from 'src/app/core/models/Addresses/province';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { Ward } from 'src/app/core/models/Addresses/ward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { OrderCreateRequestDto } from 'src/app/core/models/Order/orderCreateRequestDto';
+import { OrderDetailCreateRequestDto } from 'src/app/core/models/Order/orderDetailCreateRequestDto';
 
 @Component({
   selector: 'app-checkout-page',
@@ -61,7 +65,8 @@ export class CheckoutPageComponent implements OnInit {
     private addressService: AddressService,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private helperValidate: HelperValidate
   ) {}
   ngOnInit(): void {
     this.getInfoUser();
@@ -75,7 +80,7 @@ export class CheckoutPageComponent implements OnInit {
         Validators.email,
       ]),
       fullName: new FormControl(this.fullName, [Validators.required]),
-      phoneNumber: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required, this.helperValidate.phoneNumberValidator]),
       address: new FormControl(''),
       province: new FormControl('', [Validators.required]),
       district: new FormControl('', [Validators.required]),
@@ -140,8 +145,34 @@ export class CheckoutPageComponent implements OnInit {
     this.isChooseQR = true;
     this.isChooseCOD = false;
   }
-  public submitForm() {
+  public submitOrderForm() {
     const address = `${this.nameProvince}, ${this.nameDistrict}, ${this.nameWard}, ${this.getForm.address.value}`;
-    console.log(address);
+    const order: OrderCreateRequestDto = {} as OrderCreateRequestDto;
+    order.email = this.getForm.email.value;
+    order.fullName = this.getForm.fullName.value;
+    order.paymentMethodId = "EC483464-F2E7-4910-A35D-0A8E9C6D3EDE";
+    order.address = address;
+    order.orderDetails = [];
+    for(let i = 0; i < this.cartUser.length; i++) {
+      let orderDetail: OrderDetailCreateRequestDto = {} as OrderDetailCreateRequestDto;
+      orderDetail.productId = this.cartUser[i].id;
+      orderDetail.price = this.cartUser[i].price;
+      orderDetail.quantity = this.cartUser[i].quantity;
+      orderDetail.discount = 0;
+      order.orderDetails.push(orderDetail);
+    }
+    order.note = this.getForm.note.value;
+    console.log(order);
+    
+    this.orderService.createOrderForUser(order).subscribe((res : ResponseDto) => {
+      if(res.isSuccess) {
+        if(localStorage.getItem('cartUser')) {
+          localStorage.removeItem('cartUser');
+        }
+        this.router.navigate(['account/orders']);
+      } else {
+        alert(res.detail);
+      }
+    })
   }
 }

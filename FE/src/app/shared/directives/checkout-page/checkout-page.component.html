@@ -15,8 +15,6 @@
                             </div>
                         </div>
                         <label for="">Email <span class="text-red-600">*</span></label>
-                        <span *ngIf="orderForm.get('email')?.hasError('required') && orderForm.get('email')?.touched" class="text-red-600 text-[14px]">Please fill in blank</span>
-                        <span *ngIf="orderForm.get('email')?.hasError('email')  && orderForm.get('email')?.touched" class="text-red-600 text-[14px]">Please include '@' in email address</span>
                         <input class="email" type="text" formControlName="email" [ngClass]="{'invalid': getForm.email.errors && getForm.email.touched}">
 
                         <label for="">Họ và tên <span class="text-red-600">*</span></label>
@@ -48,7 +46,7 @@
 
                         <label for="">Ghi chú cho shop nà <fa-icon class="text-red-600" [icon]="faHeart"></fa-icon></label>
                         <div class="note">
-                            <textarea name="note" id="" cols="30" rows="2" maxlength="250" placeholder="250 kí tự"></textarea>
+                            <textarea formControlName="note" name="note" id="" cols="30" rows="2" maxlength="250" placeholder="250 kí tự"></textarea>
                         </div>
                     </form>
                 </div>
@@ -136,7 +134,7 @@
                         <fa-icon class="icon" [icon]="faCaretLeft"></fa-icon>
                         Quay về giỏ hàng
                     </div>
-                    <button class="done" (click)="submitForm()" [ngClass]="{'disabled' : orderForm.invalid}" [disabled]="orderForm.invalid">
+                    <button class="done" (click)="submitOrderForm()" [ngClass]="{'disabled' : orderForm.invalid}" [disabled]="orderForm.invalid">
                         Đặt hàng
                     </button>
                 </div>

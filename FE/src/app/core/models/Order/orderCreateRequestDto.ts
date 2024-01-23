@@ -5,6 +5,6 @@ export interface OrderCreateRequestDto {
     fullName: string,
     paymentMethodId: string,
     address: string,
-    orderDetail: OrderDetailCreateRequestDto[],
+    orderDetails: OrderDetailCreateRequestDto[],
     note: string,
 }

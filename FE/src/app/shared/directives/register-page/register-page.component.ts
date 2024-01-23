@@ -1,3 +1,4 @@
+import { HelperValidate } from './../../../core/helpers/helperValidate';
 import { UserRegisterDto } from './../../../core/models/User/userRegisterDto';
 import { UserService } from './../../../core/services/user.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -12,26 +13,20 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
 })
 export class RegisterPageComponent {
   isEmailNotExist: boolean = true;
-  constructor(private router: Router, private formBuilder: FormBuilder, private userService: UserService) {}
+  constructor(
+    private router: Router,
+     private formBuilder: FormBuilder,
+      private userService: UserService,
+      private helperValidate: HelperValidate) {}
   registerForm = this.formBuilder.group({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required, this.phoneNumberValidator]),
+    phoneNumber: new FormControl('', [Validators.required, this.helperValidate.phoneNumberValidator]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   }); 
   get getForm() {
     return this.registerForm.controls;
-  }
-  public phoneNumberValidator(control: any) {
-    const phoneNumber = control.value;
-    if (phoneNumber && phoneNumber.charAt(0) !== '0') {
-      return { invalidStart: true };
-    }
-    if (phoneNumber && phoneNumber.length !== 10) {
-      return { invalidLength: true };
-    }
-    return null;
   }
   public register() {
     if (this.registerForm.valid) {
