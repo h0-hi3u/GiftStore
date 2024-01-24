@@ -30,9 +30,9 @@ public class OrderController : ControllerBase
         return Ok(result);
     }
     [HttpPost("create-user")]
-    public async Task<IActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto)
+    public async Task<IActionResult> CreateOrder(OrderCreateRequestDto orderCreateRequestDto)
     {
-        var result = await _orderService.CreateOrderForUser(orderCreateRequestDto);
+        var result = await _orderService.CreateOrder(orderCreateRequestDto);
         return Ok(result);
     }
 }

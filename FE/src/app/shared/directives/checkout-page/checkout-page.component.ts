@@ -46,7 +46,7 @@ export class CheckoutPageComponent implements OnInit {
     this.cartUser.reduce((total, current) => {
       return total + current.quantity;
     }, 0) || 0;
-
+  paymentMethodId: string = '3D4988B2-E8F2-4763-9B7A-7B29281420B6';
   listProvince: Province[] = [];
   listDistrict: District[] = [];
   listWard: Ward[] = [];
@@ -90,9 +90,11 @@ export class CheckoutPageComponent implements OnInit {
   }
   public getInfoUser() {
     const token = localStorage.getItem('access_token') || '';
-    let a = this.authService.getInfoToken(token);
-    this.fullName = a.name;
-    this.email = a.email;
+    if(token) {
+      let a = this.authService.getInfoToken(token);
+      this.fullName = a.name;
+      this.email = a.email;
+    }
   }
   get getForm() {
     return this.orderForm.controls;
@@ -138,10 +140,12 @@ export class CheckoutPageComponent implements OnInit {
     this.nameWard = w[0].name;
   }
   public chooseCOD(): void {
+    this.paymentMethodId = '3D4988B2-E8F2-4763-9B7A-7B29281420B6';
     this.isChooseCOD = true;
     this.isChooseQR = false;
   }
   public chooseQR(): void {
+    this.paymentMethodId = 'EC483464-F2E7-4910-A35D-0A8E9C6D3EDE';
     this.isChooseQR = true;
     this.isChooseCOD = false;
   }
@@ -150,7 +154,9 @@ export class CheckoutPageComponent implements OnInit {
     const order: OrderCreateRequestDto = {} as OrderCreateRequestDto;
     order.email = this.getForm.email.value;
     order.fullName = this.getForm.fullName.value;
-    order.paymentMethodId = "EC483464-F2E7-4910-A35D-0A8E9C6D3EDE";
+    order.paymentMethodId = this.paymentMethodId;
+    console.log(this.paymentMethodId);
+    
     order.address = address;
     order.orderDetails = [];
     for(let i = 0; i < this.cartUser.length; i++) {
@@ -169,7 +175,11 @@ export class CheckoutPageComponent implements OnInit {
         if(localStorage.getItem('cartUser')) {
           localStorage.removeItem('cartUser');
         }
-        this.router.navigate(['account/orders']);
+        if(this.authService.isLoggedIn()) {
+          this.router.navigate(['account/orders']);
+        } else {
+          this.router.navigate(['']);
+        }
       } else {
         alert(res.detail);
       }

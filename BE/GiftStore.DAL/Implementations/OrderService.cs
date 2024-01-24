@@ -50,17 +50,17 @@ public class OrderService : GenericService, IOrderService
     public async Task<AppActionResult> GetOrdersOfUser(string email)
     {
         var actionResult = new AppActionResult();
-        User user = await _userRepo.Entities().Include(u => u.Order).SingleOrDefaultAsync(u => u.Email == email);
+        User user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == email);
         if (user == null)
         {
             return actionResult.BuildError(MessageConstants.ERR_NOT_EXIST_EMAIL);
         }
-        //List<Order> listOrder = await _orderRepo.Entities().Include(o => o.PaymentMethod).Where(o => o.UserId == user.Id).ToListAsync();
+        List<Order> listOrder = await _orderRepo.Entities().Include(o => o.PaymentMethod).Where(o => o.UserId == user.Id).ToListAsync();
         var result = _mapper.Map<IEnumerable<OrderShowResponse>>(user.Order);
         return actionResult.BuildResult(result);
 
     }
-    public async Task<AppActionResult> CreateOrderForUser(OrderCreateRequestDto orderCreateRequestDto)
+    public async Task<AppActionResult> CreateOrder(OrderCreateRequestDto orderCreateRequestDto)
     {
         var actionResult = new AppActionResult();
         string email = orderCreateRequestDto.Email;
@@ -77,25 +77,21 @@ public class OrderService : GenericService, IOrderService
                 order.UserId = null;
             }
             order.OrderStatus = OrderConstants.ORDER_STATUS_SPENDING;
-            order.TotalPrice = 0;
-            await _orderRepo.AddAsync(order);
-            //await _unitOfWork.Commit();
             double totalPrice = 0;
-            List<OrderDetail> listOD = new List<OrderDetail>();
-            foreach (var od in orderCreateRequestDto.OrderDetails)
+            foreach(var od in orderCreateRequestDto.OrderDetails)
             {
                 double a = (double)(od.Price * od.Quantity - (od.Price * od.Quantity * (od.Discount / 100)));
                 totalPrice = totalPrice + a;
-                var orderDetail = _mapper.Map<OrderDetail>(od);
-                var product = await _productRepo.GetAsync(od.ProductId);
-                orderDetail.OrderId = order.Id;
-                orderDetail.ProductId = product.Id;
-                orderDetail.Product = product;
-                await _orderDetailRepo.AddAsync(orderDetail);
-                //await _unitOfWork.Commit();
-                listOD.Add(orderDetail);
             }
-            _orderRepo.Update(order);
+            order.TotalPrice = totalPrice;
+            order.TimeCreate = DateTime.Now;
+            await _orderRepo.AddAsync(order);
+            await _unitOfWork.Commit();
+            foreach(var od in order.OrderDetails)
+            {
+                var product = await _productRepo.GetAsync(od.ProductId);
+                product.Quantity -=  od.Quantity;
+            }
             await _unitOfWork.Commit();
             return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
         }

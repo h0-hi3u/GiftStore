@@ -34,7 +34,13 @@ export class AuthService {
   public isLoggedIn() {
     var token = localStorage.getItem('access_token');
     if (token) {
-      return this.tokenExpired(token);
+      if (this.tokenExpired(token)) {
+        return true;
+      }
+      else {
+        localStorage.removeItem('access_token');
+        return false;
+      }
     }
     return false;
   }

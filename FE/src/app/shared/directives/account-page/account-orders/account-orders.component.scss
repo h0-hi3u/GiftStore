@@ -37,6 +37,7 @@
         .list-orders {
             .order {
                 padding: 10px;
+                border-bottom: 1px solid var(--primary-gray);
                 td {
                     height: 35px;
                 }
