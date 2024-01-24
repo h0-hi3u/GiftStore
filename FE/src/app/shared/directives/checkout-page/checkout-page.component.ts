@@ -1,3 +1,4 @@
+import { PaymentService } from './../../../core/services/payment.service';
 import { HelperValidate } from './../../../core/helpers/helperValidate';
 import { ResponseDto } from './../../../core/models/responseDto';
 import { OrderService } from './../../../core/services/order.service';
@@ -24,6 +25,7 @@ import { Ward } from 'src/app/core/models/Addresses/ward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { OrderCreateRequestDto } from 'src/app/core/models/Order/orderCreateRequestDto';
 import { OrderDetailCreateRequestDto } from 'src/app/core/models/Order/orderDetailCreateRequestDto';
+import { PaymentMethodDto } from 'src/app/core/models/PaymentMethod/paymentMethodDto';
 
 @Component({
   selector: 'app-checkout-page',
@@ -50,6 +52,7 @@ export class CheckoutPageComponent implements OnInit {
   listProvince: Province[] = [];
   listDistrict: District[] = [];
   listWard: Ward[] = [];
+  listPaymentMethod: PaymentMethodDto[] = [];
   isLoggedIn: boolean = false;
   isChooseCOD: boolean = false;
   isChooseQR: boolean = false;
@@ -66,9 +69,16 @@ export class CheckoutPageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private orderService: OrderService,
-    private helperValidate: HelperValidate
+    private helperValidate: HelperValidate,
+    private paymentService: PaymentService
   ) {}
   ngOnInit(): void {
+    this.paymentService.getAll().subscribe((res: ResponseDto) => {
+      this.listPaymentMethod = res.data;
+      if(this.listPaymentMethod.length > 0) {
+        this.paymentMethodId = this.listPaymentMethod[0].id;
+      };
+    })
     this.getInfoUser();
     this.addressService.getAllProvince().subscribe((res) => {
       this.listProvince = res;
@@ -140,12 +150,18 @@ export class CheckoutPageComponent implements OnInit {
     this.nameWard = w[0].name;
   }
   public chooseCOD(): void {
-    this.paymentMethodId = '3D4988B2-E8F2-4763-9B7A-7B29281420B6';
+    const paymentMethod = this.listPaymentMethod.find(item => {
+      return item.name == 'COD'
+    })
+    this.paymentMethodId = paymentMethod?.id || '';
     this.isChooseCOD = true;
     this.isChooseQR = false;
   }
   public chooseQR(): void {
-    this.paymentMethodId = 'EC483464-F2E7-4910-A35D-0A8E9C6D3EDE';
+    const paymentMethod = this.listPaymentMethod.find(item => {
+      return item.name == 'Momo'
+    })
+    this.paymentMethodId = paymentMethod?.id || '';
     this.isChooseQR = true;
     this.isChooseCOD = false;
   }
@@ -155,8 +171,6 @@ export class CheckoutPageComponent implements OnInit {
     order.email = this.getForm.email.value;
     order.fullName = this.getForm.fullName.value;
     order.paymentMethodId = this.paymentMethodId;
-    console.log(this.paymentMethodId);
-    
     order.address = address;
     order.orderDetails = [];
     for(let i = 0; i < this.cartUser.length; i++) {
