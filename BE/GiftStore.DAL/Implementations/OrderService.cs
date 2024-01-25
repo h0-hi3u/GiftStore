@@ -84,7 +84,7 @@ public class OrderService : GenericService, IOrderService
                 totalPrice = totalPrice + a;
             }
             order.TotalPrice = totalPrice;
-            order.TimeCreate = DateTime.Now;
+            //order.TimeCreate = DateTime.Now;
             await _orderRepo.AddAsync(order);
             await _unitOfWork.Commit();
             foreach(var od in order.OrderDetails)

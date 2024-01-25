@@ -4,7 +4,7 @@ BEGIN
 	CREATE TABLE [Order] (
 		[Id]						UNIQUEIDENTIFIER			PRIMARY KEY			DEFAULT NEWID(),
 		[UserId]					UNIQUEIDENTIFIER,
-		[TimeCreate]				DATETIME					NOT NULL			DEFAULT GETUTCDATE(),
+		[TimeCreate]				DATETIME					NOT NULL			DEFAULT GETDATE(),
 		[FullName]					NVARCHAR(250),
 		[OrderStatus]				INT							NOT NULL,
 		[PaymentMethodId]			UNIQUEIDENTIFIER			NOT NULL,

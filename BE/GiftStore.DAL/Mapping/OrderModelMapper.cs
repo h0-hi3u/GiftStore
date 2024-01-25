@@ -16,6 +16,7 @@ public class OrderModelMapper : IModelMapper
         modelBuilder.Entity<Order>(entity =>
         {
             entity.ToTable(nameof(Order));
+            entity.Property(o => o.TimeCreate).HasDefaultValueSql("GETDATE()");
         });
     }
 }
