@@ -5,8 +5,9 @@ using GiftStore.Core.Constants;
 using GiftStore.Core.Contracts;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.BestSeller;
+using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Entity;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 
 namespace GiftStore.DAL.Implementations;
@@ -16,6 +17,7 @@ public class BestSellerService : GenericService, IBestSellerService
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepository<BestSeller> _bestSellerRepo;
     private readonly IRepository<OrderDetail> _orderDetailRepo;
+    private readonly IRepository<Product> _productRepo;
     private readonly IMapper _mapper;
 
     public BestSellerService(ILifetimeScope scope, IMapper mapper) : base(scope)
@@ -23,6 +25,7 @@ public class BestSellerService : GenericService, IBestSellerService
         _unitOfWork = Resolve<IUnitOfWork>();
         _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
         _orderDetailRepo = _unitOfWork.Repository<OrderDetail>();
+        _productRepo = _unitOfWork.Repository<Product>();
         _mapper = mapper;
     }
 
@@ -109,5 +112,21 @@ public class BestSellerService : GenericService, IBestSellerService
         var result = _mapper.Map<List<BestSeller>>(data);
         await _bestSellerRepo.AddRangeAsync(result);
         await _unitOfWork.Commit();
+    }
+
+    public async Task<AppActionResult> GetProductBestSeller()
+    {
+        var actionResult = new AppActionResult();
+        var listBSId = _bestSellerRepo.Entities().Select(bs => bs.ProductId).ToList().Distinct();
+        List<Product> listProduct = new List<Product>();
+         
+        foreach(var item in listBSId)
+        {
+            var a = await _productRepo.GetAsync(item);
+            Product? product = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == item);
+            listProduct.Add(product);
+        }
+        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listProduct);
+        return actionResult.BuildResult(data);
     }
 }

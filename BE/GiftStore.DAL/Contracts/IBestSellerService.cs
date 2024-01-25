@@ -10,4 +10,5 @@ public interface IBestSellerService
     Task<AppActionResult> CrateAsync(BestSellerCreateRequestDto bestSellerCreateRequestDto);
     Task<AppActionResult> DeleteAsync(string id);
     Task UpdateBestSeller();
+    Task<AppActionResult> GetProductBestSeller();
 }

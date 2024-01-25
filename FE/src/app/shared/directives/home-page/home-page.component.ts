@@ -10,6 +10,7 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
 import { HelperNumber } from '../../../core/helpers/helperNumber';
 import { CartItem } from 'src/app/core/models/cartItem';
 import { Router } from '@angular/router';
+import { BestSellerService } from 'src/app/core/services/bestSeller.service';
 
 @Component({
   selector: 'app-home-page',
@@ -25,8 +26,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
   cartUser: CartItem[] = JSON.parse(
     localStorage.getItem('cartUser') || JSON.stringify([])
   );
-
+  listBestSeller: ProductShowDto[] = [];
   ngOnInit(): void {
+    this.getNewProduct();
+    this.getBestSeller();
     this.showDiv(this.slideIndex);
   }
   ngOnDestroy(): void {
@@ -34,10 +37,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
   }
   constructor(
     private productService: ProductService,
+    private bestSellerService: BestSellerService,
     public helperNumber : HelperNumber,
     private communicationService: CommunicationService,
     private router: Router  ) {
-    this.getNewProduct();
+
   }
   //#region  slide show banner
   public plusDiv(n: number) {
@@ -88,6 +92,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.productService.getNewProduct().subscribe((res: ResponseDto) => {
       this.listNewProduct = res.data;
     });
+  }
+  public getBestSeller() {
+    this.bestSellerService.GetAll().subscribe((res: ResponseDto) => {
+      this.listBestSeller = res.data;
+    })
   }
   //#endregion
   public addToCart(id: string) {

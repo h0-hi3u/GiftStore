@@ -7,6 +7,5 @@ public interface IOrderService
 {
     Task<AppActionResult> GetOrdersOfUser(string email);
     Task<AppActionResult> CreateOrder(OrderCreateRequestDto orderCreateRequestDto);
-    Task<AppActionResult> CreateOrderForGuest(OrderCreateRequestDto orderCreateRequestDto);
     Task<AppActionResult> GetDetailAsync(string id);
 }

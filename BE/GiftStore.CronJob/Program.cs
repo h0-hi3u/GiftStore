@@ -71,5 +71,6 @@ app.UseHangfireDashboard();
 app.MapGet("/api/add-job", () =>
 {
     RecurringJob.AddOrUpdate("UpdateBestSeller", () => Job.UpdateBestSeller(), Cron.Daily());
+    //RecurringJob.AddOrUpdate("newJob", () => Console.WriteLine("123"), Cron.Daily());
 });
 app.Run();

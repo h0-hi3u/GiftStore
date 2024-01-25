@@ -20,6 +20,7 @@ public class OrderService : GenericService, IOrderService
     private readonly IRepository<OrderDetail> _orderDetailRepo;
     private readonly IRepository<Product> _productRepo;
     private readonly IMapper _mapper;
+
     public OrderService(ILifetimeScope scope, IMapper mapper) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
@@ -78,7 +79,7 @@ public class OrderService : GenericService, IOrderService
             }
             order.OrderStatus = OrderConstants.ORDER_STATUS_SPENDING;
             double totalPrice = 0;
-            foreach(var od in orderCreateRequestDto.OrderDetails)
+            foreach (var od in orderCreateRequestDto.OrderDetails)
             {
                 double a = (double)(od.Price * od.Quantity - (od.Price * od.Quantity * (od.Discount / 100)));
                 totalPrice = totalPrice + a;
@@ -87,10 +88,10 @@ public class OrderService : GenericService, IOrderService
             //order.TimeCreate = DateTime.Now;
             await _orderRepo.AddAsync(order);
             await _unitOfWork.Commit();
-            foreach(var od in order.OrderDetails)
+            foreach (var od in order.OrderDetails)
             {
                 var product = await _productRepo.GetAsync(od.ProductId);
-                product.Quantity -=  od.Quantity;
+                product.Quantity -= od.Quantity;
             }
             await _unitOfWork.Commit();
             return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
@@ -100,9 +101,4 @@ public class OrderService : GenericService, IOrderService
             return actionResult.BuildError(ex.Message);
         }
     }
-    public Task<AppActionResult> CreateOrderForGuest(OrderCreateRequestDto orderCreateRequestDto)
-    {
-        throw new NotImplementedException();
-    }
-
 }
