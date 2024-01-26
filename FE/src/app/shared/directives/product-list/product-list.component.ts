@@ -119,7 +119,7 @@ export class ProductListComponent implements OnInit{
   public navigationCollection(id: string) {
     this.router.navigate([`collection/${id}`]).then(() => {
       location.reload();
-    })
+    });
   }
   public navigation(id: string) {
     if(this.searchFor == "all") {

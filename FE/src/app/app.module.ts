@@ -29,6 +29,8 @@ import { AccountInfoComponent } from './shared/directives/account-page/account-i
 import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
 import { DatePipe } from '@angular/common';
 import { OrderDetailComponent } from './shared/directives/account-page/order-detail/order-detail.component';
+import { AdminPageComponent } from './shared/directives/admin-page/admin-page.component';
+import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { OrderDetailComponent } from './shared/directives/account-page/order-det
     AccountInfoComponent,
     ChangePasswordComponent,
     OrderDetailComponent,
+    AdminPageComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,8 @@ import { AccountInfoComponent } from './shared/directives/account-page/account-i
 import { AccountOrdersComponent } from './shared/directives/account-page/account-orders/account-orders.component';
 import { ChangePasswordComponent } from './shared/directives/account-page/change-password/change-password.component';
 import { OrderDetailComponent } from './shared/directives/account-page/order-detail/order-detail.component';
+import { AdminPageComponent } from './shared/directives/admin-page/admin-page.component';
+import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
   { path: 'checkout', component: CheckoutPageComponent },
@@ -44,6 +46,13 @@ const routes: Routes = [
         ]
       },
       { path: 'cart', component: CartPageComponent },
+      {
+        path: 'admin',
+        component: AdminPageComponent,
+        children: [
+          { path: '', component: AdminDashboardComponent},
+        ]
+      },
       { path: '**', component: ErrorPageComponent },
     ],
   },
