@@ -20,6 +20,13 @@ import { AdminPageComponent } from './shared/directives/admin-page/admin-page.co
 import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 
 const routes: Routes = [
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    children: [
+      { path: '', component: AdminDashboardComponent},
+    ]
+  },
   { path: 'checkout', component: CheckoutPageComponent },
   { path: 'check-quantity', component: CheckQuantityComponent },
   {
@@ -46,13 +53,6 @@ const routes: Routes = [
         ]
       },
       { path: 'cart', component: CartPageComponent },
-      {
-        path: 'admin',
-        component: AdminPageComponent,
-        children: [
-          { path: '', component: AdminDashboardComponent},
-        ]
-      },
       { path: '**', component: ErrorPageComponent },
     ],
   },
