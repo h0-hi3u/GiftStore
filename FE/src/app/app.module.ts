@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './shared/layout/layout.component';
@@ -31,6 +30,8 @@ import { DatePipe } from '@angular/common';
 import { OrderDetailComponent } from './shared/directives/account-page/order-detail/order-detail.component';
 import { AdminPageComponent } from './shared/directives/admin-page/admin-page.component';
 import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { PieChartComponent } from './shared/components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -59,13 +60,15 @@ import { AdminDashboardComponent } from './shared/directives/admin-page/admin-da
     OrderDetailComponent,
     AdminPageComponent,
     AdminDashboardComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

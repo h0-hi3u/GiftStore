@@ -1,0 +1,33 @@
+.wrapper {
+    padding: 40px 20px 0;
+    .title {
+        font-size: 25px;
+        font-weight: 500;
+        color: var(--primary-pink);
+    }
+    .weekly-report {
+        display: flex;
+        justify-content: space-between;
+        .report {
+            width: 30%;
+            height: 200px;
+            border-radius: 5px;
+        }
+    }
+    .chart {
+        display: flex;
+        justify-content: space-between;
+        padding: 40px 0 0 0;
+        .order-year {
+            width: 60%;
+            height: 350px;
+            border-radius: 5px;
+        }
+        .order-month {
+            width: 38%;
+            //height: 350px;
+            border-radius: 5px;
+        }
+    }
+    
+}

@@ -4,11 +4,10 @@
     .nav-right {
         height: 100%;
         width: 20%;
-        background-color: brown;
         .logo-store {
-            cursor: pointer;
             width: 100%;
-            padding: 0 10px;
+            padding: 0 30px;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
             img {
@@ -16,5 +15,44 @@
               background-color: white;
             }
         }
+        .info {
+            margin-top: 30px;
+            padding: 0 30px;
+            display: flex;
+            .avatar {
+                width: 40px;
+                height: 40px;
+                img {
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .detail {
+                padding: 0 0 0 10px;
+                .name {
+                    font-size: 15px;
+                    font-weight: 500;
+                }
+                .role {
+                    font-size: 13px;
+                    color: var(--primary-gray);
+                }
+            }
+        }
+        .navigation {
+            cursor: pointer;
+            padding: 0 30px;
+            margin: 20px 0;
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .navigation:hover {
+            color: var(--primary-pink);
+        }
+    }
+    .main {
+        width: 100%;
+        background-color: #F2EDF3;
+
     }
 }
