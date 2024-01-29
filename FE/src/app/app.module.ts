@@ -32,6 +32,7 @@ import { AdminPageComponent } from './shared/directives/admin-page/admin-page.co
 import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { PieChartComponent } from './shared/components/pie-chart/pie-chart.component';
+import { ColumnChartComponent } from './shared/components/column-chart/column-chart.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { PieChartComponent } from './shared/components/pie-chart/pie-chart.compo
     AdminPageComponent,
     AdminDashboardComponent,
     PieChartComponent,
+    ColumnChartComponent,
   ],
   imports: [
     BrowserModule,

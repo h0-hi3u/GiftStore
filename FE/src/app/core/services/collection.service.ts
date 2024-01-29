@@ -9,8 +9,8 @@ import { environment } from "src/environment/environment";
     providedIn: "root"
 })
 export class CollectionService {
-    private urlCollectionAll = "Collection/all";
-    private urlDetail = "Collection/detail";
+    private readonly urlCollectionAll = "Collection/all";
+    private readonly  urlDetail = "Collection/detail";
 
     constructor(private http: HttpClient) {}
 

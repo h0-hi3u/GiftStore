@@ -10,9 +10,9 @@ import { environment } from "src/environment/environment";
     providedIn: 'root'
 })
 export class UserService {
-    urlCheckEmail = 'User/check-email';
-    urlRegister = 'User/register';
-    urlChangePassword = 'User/change-password';
+    private readonly urlCheckEmail = 'User/check-email';
+    private readonly urlRegister = 'User/register';
+    private readonly urlChangePassword = 'User/change-password';
     constructor(private http: HttpClient){}
 
     public checkEmail(email: string) : Observable<ResponseDto> {

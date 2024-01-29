@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DataPoint } from 'src/app/core/models/dataPoint';
 
 @Component({
   selector: 'pie-chart',
@@ -6,7 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
-  @Input() type!: string;
+  @Input() title!: string;
+  @Input() subTitle!: string;
+  @Input() dataPoints!: DataPoint[];
   chartOptions: any;
 
   ngOnInit(): void {
@@ -15,21 +18,15 @@ export class PieChartComponent implements OnInit {
       theme: "light2",
       exportEnabled: false,
       title: {
-      text: "Order traffic"
+      text: `${this.title}`
       },
       subtitles: [{
-      text: "in month"
+      text: `${this.subTitle}`
       }],
       data: [{
-      type: `${this.type}`, //change type to column, line, area, doughnut, etc
+      type: "pie", //change type to column, line, area, doughnut, etc
       indexLabel: "{name}: {y}%",
-      dataPoints: [
-        // { name: "Overhead", y: 9.1 },
-        { name: "Problem Solving", y: 3.7 },
-        { name: "Debugging", y: 36.4 },
-        { name: "Writing Code", y: 30.7 },
-        { name: "Firefighting", y: 29.2 }
-      ]
+      dataPoints: this.dataPoints,
       }]
     }
   }

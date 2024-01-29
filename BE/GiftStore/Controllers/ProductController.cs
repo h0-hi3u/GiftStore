@@ -18,8 +18,6 @@ public class ProductController : ControllerBase
         _productService = _scope.Resolve<IProductService>();
     }
 
-    #region Feature for user
-
     [HttpGet("new")]
     public async Task<IActionResult> GetProductNew()
     {
@@ -74,21 +72,4 @@ public class ProductController : ControllerBase
         var result = await _productService.GetProductRelative(id, pageSize);
         return Ok(result);
     }
-    #endregion
-
-    #region Feature for admin
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll() {
-        var actionResult = await _productService.GetAllAsync();
-        return Ok(actionResult);
-    }
-   
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetDetails([Required]string id)
-    {
-        var result = await _productService.GetDetail(id);
-        return Ok(result);
-    }
-    #endregion
 }

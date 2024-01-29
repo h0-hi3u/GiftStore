@@ -12,11 +12,11 @@
         </div>
     </div>
     <div class="chart">
-        <div class="order-year bg-orange-300">
-            <pie-chart type="column"></pie-chart>
+        <div class="order-year" *ngIf="inYearDataPoints.length > 0">
+            <column-chart title="Traffic order in year" [dataPoint]="inYearDataPoints"></column-chart>
         </div>
-        <div class="order-month bg-green-400">
-            <pie-chart type="pie"></pie-chart>
+        <div class="order-month" *ngIf="inMonthDataPoints.length > 0">
+            <pie-chart title="Traffic order" subTitle="in month" [dataPoints]="inMonthDataPoints"></pie-chart>
         </div>
     </div>
 </div>

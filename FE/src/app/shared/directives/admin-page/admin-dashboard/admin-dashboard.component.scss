@@ -4,6 +4,7 @@
         font-size: 25px;
         font-weight: 500;
         color: var(--primary-pink);
+        padding: 0 0 10px 0;
     }
     .weekly-report {
         display: flex;
@@ -25,7 +26,6 @@
         }
         .order-month {
             width: 38%;
-            //height: 350px;
             border-radius: 5px;
         }
     }

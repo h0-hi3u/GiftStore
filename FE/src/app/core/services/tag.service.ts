@@ -8,8 +8,8 @@ import { environment } from "src/environment/environment";
     providedIn: "root"
 })
 export class TagService {
-    private urlTagAll = "Tag/all";
-    private urlDetail = "Tag/detail";
+    private readonly urlTagAll = "Tag/all";
+    private readonly urlDetail = "Tag/detail";
 
     constructor(private http: HttpClient) {}
 

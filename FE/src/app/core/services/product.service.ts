@@ -9,15 +9,15 @@ import { ProductShowDto } from '../models/Product/productShowDto';
   providedIn: 'root',
 })
 export class ProductService {
-  private urlGetBestSeller = `Product/new`;
-  private urlSearchProduct = `Product/search`;
-  private urlGetProductDetail = 'Product/detail';
-  private urlGetProductDetailCart = 'Product/detailCart';
-  private urlGetProductAll = 'Product/all';
-  private urlGetProductCollection = 'Product/collection';
-  private urlGetProductCategory = 'Product/category';
-  private urlGetProductTag = 'Product/tag';
-  private urlGetProductRelative = 'Product/relative'
+  private readonly urlGetBestSeller = `Product/new`;
+  private readonly urlSearchProduct = `Product/search`;
+  private readonly urlGetProductDetail = 'Product/detail';
+  private readonly urlGetProductDetailCart = 'Product/detailCart';
+  private readonly urlGetProductAll = 'Product/all';
+  private readonly urlGetProductCollection = 'Product/collection';
+  private readonly urlGetProductCategory = 'Product/category';
+  private readonly urlGetProductTag = 'Product/tag';
+  private readonly urlGetProductRelative = 'Product/relative'
 
   constructor(private http: HttpClient) {}
 

@@ -9,9 +9,9 @@ import { environment } from 'src/environment/environment';
     providedIn: 'root'
 })
 export class OrderService {
-    private urlOrdersOfUser = 'Order';
-    private urlOrderDetail = 'Order/detail';
-    private urlCreateOrderUser = 'Order/create-user';
+    private readonly urlOrdersOfUser = 'Order';
+    private readonly urlOrderDetail = 'Order/detail';
+    private readonly urlCreateOrderUser = 'Order/create-user';
     constructor(private http: HttpClient){}
 
     public getOrdersOfUser(email: string) : Observable<ResponseDto> {

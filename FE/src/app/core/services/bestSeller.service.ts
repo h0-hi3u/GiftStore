@@ -8,7 +8,7 @@ import { environment } from "src/environment/environment";
     providedIn: 'root'
 })
 export class BestSellerService {
-    urlGet = 'BestSeller/all';
+    private readonly urlGet = 'BestSeller/all';
     constructor(private http : HttpClient) {}
     public GetAll() : Observable<ResponseDto> {
         return this.http.get<ResponseDto>(

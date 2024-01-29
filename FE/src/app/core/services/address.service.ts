@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class AddressService {
-    urlGetProvince: string = "https://provinces.open-api.vn/api/p/";
-    urlGetDistrict: string = "https://provinces.open-api.vn/api/p/80?depth=3";
+    private readonly urlGetProvince: string = "https://provinces.open-api.vn/api/p/";
+    private readonly urlGetDistrict: string = "https://provinces.open-api.vn/api/p/80?depth=3";
     constructor(private http: HttpClient) {}
     public getAllProvince() : Observable<any> {
         return this.http.get<any>(
