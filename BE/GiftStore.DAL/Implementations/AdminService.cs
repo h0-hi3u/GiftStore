@@ -61,13 +61,29 @@ public class AdminService : GenericService, IAdminService
         var ordersByMonth = await _orderRepo.Entities()
         .Where(o => o.TimeCreate.Value.Year == currentYear)
         .GroupBy(o => o.TimeCreate.Value.Month)
-        .Select(g => new DataPoint
+        .Select(g => new
         {
-            Name = g.Key.ToString(),
-            Y = g.Count()
+            x = g.Key,
+            y = g.Count()
         })
-        .OrderBy(g => g.Name)
+        .OrderBy(g => g.x)
         .ToListAsync();
         return actionResult.BuildResult(ordersByMonth);
+    }
+
+    public async Task<AppActionResult> GetMonthlyOrders()
+    {
+        var actionResult = new AppActionResult();
+        var currentMonth = DateTime.Now.Month;
+        var totalOrders = await _orderRepo.Entities().Where(o => o.TimeCreate.Value.Month == currentMonth).CountAsync();
+        return actionResult.BuildResult(totalOrders);
+    }
+
+    public async Task<AppActionResult> GetMonthlySales()
+    {
+        var actionResult = new AppActionResult();
+        var currentMonth = DateTime.Now.Month;
+        var totalSales = await _orderRepo.Entities().Where(o => o.TimeCreate.Value.Month == currentMonth).SumAsync(o => o.TotalPrice);
+        return actionResult.BuildResult(totalSales);
     }
 }

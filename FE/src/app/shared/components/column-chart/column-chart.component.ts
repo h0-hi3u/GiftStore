@@ -1,3 +1,4 @@
+import { DataPointColumn } from 'src/app/core/models/dataPointColumn';
 import { DataPoint } from './../../../core/models/dataPoint';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ColumnChartComponent implements OnInit{
   @Input() title!: string;
-  @Input() dataPoint!: DataPoint[];
+  @Input() dataPoint!: DataPointColumn[];
   chartOptions: any;
   ngOnInit(): void {
     this.chartOptions = {

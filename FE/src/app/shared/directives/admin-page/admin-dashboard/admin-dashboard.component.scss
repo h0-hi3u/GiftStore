@@ -13,6 +13,17 @@
             width: 30%;
             height: 200px;
             border-radius: 5px;
+            color: #fff;
+            padding: 20px 0 0 20px;
+            .title-report {
+                font-size: 19px;
+                font-weight: 500;
+                margin: 0 0 20px 0;
+            }
+            .number {
+                font-size: 30px;
+                font-weight: 700    ;
+            }
         }
     }
     .chart {
@@ -21,7 +32,7 @@
         padding: 40px 0 0 0;
         .order-year {
             width: 60%;
-            height: 350px;
+            height: 350px;  
             border-radius: 5px;
         }
         .order-month {

@@ -10,7 +10,8 @@ import { environment } from "src/environment/environment";
 export class AdminService {
     private readonly urlReportOrderInMonth = 'Admin/report-order-month';
     private readonly urlReportOrderInYear = 'Admin/report-order-year';
-
+    private readonly urlMonthlySales = 'Admin/monthly-sales';
+    private readonly urlMonthlyOrders = 'Admin/monthly-orders';
     constructor(private http: HttpClient) {}
 
     public reportOrderInMonth() : Observable<ResponseDto> {
@@ -22,5 +23,15 @@ export class AdminService {
         return this.http.get<ResponseDto>(
             `${environment.urlApi}/${this.urlReportOrderInYear}`
         );
+    }
+    public getMonthlySales() : Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlMonthlySales}`
+        );
+    }
+    public getMonthlyOrders() : Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlMonthlyOrders}`
+        )
     }
 }

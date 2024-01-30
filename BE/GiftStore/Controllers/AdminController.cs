@@ -28,4 +28,16 @@ public class AdminController : ControllerBase
         var result = await _adminService.GetDataReportOrderInYear();
         return Ok(result);
     }
+    [HttpGet("monthly-sales")]
+    public async Task<IActionResult> GetMonthlySales()
+    {
+        var result = await _adminService.GetMonthlySales();
+        return Ok(result);
+    }
+    [HttpGet("monthly-orders")]
+    public async Task<IActionResult> GetMonthlyOrders()
+    {
+        var result = await _adminService.GetMonthlyOrders();
+        return Ok(result);
+    }
 }

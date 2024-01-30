@@ -1,14 +1,17 @@
 <div class="wrapper">
     <h1 class="title">Dashboard</h1>
     <div class="weekly-report">
-        <div class="report bg-slate-600">
-
+        <div class="report bg-[#FFBB96]">
+            <div class="title-report">Monthly sales</div>
+            <div class="number">{{helperNumber.formatPrice(totalMonthlySales)}}</div>
         </div>
-        <div class="report bg-blue-300">
-
+        <div class="report bg-[#3E9DEA]">
+            <div class="title-report">Monthly orders</div>
+            <div class="number">{{helperNumber.formatNumber(totalMonthlyOrders)}}</div>
         </div>
-        <div class="report bg-red-400">
-
+        <div class="report bg-[#40D2BE]">
+            <div class="title-report">Total sales</div>
+            <div class="number">{{helperNumber.formatPrice(1235)}}</div>
         </div>
     </div>
     <div class="chart">

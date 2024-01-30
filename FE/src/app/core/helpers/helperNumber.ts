@@ -4,6 +4,9 @@ import { Injectable} from "@angular/core";
     providedIn: "root"
 })
 export class HelperNumber {
+    public formatNumber(number : number) : string {
+        return (number.toLocaleString('en-US')).replaceAll(",", ".");
+    }
     public formatPrice(number : number) : string {
         return (number.toLocaleString('en-US') + "₫").replaceAll(",", ".");
     }
