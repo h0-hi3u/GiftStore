@@ -13,10 +13,19 @@ public class AdminService : GenericService, IAdminService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IRepository<Order> _orderRepo;
+    private readonly IRepository<Product> _productRepo;
+    private readonly IRepository<BestSeller> _bestSellerRepo;
     public AdminService(ILifetimeScope scope) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
         _orderRepo = _unitOfWork.Repository<Order>();
+        _productRepo = _unitOfWork.Repository<Product>();
+        _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
+    }
+
+    public Task<AppActionResult> GetBestSeller()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<AppActionResult> GetDataReportOrderInMonth()

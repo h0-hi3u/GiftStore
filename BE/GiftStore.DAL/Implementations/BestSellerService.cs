@@ -108,7 +108,7 @@ public class BestSellerService : GenericService, IBestSellerService
             };
             listBS.Add(bs);
         }
-        var data = listBS.OrderByDescending(o => o.NumberSelled).Take(8);
+        var data = listBS.OrderByDescending(o => o.NumberSelled);
         var result = _mapper.Map<List<BestSeller>>(data);
         await _bestSellerRepo.AddRangeAsync(result);
         await _unitOfWork.Commit();
@@ -117,16 +117,36 @@ public class BestSellerService : GenericService, IBestSellerService
     public async Task<AppActionResult> GetProductBestSeller()
     {
         var actionResult = new AppActionResult();
-        var listBSId = _bestSellerRepo.Entities().Select(bs => bs.ProductId).ToList().Distinct();
-        List<Product> listProduct = new List<Product>();
-         
-        foreach(var item in listBSId)
+        var listBS = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).ToListAsync();
+        List<Product> listResult = new List<Product>();
+        foreach(var item in listBS)
         {
-            var a = await _productRepo.GetAsync(item);
-            Product? product = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == item);
-            listProduct.Add(product);
+            if(item.Product.IsParent)
+            {
+                listResult.Add(item.Product);
+            }
+            else
+            {
+                var p = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == item.Product.ParentId);
+                if (p != null)
+                {
+                    listResult.Add(p);
+                }
+            }
         }
-        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listProduct);
+        var list = listResult.DistinctBy(p => p.Id);
+        var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(list.Take(8));
         return actionResult.BuildResult(data);
+        //var listBSId = _bestSellerRepo.Entities().Select(bs => bs.ProductId).ToList().Distinct();
+        //List<Product> listProduct = new List<Product>();
+        
+        //foreach(var item in listBSId)
+        //{
+        //    var a = await _productRepo.GetAsync(item);
+        //    Product? product = await _productRepo.Entities().Include(p => p.ImageProduct).SingleOrDefaultAsync(p => p.Id == item);
+        //    listProduct.Add(product);
+        //}
+        //var data = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listProduct);
+        //return actionResult.BuildResult(data);
     }
 }

@@ -8,4 +8,5 @@ public interface IAdminService
     Task<AppActionResult> GetDataReportOrderInYear();
     Task<AppActionResult> GetMonthlySales();
     Task<AppActionResult> GetMonthlyOrders();
+    Task<AppActionResult> GetBestSeller();
 }
