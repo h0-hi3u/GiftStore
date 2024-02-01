@@ -10,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AddressService } from './../../../core/services/address.service';
-import { District } from './../../../core/models/Addresses/district';
+import { District } from '../../../core/models/Address/district';
 import { HelperNumber } from './../../../core/helpers/helperNumber';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,9 +19,9 @@ import {
   faCaretLeft,
   faMoneyBill,
 } from '@fortawesome/free-solid-svg-icons';
-import { Province } from 'src/app/core/models/Addresses/province';
+import { Province } from 'src/app/core/models/Address/province';
 import { CartItem } from 'src/app/core/models/cartItem';
-import { Ward } from 'src/app/core/models/Addresses/ward';
+import { Ward } from 'src/app/core/models/Address/ward';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { OrderCreateRequestDto } from 'src/app/core/models/Order/orderCreateRequestDto';
 import { OrderDetailCreateRequestDto } from 'src/app/core/models/Order/orderDetailCreateRequestDto';
@@ -54,7 +54,7 @@ export class CheckoutPageComponent implements OnInit {
   listWard: Ward[] = [];
   listPaymentMethod: PaymentMethodDto[] = [];
   isLoggedIn: boolean = false;
-  isChooseCOD: boolean = false;
+  isChooseCOD: boolean = true;
   isChooseQR: boolean = false;
   email: string = '';
   fullName: string = '';
@@ -70,7 +70,7 @@ export class CheckoutPageComponent implements OnInit {
     private authService: AuthService,
     private orderService: OrderService,
     private helperValidate: HelperValidate,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
   ) {}
   ngOnInit(): void {
     this.paymentService.getAll().subscribe((res: ResponseDto) => {
@@ -119,9 +119,10 @@ export class CheckoutPageComponent implements OnInit {
   public getDistrict(element: any) {
     const a = element as HTMLSelectElement;
     const code = parseInt(a.value);
-
-    this.addressService.getDistrict(code).subscribe((res) => {
-      this.listDistrict = res.districts;
+    let listDistrictTmp: District[] = [];
+    this.addressService.getDistrict().subscribe((res) => {
+      listDistrictTmp = res;
+      this.listDistrict = listDistrictTmp.filter(item => item.parent_code == code);
     });
     this.listWard = [];
     const p = this.listProvince.filter((value) => {
@@ -132,9 +133,10 @@ export class CheckoutPageComponent implements OnInit {
   public getWard(element: any) {
     const a = element as HTMLSelectElement;
     const code = parseInt(a.value);
-
-    this.addressService.getWard(code).subscribe((res) => {
-      this.listWard = res.wards;
+    let listWardTmp : Ward[] = [];
+    this.addressService.getWard().subscribe((res) => {
+      listWardTmp = res;
+      this.listWard = listWardTmp.filter(item => item.parent_code == code);
     });
     const d = this.listDistrict.filter((value) => {
       return (value.code == code);

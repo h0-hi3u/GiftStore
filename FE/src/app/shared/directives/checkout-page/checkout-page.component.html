@@ -29,19 +29,19 @@
                         <label for="">Thành phố/Tỉnh <span class="text-red-600">*</span></label>
                         <select class="province" formControlName="province" type="text" (change)="getDistrict($event.target)">
                             <option selected hidden></option>
-                            <option *ngFor="let item of listProvince" value="{{item.code}}">{{item.name}}</option>
+                            <option *ngFor="let item of listProvince" value="{{item.code}}">{{item.name_with_type}}</option>
                         </select>
 
                         <label for="">Quận/Huyện <span class="text-red-600">*</span></label>
                         <select class="district" formControlName="district" type="text" (change)="getWard($event.target)">
                             <option selected hidden></option>
-                            <option *ngFor="let item of listDistrict" (click)="getWard(item.code)" value="{{item.code}}">{{item.name}}</option>
+                            <option *ngFor="let item of listDistrict" value="{{item.code}}">{{item.name_with_type}}</option>
                         </select>
 
                         <label for="">Phường/Xã <span class="text-red-600">*</span></label>
                         <select class="ward" formControlName="ward" type="text" (change)="setWard($event.target)">
                             <option selected hidden></option>
-                            <option *ngFor="let item of listWard" value="{{item.code}}">{{item.name}}</option>
+                            <option *ngFor="let item of listWard" value="{{item.code}}">{{item.name_with_type}}</option>
                         </select>
 
                         <label for="">Ghi chú cho shop nà <fa-icon class="text-red-600" [icon]="faHeart"></fa-icon></label>
