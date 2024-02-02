@@ -128,7 +128,7 @@ export class CheckoutPageComponent implements OnInit {
     const p = this.listProvince.filter((value) => {
       return (value.code == code);
     });
-    this.nameProvince = p[0].name;
+    this.nameProvince = p[0].name_with_type;
   }
   public getWard(element: any) {
     const a = element as HTMLSelectElement;
@@ -141,7 +141,7 @@ export class CheckoutPageComponent implements OnInit {
     const d = this.listDistrict.filter((value) => {
       return (value.code == code);
     });
-    this.nameDistrict = d[0].name;
+    this.nameDistrict = d[0].name_with_type;
   }
   public setWard(element: any) {
     const a = element as HTMLSelectElement;
@@ -149,7 +149,7 @@ export class CheckoutPageComponent implements OnInit {
     const w = this.listWard.filter((value) => {
       return (value.code == code);
     });
-    this.nameWard = w[0].name;
+    this.nameWard = w[0].name_with_type;
   }
   public chooseCOD(): void {
     const paymentMethod = this.listPaymentMethod.find(item => {

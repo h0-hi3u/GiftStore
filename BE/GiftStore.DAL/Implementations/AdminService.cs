@@ -23,9 +23,11 @@ public class AdminService : GenericService, IAdminService
         _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
     }
 
-    public Task<AppActionResult> GetBestSeller()
+    public async Task<AppActionResult> GetBestSeller()
     {
-        throw new NotImplementedException();
+        var actionResult = new AppActionResult();
+        var result = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).ToListAsync();
+        return actionResult.BuildResult(result);
     }
 
     public async Task<AppActionResult> GetDataReportOrderInMonth()

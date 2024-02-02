@@ -40,4 +40,10 @@ public class AdminController : ControllerBase
         var result = await _adminService.GetMonthlyOrders();
         return Ok(result);
     }
+    [HttpGet("best-seller")]
+    public async Task<IActionResult> GetBestSeller() 
+    {
+        var result = await _adminService.GetBestSeller();
+        return Ok(result);
+    }
 }
