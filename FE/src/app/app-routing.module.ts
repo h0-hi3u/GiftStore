@@ -19,8 +19,10 @@ import { OrderDetailComponent } from './shared/directives/account-page/order-det
 import { AdminPageComponent } from './shared/directives/admin-page/admin-page.component';
 import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 import { AdminProductComponent } from './shared/directives/admin-page/admin-product/admin-product.component';
+import { TestFirebaseComponent } from './shared/directives/test-firebase/test-firebase.component';
 
 const routes: Routes = [
+  { path: 'firebase', component: TestFirebaseComponent},
   {
     path: 'admin',
     component: AdminPageComponent,
