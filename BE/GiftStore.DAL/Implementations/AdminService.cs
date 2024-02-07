@@ -1,9 +1,12 @@
 ﻿using Autofac;
+using AutoMapper;
 using GiftStore.Core.Common;
+using GiftStore.Core.Constants;
 using GiftStore.Core.Contracts;
 using GiftStore.DAL.Constants;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Admin;
+using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,12 +18,42 @@ public class AdminService : GenericService, IAdminService
     private readonly IRepository<Order> _orderRepo;
     private readonly IRepository<Product> _productRepo;
     private readonly IRepository<BestSeller> _bestSellerRepo;
-    public AdminService(ILifetimeScope scope) : base(scope)
+    private readonly IRepository<ImageProduct> _imageProductRepo;
+    private readonly IMapper _mapper;
+    public AdminService(ILifetimeScope scope, IMapper mapper) : base(scope)
     {
         _unitOfWork = Resolve<IUnitOfWork>();
         _orderRepo = _unitOfWork.Repository<Order>();
         _productRepo = _unitOfWork.Repository<Product>();
         _bestSellerRepo = _unitOfWork.Repository<BestSeller>();
+        _imageProductRepo = _unitOfWork.Repository<ImageProduct>();
+        _mapper = mapper;
+    }
+
+    public async Task<AppActionResult> AddParentProduct(ParentProductCreateRequestDto parentProductDto)
+    {
+        var actionResult = new AppActionResult();
+        var listImage = new List<ImageProduct>();
+        try
+        {
+            var product = _mapper.Map<Product>(parentProductDto);
+            product.IsParent = true;
+            product.IsDeleted = false;
+            product.ImageProduct = new List<ImageProduct>();
+            await _productRepo.AddAsync(product);
+            foreach (var item in parentProductDto.ImageProduct)
+            {
+                var image = _mapper.Map<ImageProduct>(item);
+                image.ProductId = product.Id;
+                listImage.Add(image);
+            }
+            await _imageProductRepo.AddRangeAsync(listImage);
+            await _unitOfWork.Commit();
+            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
+        } catch
+        {
+            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+        }
     }
 
     public async Task<AppActionResult> GetBestSeller()

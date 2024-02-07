@@ -7,7 +7,7 @@ BEGIN
 		[Price]						FLOAT						NOT NULL,
 		[Quantity]					INT							NOT NULL,
 		[Variant]					NVARCHAR(50),
-		[CreateDate]				DATETIME					NOT NULL			DEFAULT GETUTCDATE(),
+		[CreateDate]				DATETIME					NOT NULL			DEFAULT GETDATE(),
 		[ParentId]					UNIQUEIDENTIFIER,
 		[IsParent]					BIT							NOT NULL,
 		[CategoryId]				UNIQUEIDENTIFIER			NOT NULL,

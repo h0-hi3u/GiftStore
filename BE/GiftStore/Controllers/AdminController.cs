@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using GiftStore.DAL.Contracts;
+using GiftStore.DAL.Model.Dto.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GiftStore.Controllers;
@@ -44,6 +45,12 @@ public class AdminController : ControllerBase
     public async Task<IActionResult> GetBestSeller() 
     {
         var result = await _adminService.GetBestSeller();
+        return Ok(result);
+    }
+    [HttpPost("add-parent-product")]
+    public async Task<IActionResult> AddParentProduct(ParentProductCreateRequestDto parentProductDto)
+    {
+        var result = await _adminService.AddParentProduct(parentProductDto);
         return Ok(result);
     }
 }

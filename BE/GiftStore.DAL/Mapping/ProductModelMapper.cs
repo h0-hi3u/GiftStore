@@ -16,6 +16,7 @@ public class ProductModelMapper : IModelMapper
         modelBuilder.Entity<Product>(entity =>
         {
             entity.ToTable(nameof(Product));
+            entity.Property(p => p.CreateDate).HasDefaultValueSql("GETDATE()");
         });
     }
 }
