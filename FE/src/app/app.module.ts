@@ -35,6 +35,11 @@ import { PieChartComponent } from './shared/components/pie-chart/pie-chart.compo
 import { ColumnChartComponent } from './shared/components/column-chart/column-chart.component';
 import { AdminProductComponent } from './shared/directives/admin-page/admin-product/admin-product.component';
 import { TestFirebaseComponent } from './shared/directives/test-firebase/test-firebase.component';
+import { environment } from 'src/environment/environment';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth} from '@angular/fire/auth';
+import { provideFirestore, getFirestore} from '@angular/fire/firestore';
+import { provideStorage, getStorage} from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -74,7 +79,11 @@ import { TestFirebaseComponent } from './shared/directives/test-firebase/test-fi
     FontAwesomeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CanvasJSAngularChartsModule
+    CanvasJSAngularChartsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage())
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
