@@ -24,12 +24,15 @@ export class TestFirebaseComponent {
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes);
         console.log('Upload is ' + progress + '% done');
-      }
-    ),
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log('File available at ', downloadURL);
-      });
-    }
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at ', downloadURL);
+        })
+      },
+    )
   }
 }
