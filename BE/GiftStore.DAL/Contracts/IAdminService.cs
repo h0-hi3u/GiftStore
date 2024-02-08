@@ -11,4 +11,6 @@ public interface IAdminService
     Task<AppActionResult> GetMonthlyOrders();
     Task<AppActionResult> GetBestSeller();
     Task<AppActionResult> AddParentProduct(ParentProductCreateRequestDto parentProductDto);
+    Task<AppActionResult> AddChildProduct(ChildProductCreateRequestDto childProductDto);
+    Task<AppActionResult> AddFullProduct(FullProductCreateRequestDto fullProductDto);
 }

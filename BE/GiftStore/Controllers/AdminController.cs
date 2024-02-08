@@ -53,4 +53,16 @@ public class AdminController : ControllerBase
         var result = await _adminService.AddParentProduct(parentProductDto);
         return Ok(result);
     }
+    [HttpPost("add-child-prodct")]
+    public async Task<IActionResult> AddChildProduct(ChildProductCreateRequestDto childProductDto)
+    {
+        var result = await _adminService.AddChildProduct(childProductDto);
+        return Ok(result);
+    }
+    [HttpPost("add-full-product")]
+    public async Task<IActionResult> AddFullProduct(FullProductCreateRequestDto fullProductDto)
+    {
+        var result = await _adminService.AddFullProduct(fullProductDto);
+        return Ok(result);
+    }
 }

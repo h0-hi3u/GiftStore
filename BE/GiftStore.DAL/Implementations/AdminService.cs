@@ -30,6 +30,91 @@ public class AdminService : GenericService, IAdminService
         _mapper = mapper;
     }
 
+    public async Task<AppActionResult> AddChildProduct(ChildProductCreateRequestDto childProductDto)
+    {
+        var actionResult = new AppActionResult();
+        var listImage = new List<ImageProduct>();
+        try
+        {
+            var parent = await _productRepo.GetAsync(childProductDto.ParentId);
+            if (parent == null)
+            {
+                return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+            }
+            var product = _mapper.Map<Product>(childProductDto);
+            product.Name = parent.Name;
+            product.IsParent = false;
+            product.CategoryId = parent.CategoryId;
+            product.SupplierId = parent.SupplierId;
+            product.IsDeleted = parent.IsDeleted;
+            product.ImageProduct = new List<ImageProduct>();
+            await _productRepo.AddAsync(product);
+            foreach (var item in childProductDto.ImageProduct)
+            {
+                var image = _mapper.Map<ImageProduct>(item);
+                image.ProductId = product.Id;
+                listImage.Add(image);
+            }
+            await _imageProductRepo.AddRangeAsync(listImage);
+            await _unitOfWork.Commit();
+            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
+        } catch (Exception ex)
+        {
+            var a = ex.Message;
+            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+        }
+    }
+
+    public async Task<AppActionResult> AddFullProduct(FullProductCreateRequestDto fullProductDto)
+    {
+        var actionResult = new AppActionResult();
+        try
+        {
+            //add parent
+            var listImageParent = new List<ImageProduct>();
+            var parentProduct = _mapper.Map<Product>(fullProductDto);
+            parentProduct.IsParent = true;
+            parentProduct.IsDeleted = false;
+            parentProduct.ImageProduct = new List<ImageProduct>();
+            await _productRepo.AddAsync(parentProduct);
+            foreach (var item in fullProductDto.ImageProduct)
+            {
+                var image = _mapper.Map<ImageProduct>(item);
+                image.ProductId = parentProduct.Id;
+                listImageParent.Add(image);
+            }
+            await _imageProductRepo.AddRangeAsync(listImageParent);
+            // add child
+            foreach(var item in fullProductDto.ChildrenProduct)
+            {
+                var listImage = new List<ImageProduct>();
+                item.ParentId = parentProduct.Id;
+                var childProduct = _mapper.Map<Product>(item);
+                childProduct.Name = parentProduct.Name;
+                childProduct.IsParent = false;
+                childProduct.CategoryId = parentProduct.CategoryId;
+                childProduct.SupplierId = parentProduct.SupplierId;
+                childProduct.IsDeleted = parentProduct.IsDeleted;
+                childProduct.ImageProduct = new List<ImageProduct>();
+                await _productRepo.AddAsync(childProduct);
+                foreach (var img in item.ImageProduct)
+                {
+                    var image = _mapper.Map<ImageProduct>(img);
+                    image.ProductId = childProduct.Id;
+                    listImage.Add(image);
+                }
+                await _imageProductRepo.AddRangeAsync(listImage);
+            }
+            await _unitOfWork.Commit();
+            return actionResult.SetInfo(true, MessageConstants.MSG_ADD_SUCCESS);
+        }
+        catch (Exception ex)
+        {
+            var a = ex.Message;
+            return actionResult.BuildError(MessageConstants.ERR_ADD_FAIL);
+        }
+    }
+
     public async Task<AppActionResult> AddParentProduct(ParentProductCreateRequestDto parentProductDto)
     {
         var actionResult = new AppActionResult();
