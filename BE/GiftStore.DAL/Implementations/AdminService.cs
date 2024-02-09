@@ -6,6 +6,7 @@ using GiftStore.Core.Contracts;
 using GiftStore.DAL.Constants;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Admin;
+using GiftStore.DAL.Model.Dto.BestSeller;
 using GiftStore.DAL.Model.Dto.Product;
 using GiftStore.DAL.Model.Entity;
 using Microsoft.EntityFrameworkCore;
@@ -144,8 +145,9 @@ public class AdminService : GenericService, IAdminService
     public async Task<AppActionResult> GetBestSeller()
     {
         var actionResult = new AppActionResult();
-        var result = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).OrderByDescending(bs => bs.NumberSelled).ToListAsync();
-        return actionResult.BuildResult(result);
+        var result = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).OrderByDescending(bs => bs.NumberSold).ToListAsync();
+        var data = _mapper.Map<IEnumerable<BestSellerShowResponseDto>>(result);
+        return actionResult.BuildResult(data);
     }
 
     public async Task<AppActionResult> GetDataReportOrderInMonth()

@@ -132,8 +132,8 @@ public class BestSellerService : GenericService, IBestSellerService
             var listBestSeller = orderDetails.GroupBy(od => od.ProductId).Select(od => new BestSellerCreateRequestDto
             {
                 ProductId = od.Select(od => od.ProductId).SingleOrDefault(),
-                TotalPriceSelled = (double)od.Sum(od => od.Price * od.Quantity - od.Price * od.Quantity * od.Discount),
-                NumberSelled = od.Sum(od => od.Quantity)
+                TotalPriceSold = (double)od.Sum(od => od.Price * od.Quantity - od.Price * od.Quantity * od.Discount),
+                NumberSold = od.Sum(od => od.Quantity)
             });
             var result = _mapper.Map<List<BestSeller>>(listBestSeller);
             await _bestSellerRepo.AddRangeAsync(result);

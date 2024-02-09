@@ -8,8 +8,8 @@ namespace GiftStore.DAL.Model.Dto.BestSeller
 {
     public class BestSellerCreateRequestDto
     {
-        public int NumberSelled { get; set; }
-        public double TotalPriceSelled { get; set; }
+        public int NumberSold { get; set; }
+        public double TotalPriceSold { get; set; }
         public Guid ProductId { get; set; }
     }
 }
