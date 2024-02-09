@@ -144,7 +144,7 @@ public class AdminService : GenericService, IAdminService
     public async Task<AppActionResult> GetBestSeller()
     {
         var actionResult = new AppActionResult();
-        var result = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).ToListAsync();
+        var result = await _bestSellerRepo.Entities().Include(bs => bs.Product).Include(bs => bs.Product.ImageProduct).OrderByDescending(bs => bs.NumberSelled).ToListAsync();
         return actionResult.BuildResult(result);
     }
 

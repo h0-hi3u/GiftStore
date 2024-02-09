@@ -78,45 +78,69 @@ public class BestSellerService : GenericService, IBestSellerService
         }
     }
 
+    //public async Task UpdateBestSeller()
+    //{
+    //    // clear BestSeller
+    //    var listRemove = await _bestSellerRepo.GetAllAsync();
+    //    _bestSellerRepo.Entities().RemoveRange(listRemove);
+    //    await _unitOfWork.Commit();
+
+    //   try
+    //    {
+    //        // get bestSeller and add new BestSeller
+    //        DateTime lastWeek = DateTime.Now.AddDays(-7);
+    //        List<BestSellerCreateRequestDto> listBS = new List<BestSellerCreateRequestDto>();
+    //        var listOD = _orderDetailRepo.Entities().Include(od => od.Order);
+    //        var a = listOD.Select(x => x.ProductId).Distinct();
+    //        foreach (var item in a)
+    //        {
+    //            double totalSellered = 0;
+    //            int numberSellerd = 0;
+    //            var list = await listOD.Where(od => od.ProductId == item && od.Order.TimeCreate >= lastWeek).ToListAsync();
+    //            foreach (var k in list)
+    //            {
+    //                totalSellered = totalSellered + (double)(k.Price * k.Quantity - (k.Quantity * k.Price * k.Discount));
+    //                numberSellerd += k.Quantity;
+    //            }
+    //            var bs = new BestSellerCreateRequestDto
+    //            {
+    //                ProductId = item,
+    //                TotalPriceSelled = totalSellered,
+    //                NumberSelled = numberSellerd
+    //            };
+    //            listBS.Add(bs);
+    //        }
+    //        var data = listBS.OrderByDescending(o => o.NumberSelled);
+    //        var result = _mapper.Map<List<BestSeller>>(data);
+    //        await _bestSellerRepo.AddRangeAsync(result);
+    //        await _unitOfWork.Commit();
+    //    } catch(Exception ex)
+    //    {
+    //        Console.WriteLine(ex.ToString());
+    //    }
+    //}
     public async Task UpdateBestSeller()
     {
-        // clear BestSeller
-        var listRemove = await _bestSellerRepo.GetAllAsync();
-        _bestSellerRepo.Entities().RemoveRange(listRemove);
-        await _unitOfWork.Commit();
-
-       try
+        try
         {
-            // get bestSeller and add new BestSeller
+            // clear BestSeller
+            var listRemove = await _bestSellerRepo.GetAllAsync();
+            _bestSellerRepo.Entities().RemoveRange(listRemove);
+            await _unitOfWork.Commit();
             DateTime lastWeek = DateTime.Now.AddDays(-7);
-            List<BestSellerCreateRequestDto> listBS = new List<BestSellerCreateRequestDto>();
-            var listOD = _orderDetailRepo.Entities().Include(od => od.Order);
-            var a = listOD.Select(x => x.ProductId).Distinct();
-            foreach (var item in a)
+            var orderDetails = _orderDetailRepo.Entities().Include(od => od.Order).Where(od => od.Order.TimeCreate >= lastWeek);
+            var listBestSeller = orderDetails.GroupBy(od => od.ProductId).Select(od => new BestSellerCreateRequestDto
             {
-                double totalSellered = 0;
-                int numberSellerd = 0;
-                var list = await listOD.Where(od => od.ProductId == item && od.Order.TimeCreate >= lastWeek).ToListAsync();
-                foreach (var k in list)
-                {
-                    totalSellered = totalSellered + (double)(k.Price * k.Quantity - (k.Quantity * k.Price * k.Discount));
-                    numberSellerd += k.Quantity;
-                }
-                var bs = new BestSellerCreateRequestDto
-                {
-                    ProductId = item,
-                    TotalPriceSelled = totalSellered,
-                    NumberSelled = numberSellerd
-                };
-                listBS.Add(bs);
-            }
-            var data = listBS.OrderByDescending(o => o.NumberSelled);
-            var result = _mapper.Map<List<BestSeller>>(data);
+                ProductId = od.Select(od => od.ProductId).SingleOrDefault(),
+                TotalPriceSelled = (double)od.Sum(od => od.Price * od.Quantity - od.Price * od.Quantity * od.Discount),
+                NumberSelled = od.Sum(od => od.Quantity)
+            });
+            var result = _mapper.Map<List<BestSeller>>(listBestSeller);
             await _bestSellerRepo.AddRangeAsync(result);
             await _unitOfWork.Commit();
-        } catch(Exception ex)
+        } catch (Exception ex)
         {
-            Console.WriteLine(ex.ToString());
+            var a = ex.Message;
         }
     }
 
