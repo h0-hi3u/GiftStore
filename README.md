@@ -1,1 +1,1 @@
-# GiftStore HoHieu
+# GiftStore
