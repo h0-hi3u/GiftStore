@@ -3,11 +3,13 @@
     <div class="weekly-report">
         <div class="report bg-[#FFBB96]">
             <div class="title-report">Monthly sales</div>
-            <div class="number">{{helperNumber.formatPrice(totalMonthlySales)}}</div>
+            <div
+                class="number">{{helperNumber.formatPrice(totalMonthlySales)}}</div>
         </div>
         <div class="report bg-[#3E9DEA]">
             <div class="title-report">Monthly orders</div>
-            <div class="number">{{helperNumber.formatNumber(totalMonthlyOrders)}}</div>
+            <div
+                class="number">{{helperNumber.formatNumber(totalMonthlyOrders)}}</div>
         </div>
         <div class="report bg-[#40D2BE]">
             <div class="title-report">Total sales</div>
@@ -16,13 +18,40 @@
     </div>
     <div class="chart">
         <div class="order-year" *ngIf="inYearDataPoints.length > 0">
-            <column-chart title="Traffic order in year" [dataPoint]="inYearDataPoints"></column-chart>
+            <column-chart title="Traffic order in year"
+                [dataPoint]="inYearDataPoints"></column-chart>
         </div>
         <div class="order-month" *ngIf="inMonthDataPoints.length > 0">
-            <pie-chart title="Traffic order" subTitle="in month" [dataPoints]="inMonthDataPoints"></pie-chart>
+            <pie-chart title="Traffic order" subTitle="in month"
+                [dataPoints]="inMonthDataPoints"></pie-chart>
         </div>
     </div>
     <div class="best-seller">
-
+        <div class="title">Best seller</div>
+        <div class="header-product flex py-[11px]">
+            <div class="w-[70%] text-[16px]">Sản phẩm</div>
+            <div class="w-[15%] text-[16px] text-center">total price sold</div>
+            <div class="w-[15%] text-[16px] text-center">number sold</div>
+        </div>
+        <!-- ------------------- -->
+        <div class="container-bs">
+            <div class="best-seller" *ngFor="let item of listBestSeller">
+                <div class="info-product">
+                    <div class="image">
+                        <img src="{{item.product.imageProduct[0].image}}" alt>
+                    </div>
+                    <div class="name-variant">
+                        <div>
+                            <div class="name">{{item.product.name}}</div>
+                            <div class="variant">{{item.product.variant}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="price-product">{{helperNumber.formatPrice(item.totalPriceSold)}}</div>
+                <div
+                    class="quantity-product">{{helperNumber.formatNumber(item.numberSold)}}</div>
+            </div>
+        </div>
     </div>
 </div>
