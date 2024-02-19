@@ -1,9 +1,8 @@
+import { ResponseDto } from 'src/app/core/models/responseDto';
 import { HelperNumber } from './../../../../core/helpers/helperNumber';
-import { BestSellerDto } from 'src/app/core/models/BestSeller/bestSellerDto';
 import { AdminService } from './../../../../core/services/admin.service';
 import { Component, OnInit } from '@angular/core';
-import { ResponseDto } from 'src/app/core/models/responseDto';
-import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
+import { ProductWithChildrenDto } from 'src/app/core/models/Product/productWithChildrenDto';
 
 @Component({
   selector: 'app-admin-product',
@@ -11,11 +10,15 @@ import { ProductShowDto } from 'src/app/core/models/Product/productShowDto';
   styleUrls: ['./admin-product.component.scss']
 })
 export class AdminProductComponent implements OnInit {
-  listAllProduct: ProductShowDto[] = [];
+  listAllProduct: ProductWithChildrenDto[] = [];
   constructor(private adminService: AdminService,
     public helperNumber: HelperNumber) {
   }
   ngOnInit(): void {
-
+    this.adminService.getAllProduct().subscribe((res: ResponseDto) => {
+      this.listAllProduct = res.data;
+      console.log(this.listAllProduct);
+      
+    })
   }
 }

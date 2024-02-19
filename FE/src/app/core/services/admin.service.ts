@@ -13,6 +13,7 @@ export class AdminService {
     private readonly urlMonthlySales = 'Admin/monthly-sales';
     private readonly urlMonthlyOrders = 'Admin/monthly-orders';
     private readonly urlBestSeller = 'Admin/best-seller';
+    private readonly urlGetFullProduct = 'Admin/all-product';
     constructor(private http: HttpClient) {}
 
     public reportOrderInMonth() : Observable<ResponseDto> {
@@ -39,5 +40,10 @@ export class AdminService {
         return this.http.get<ResponseDto>(
             `${environment.urlApi}/${this.urlBestSeller}`
         );
+    }
+    public getAllProduct() : Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlGetFullProduct}`
+        )
     }
 }

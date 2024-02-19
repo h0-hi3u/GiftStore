@@ -65,4 +65,11 @@ public class AdminController : ControllerBase
         var result = await _adminService.AddFullProduct(fullProductDto);
         return Ok(result);
     }
+
+    [HttpGet("all-product")]
+    public async Task<IActionResult> GetAllProduct()
+    {
+        var result = await _adminService.GetFullProduct();
+        return Ok(result);
+    }
 }

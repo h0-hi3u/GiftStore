@@ -1,32 +1,8 @@
 <div class="wrapper">
-    <div class="title">Best seller</div>
-    <div class="header-product flex py-[11px]">
-        <div class="w-[70%] text-[16px]">Sản phẩm</div>
-        <div class="w-[15%] text-[16px] text-center">number in stock</div>
-        <div class="w-[15%] text-[16px] text-center">number sold</div>
-    </div>
+    <div class="title">All product</div>
     <!-- ------------------- -->
     <div class="container-bs">
-        <div class="best-seller">
-            <div class="info-product">
-                <div class="image">
-                    <img
-                        src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"
-                        alt>
-                </div>
-                <div class="name-variant">
-                    <div>
-                        <div class="name">123</div>
-                        <div class="variant">123</div>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="price-product">{{helperNumber.formatPrice(123)}}</div>
-            <div
-                class="quantity-product">{{helperNumber.formatNumber(123)}}</div>
-        </div>
-        <div class="best-seller" *ngFor="let item of listAllProduct">
+        <div class="product" *ngFor="let item of listAllProduct">
             <div class="info-product">
                 <div class="image">
                     <img src="{{item.imageProduct[0].image}}" alt>
@@ -39,9 +15,9 @@
                 </div>
             </div>
             <div
-                class="price-product">{{helperNumber.formatPrice(123)}}</div>
+            class="price-product"><span>Stock: </span>{{helperNumber.formatNumber(item.quantity)}}</div>
             <div
-                class="quantity-product">{{helperNumber.formatNumber(123)}}</div>
+                class="quantity-product"><span>Price: </span>{{helperNumber.formatPrice(item.price)}}</div>
         </div>
     </div>
 </div>

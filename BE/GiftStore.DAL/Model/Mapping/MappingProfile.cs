@@ -39,6 +39,7 @@ public class MappingProfile : Profile
         CreateMap<ParentProductCreateRequestDto, Product>();
         CreateMap<ChildProductCreateRequestDto, Product>();
         CreateMap<FullProductCreateRequestDto, Product>();
+        CreateMap<Product, FullProductShowResponseDto>();
     }
 
     private void TagMappingProfile()

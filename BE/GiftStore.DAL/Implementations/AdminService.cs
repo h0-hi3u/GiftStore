@@ -202,6 +202,23 @@ public class AdminService : GenericService, IAdminService
         return actionResult.BuildResult(ordersByMonth);
     }
 
+    public async Task<AppActionResult> GetFullProduct()
+    {
+        var actionResult = new AppActionResult();
+        List<FullProductShowResponseDto> data = new List<FullProductShowResponseDto>();
+        var listParent = await _productRepo.Entities().Include(p => p.ImageProduct).Where(p => p.IsParent).ToListAsync();
+        foreach (var item in listParent)
+        {
+            var id = item.Id;
+            List<Product> listChildren = await _productRepo.Entities().Include(p => p.ImageProduct).Where(p => p.ParentId == id).ToListAsync();
+            IEnumerable<ProductShowResponseDto> temp = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listChildren);
+            var product = _mapper.Map<FullProductShowResponseDto>(item);
+            product.Children = (ICollection<ProductShowResponseDto>)temp;
+            data.Add(product);
+        }
+        return actionResult.BuildResult(data);
+    }
+
     public async Task<AppActionResult> GetMonthlyOrders()
     {
         var actionResult = new AppActionResult();
