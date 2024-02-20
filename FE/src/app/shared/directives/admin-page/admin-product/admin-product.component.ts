@@ -3,6 +3,7 @@ import { HelperNumber } from './../../../../core/helpers/helperNumber';
 import { AdminService } from './../../../../core/services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductWithChildrenDto } from 'src/app/core/models/Product/productWithChildrenDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-product',
@@ -12,13 +13,15 @@ import { ProductWithChildrenDto } from 'src/app/core/models/Product/productWithC
 export class AdminProductComponent implements OnInit {
   listAllProduct: ProductWithChildrenDto[] = [];
   constructor(private adminService: AdminService,
-    public helperNumber: HelperNumber) {
+    public helperNumber: HelperNumber,
+    private router : Router) {
   }
   ngOnInit(): void {
     this.adminService.getAllProduct().subscribe((res: ResponseDto) => {
       this.listAllProduct = res.data;
-      console.log(this.listAllProduct);
-      
     })
+  }
+  goToProductDetail(id: string) {
+    this.router.navigate([`admin/product-detail/${id}`]);
   }
 }

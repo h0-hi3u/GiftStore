@@ -20,6 +20,7 @@ import { AdminPageComponent } from './shared/directives/admin-page/admin-page.co
 import { AdminDashboardComponent } from './shared/directives/admin-page/admin-dashboard/admin-dashboard.component';
 import { AdminProductComponent } from './shared/directives/admin-page/admin-product/admin-product.component';
 import { TestFirebaseComponent } from './shared/directives/test-firebase/test-firebase.component';
+import { ProductDetailComponent } from './shared/directives/admin-page/product-detail/product-detail.component';
 
 const routes: Routes = [
   { path: 'firebase', component: TestFirebaseComponent},
@@ -29,6 +30,7 @@ const routes: Routes = [
     children: [
       { path: '', component: AdminDashboardComponent},
       { path: 'product', component: AdminProductComponent},
+      { path: 'product-detail/:id', component: ProductDetailComponent}
     ]
   },
   { path: 'checkout', component: CheckoutPageComponent },

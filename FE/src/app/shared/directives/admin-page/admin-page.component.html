@@ -12,10 +12,10 @@
                 <div class="role">Admin</div>
             </div>
         </div>
-        <div class="navigation" (click)="goToDashboard()">
+        <div class="navigation" (click)="goToDashboard()" [ngClass]="{'active': currentTab == 'admin'}">
             Dashboard
         </div>
-        <div class="navigation" (click)="goToProduct()">
+        <div class="navigation" (click)="goToProduct()" [ngClass]="{'active': currentTab == 'product'}">
             Product
         </div>
         <div class="navigation">
