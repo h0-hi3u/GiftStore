@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { ResponseDto } from "../models/responseDto";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
+import { ProductWithChildrenDto } from "../models/Product/productWithChildrenDto";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class AdminService {
     private readonly urlMonthlySales = 'Admin/monthly-sales';
     private readonly urlMonthlyOrders = 'Admin/monthly-orders';
     private readonly urlBestSeller = 'Admin/best-seller';
-    private readonly urlGetFullProduct = 'Admin/all-product';
+    private readonly urlGetFullProduct = 'Admin/all-info-product';
+    private readonly urlGetAllParent = 'Admin/all-parent';
     constructor(private http: HttpClient) {}
 
     public reportOrderInMonth() : Observable<ResponseDto> {
@@ -41,9 +43,22 @@ export class AdminService {
             `${environment.urlApi}/${this.urlBestSeller}`
         );
     }
-    public getAllProduct() : Observable<ResponseDto> {
+    public getAllInfoProduct(id : string) : Observable<ResponseDto> {
         return this.http.get<ResponseDto>(
-            `${environment.urlApi}/${this.urlGetFullProduct}`
+            `${environment.urlApi}/${this.urlGetFullProduct}/${id}`
+        )
+    }
+    public async getAllInfoProduct2(id : string) : Promise<any> {
+        let currentProduct : ProductWithChildrenDto = {} as ProductWithChildrenDto;
+        var a = await this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlGetFullProduct}/${id}`
+        ).toPromise();
+        
+        return a;
+    }
+    public getAllParent(): Observable<ResponseDto> {
+        return this.http.get<ResponseDto>(
+            `${environment.urlApi}/${this.urlGetAllParent}`
         )
     }
 }

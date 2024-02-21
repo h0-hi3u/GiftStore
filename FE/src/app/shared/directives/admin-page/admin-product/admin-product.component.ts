@@ -17,7 +17,7 @@ export class AdminProductComponent implements OnInit {
     private router : Router) {
   }
   ngOnInit(): void {
-    this.adminService.getAllProduct().subscribe((res: ResponseDto) => {
+    this.adminService.getAllParent().subscribe((res: ResponseDto) => {
       this.listAllProduct = res.data;
     })
   }

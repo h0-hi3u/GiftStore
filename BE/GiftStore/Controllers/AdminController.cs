@@ -66,10 +66,16 @@ public class AdminController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("all-product")]
-    public async Task<IActionResult> GetAllProduct()
+    [HttpGet("all-info-product/{id}")]
+    public async Task<IActionResult> GetAllProduct(string id)
     {
-        var result = await _adminService.GetFullProduct();
+        var result = await _adminService.GetFullProduct(id);
+        return Ok(result);
+    }
+    [HttpGet("all-parent")]
+    public async Task<IActionResult> GetAllParent()
+    {
+        var result = await _adminService.GetAllParent();
         return Ok(result);
     }
 }

@@ -1,4 +1,6 @@
-﻿using GiftStore.DAL.Model.Dto.ImageProduct;
+﻿using GiftStore.DAL.Model.Dto.Category;
+using GiftStore.DAL.Model.Dto.ImageProduct;
+using GiftStore.DAL.Model.Dto.Supplier;
 
 namespace GiftStore.DAL.Model.Dto.Product;
 public class FullProductCreateRequestDto

@@ -202,20 +202,33 @@ public class AdminService : GenericService, IAdminService
         return actionResult.BuildResult(ordersByMonth);
     }
 
-    public async Task<AppActionResult> GetFullProduct()
+    public async Task<AppActionResult> GetAllParent()
     {
         var actionResult = new AppActionResult();
-        List<FullProductShowResponseDto> data = new List<FullProductShowResponseDto>();
         var listParent = await _productRepo.Entities().Include(p => p.ImageProduct).Where(p => p.IsParent).ToListAsync();
-        foreach (var item in listParent)
+        var result = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listParent);
+        return actionResult.BuildResult(result);
+    }
+
+    public async Task<AppActionResult> GetFullProduct(string id)
+    {
+        var actionResult = new AppActionResult();
+        if (!Guid.TryParse(id, out Guid productId))
         {
-            var id = item.Id;
-            List<Product> listChildren = await _productRepo.Entities().Include(p => p.ImageProduct).Where(p => p.ParentId == id).ToListAsync();
-            IEnumerable<ProductShowResponseDto> temp = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listChildren);
-            var product = _mapper.Map<FullProductShowResponseDto>(item);
-            product.Children = (ICollection<ProductShowResponseDto>)temp;
-            data.Add(product);
+            return actionResult.BuildError(MessageConstants.ERR_INVALID_GUID);
         }
+        var productParent = await _productRepo.Entities().Include(p => p.ImageProduct).Include(p => p.Supplier).Include(p => p.Category).SingleOrDefaultAsync(p => p.IsParent && p.Id == productId);
+        if (productParent == null)
+        {
+            return actionResult.BuildError(MessageConstants.ERR_NOT_FOUND);
+        }
+        List<FullProductShowResponseDto> data = new List<FullProductShowResponseDto>();
+        var idFind = productParent.Id;
+        List<Product> listChildren = await _productRepo.Entities().Include(p => p.ImageProduct).Where(p => p.ParentId == idFind).ToListAsync();
+        IEnumerable<ProductShowResponseDto> temp = _mapper.Map<IEnumerable<ProductShowResponseDto>>(listChildren);
+        var product = _mapper.Map<FullProductShowResponseDto>(productParent);
+        product.Children = (ICollection<ProductShowResponseDto>)temp;
+        data.Add(product);
         return actionResult.BuildResult(data);
     }
 
