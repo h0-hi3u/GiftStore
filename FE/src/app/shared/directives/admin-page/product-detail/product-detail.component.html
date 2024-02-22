@@ -2,53 +2,43 @@
     <div class="parent">
         <div class="specific-info">
             <div class="name-variant">
-                <div class="name">{{currentProduct.name}}</div>
-                <div class="variant">{{currentProduct.variant}}</div>
+                <div class="name">{{currentProduct[0].name}}</div>
+                <div class="variant">{{currentProduct[0].variant}}</div>
             </div>
             <div class="container-image">
-                <div class="wrapper-image" *ngFor="let image of currentProduct.imageProduct">
-                    <img class="image" src="{{image.image}}"/>
-                </div>
-                <div class="wrapper-image">
-                    <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
-                </div>
-                <div class="wrapper-image">
-                    <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
-                </div>
-                <div class="wrapper-image">
-                    <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
-                </div>
-                <div class="wrapper-image">
-                    <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
-                </div>
-                <div class="wrapper-image">
-                    <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
+                <div class="wrapper-image"
+                    *ngFor="let image of currentProduct[0].imageProduct">
+                    <img class="image" src="{{image.image}}" />
                 </div>
             </div>
             <div class="price-quantity">
-                <div class="price"><span>Price: </span>{{helperNumber.formatPrice(currentProduct.price)}}</div>
-                <div class="quantity"><span>Quantity: </span>{{helperNumber.formatNumber(currentProduct.quantity)}}</div>
+                <div class="price"><span>Price:
+                    </span>{{helperNumber.formatPrice(currentProduct[0].price)}}</div>
+                <div class="quantity"><span>Quantity:
+                    </span>{{helperNumber.formatNumber(currentProduct[0].quantity)}}</div>
             </div>
         </div>
         <div class="general-info">
-            <div><span>Category: </span>{{currentProduct}}</div>
-            <div><span>Supplier: </span>abc</div>
-            <div><span>Description: </span>abc</div>
+            <div><span>Category:
+                </span>{{currentProduct[0].category.name}}</div>
+            <div><span>Supplier:
+                </span>{{currentProduct[0].supplier.name}}</div>
+            <div><span>Description:
+                </span>{{currentProduct[0].description}}</div>
         </div>
     </div>
-    <div class="children" *ngIf="currentProduct.price && currentProduct.children.length != 0">
-        <div class="name-variant">
-            <div class="name">123</div>
-            <div class="variant">123</div>
-        </div>
+    <div class="children" *ngFor="let item of currentProduct[0].children">
+        <div class="variant">{{item.variant}}</div>
         <div class="container-image">
-            <div class="wrapper-image">
-                <img class="image" src="https://i.pinimg.com/564x/49/29/b4/4929b4886361553d6ee0c7dc1859bb23.jpg"/>
+            <div class="wrapper-image" *ngFor="let image of item.imageProduct">
+                <img class="image" src="{{image.image}}" />
             </div>
         </div>
         <div class="price-quantity">
-            <div class="price"><span>Price: </span>123</div>
-            <div class="quantity"><span>Quantity: </span>123</div>
+            <div class="price"><span>Price:
+                </span>{{helperNumber.formatPrice(item.price)}}</div>
+            <div class="quantity"><span>Quantity:
+                </span>{{helperNumber.formatNumber(item.quantity)}}</div>
         </div>
     </div>
 </div>

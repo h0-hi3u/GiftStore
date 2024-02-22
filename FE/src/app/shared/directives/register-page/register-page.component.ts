@@ -18,7 +18,7 @@ export class RegisterPageComponent {
      private formBuilder: FormBuilder,
       private userService: UserService,
       private helperValidate: HelperValidate) {}
-  registerForm = this.formBuilder.group({
+    registerForm = this.formBuilder.group({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required, this.helperValidate.phoneNumberValidator]),

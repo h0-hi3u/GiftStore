@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <h1 class="uppercase">Add parent Product</h1>
+<form [formGroup]="createFrom">
+        <div class="name">
+            <label>Name: </label><input formControlName="name" type="text"/>
+        </div>
+        <div class="image">
+            <label>Image: </label>
+            <input type="file" multiple formControlName="image">
+        </div>
+        <div class="variant">
+            <label>Variant: </label><input type="text" formControlName="variant">
+        </div>
+        <div class="category">
+            <label>Category: </label>
+            <select  formControlName="category">
+                <option *ngFor="let category of listCategory" value="{{category.id}}" >{{category.name}}</option>
+            </select>
+        </div>
+        <div class="supplier">
+            <label>Supplier: </label>
+            <select formControlName="supplier" >
+                <option *ngFor="let supplier of listSupplier" value="{{supplier.id}}">{{supplier.name}}</option>
+            </select>
+        </div>
+        <div class="description">
+            <label>Description: </label><input type="text" formControlName="description">
+        </div>
+        <div class="price">
+            <label>Price: </label><input type="number" formArrayName="price">
+        </div>
+        <div class="quantity">
+            <label>Quantity: </label><input type="number" formControlName="quantity">
+        </div>
+    </form>
+</div>

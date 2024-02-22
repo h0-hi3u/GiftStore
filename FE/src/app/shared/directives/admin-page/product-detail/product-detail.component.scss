@@ -2,13 +2,14 @@
   padding: 20px 0 0 0;
   .parent {
     display: flex;
-    margin: 0 0 30px 0;
+    border-bottom: 1px gray solid;
     .specific-info {
       width: 70%;
       padding: 0 10px;
       .name-variant {
         display: flex;
         justify-content: space-between;
+        text-align: end;
         .name {
           font-size: 24px;
           font-weight: 600;
@@ -25,7 +26,7 @@
         white-space: nowrap;
         .wrapper-image {
           display: block;
-          width: 33%;
+          width: 20%;
           flex-shrink: 0;
           // height: 80px;
           padding: 0 10px;
@@ -63,7 +64,9 @@
     .general-info {
       width: 30%;
       padding: 0 0 0 20px;
+      border-left: 1px gray solid;
       div {
+        padding: 20px 0;
         span {
           color: var(--primary-pink);
           font-weight: 500;
@@ -73,27 +76,20 @@
   }
   .children {
     width: 70%;
-    padding: 0 10px;
-    .name-variant {
-      display: flex;
-      justify-content: space-between;
-      .name {
-        font-size: 24px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
+    padding: 10px 0;
+    border-bottom: 1px gray solid;
       .variant {
         color: var(--primary-pink);
         font-weight: 600;
+        text-align: end;
       }
-    }
     .container-image {
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
       .wrapper-image {
         display: block;
-        width: 33%;
+        width: 20%;
         flex-shrink: 0;
         // height: 80px;
         padding: 0 10px;

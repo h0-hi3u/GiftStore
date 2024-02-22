@@ -23,5 +23,11 @@ namespace GiftStore.Controllers
             var result = await _categoryService.GetDetailAsync(id);
             return Ok(result);
         }
+        [HttpGet("get-all")]
+        public async Task<IActionResult> GetAllCategory()
+        {
+            var result = await _categoryService.GetAllAsync();
+            return Ok(result);
+        }
     }
 }

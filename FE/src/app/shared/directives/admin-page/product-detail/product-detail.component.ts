@@ -12,7 +12,7 @@ import { ResponseDto } from 'src/app/core/models/responseDto';
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
-  currentProduct : ProductWithChildrenDto = {} as ProductWithChildrenDto;
+  currentProduct : ProductWithChildrenDto[] = [];
   constructor(
     private adminService: AdminService,
     private router: Router,
@@ -23,7 +23,6 @@ export class ProductDetailComponent implements OnInit {
     const productId = listUrl[listUrl.length - 1];
     this.adminService.getAllInfoProduct(productId).subscribe((res: ResponseDto) => {
       this.currentProduct = res.data;
-      console.log(this.currentProduct);    
     });
   }
 }

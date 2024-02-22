@@ -6,6 +6,13 @@
         color: var(--primary-pink);
         padding: 0 0 10px 0;
     }
+    .add-button {
+        height: 30px;
+        width: 200px;
+        // float: left;
+        border: 1px var(--primary-black) solid;
+        border-radius: 5px;
+    }
     .container-bs {
         width: 100%;
         .product {

@@ -6,8 +6,7 @@ using GiftStore.Core.Contracts;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Category;
 using GiftStore.DAL.Model.Entity;
-using System.Data.Entity;
-using System.Net.Http.Headers;
+using Microsoft.EntityFrameworkCore;
 
 namespace GiftStore.DAL.Implementations;
 

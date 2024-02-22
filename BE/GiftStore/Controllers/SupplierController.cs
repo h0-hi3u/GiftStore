@@ -19,7 +19,7 @@ namespace GiftStore.Controllers
             _supplierService = _scope.Resolve<ISupplierService>();
         }
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _supplierService.GetAllAsync();

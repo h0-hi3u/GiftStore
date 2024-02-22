@@ -24,4 +24,7 @@ export class AdminProductComponent implements OnInit {
   goToProductDetail(id: string) {
     this.router.navigate([`admin/product-detail/${id}`]);
   }
+  goToAddProduct() {
+    this.router.navigate(['admin/create-product']);
+  }
 }
