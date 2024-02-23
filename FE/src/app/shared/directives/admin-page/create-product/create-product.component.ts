@@ -23,16 +23,16 @@ export class CreateProductComponent implements OnInit{
     private supplierService: SupplierService
   ) {}
   ngOnInit(): void {
-    this.createFrom = this.formBuilder.group({
-        name: new FormControl('',[Validators.required]),
-        image: new FormControl(''),
-        variant: new FormControl(''),
-        category: new FormControl('', Validators.required),
-        supplier: new FormControl('', Validators.required),
-        description: new FormControl('', Validators.required),
-        price: new FormControl('', Validators.required),
-        quantity: new FormControl('', Validators.required)
-    });
+      this.createFrom = this.formBuilder.group({
+          name: new FormControl('',[Validators.required]),
+          image: new FormControl(''),
+          variant: new FormControl(''),
+          category: new FormControl('', Validators.required),
+          supplier: new FormControl('', Validators.required),
+          description: new FormControl('', Validators.required),
+          price: new FormControl('', Validators.required),
+          quantity: new FormControl('', Validators.required)
+      });
     this.categoryService.getAll().subscribe((res: ResponseDto) => {
       this.listCategory = res.data;
     });
