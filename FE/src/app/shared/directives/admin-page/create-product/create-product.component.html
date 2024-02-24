@@ -1,12 +1,12 @@
 <div class="wrapper">
     <h1 class="uppercase">Add parent Product</h1>
-<form [formGroup]="createFrom">
+<form [formGroup]="createFrom" (ngSubmit)="addProduct()">
         <div class="name">
             <label>Name: </label><input formControlName="name" type="text"/>
         </div>
         <div class="image">
             <label>Image: </label>
-            <input type="file" multiple formControlName="image">
+            <input type="file" multiple formControlName="image" (change)="inputImage($event)">
         </div>
         <div class="variant">
             <label>Variant: </label><input type="text" formControlName="variant">
@@ -32,5 +32,6 @@
         <div class="quantity">
             <label>Quantity: </label><input type="number" formControlName="quantity">
         </div>
+        <button type="submit" class="w-[200px] h-[50px] bg-slate-600 ">Submit</button>
     </form>
 </div>
