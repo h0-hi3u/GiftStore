@@ -43,6 +43,7 @@ import { provideStorage, getStorage} from '@angular/fire/storage';
 import { ProductDetailComponent } from './shared/directives/admin-page/product-detail/product-detail.component';
 import { CreateProductComponent } from './shared/directives/admin-page/create-product/create-product.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,9 +88,11 @@ import { CreateProductComponent } from './shared/directives/admin-page/create-pr
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
