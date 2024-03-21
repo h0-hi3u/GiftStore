@@ -22,6 +22,7 @@ import { AdminProductComponent } from './shared/directives/admin-page/admin-prod
 import { TestFirebaseComponent } from './shared/directives/test-firebase/test-firebase.component';
 import { ProductDetailComponent } from './shared/directives/admin-page/product-detail/product-detail.component';
 import { CreateProductComponent } from './shared/directives/admin-page/create-product/create-product.component';
+import { LoginWithGoogleComponent } from './shared/directives/login-with-google/login-with-google.component';
 
 const routes: Routes = [
   { path: 'firebase', component: TestFirebaseComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
       { path: 'category/:id', component: ProductListComponent },
       { path: 'tag/:id', component: ProductListComponent },
       { path: 'login', component: LoginPageComponent },
+      { path: 'login-google', component: LoginWithGoogleComponent},
       { path: 'register', component: RegisterPageComponent },
       {
         path: 'account',
