@@ -42,6 +42,7 @@ import { provideFirestore, getFirestore} from '@angular/fire/firestore';
 import { provideStorage, getStorage} from '@angular/fire/storage';
 import { ProductDetailComponent } from './shared/directives/admin-page/product-detail/product-detail.component';
 import { CreateProductComponent } from './shared/directives/admin-page/create-product/create-product.component';
+import { LoginWithGoogleComponent } from './shared/directives/login-with-google/login-with-google.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { CreateProductComponent } from './shared/directives/admin-page/create-pr
     TestFirebaseComponent,
     ProductDetailComponent,
     CreateProductComponent,
+    LoginWithGoogleComponent,
   ],
   imports: [
     BrowserModule,

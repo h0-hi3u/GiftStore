@@ -10,12 +10,18 @@ import { environment } from 'src/environment/environment';
 })
 export class AuthService {
   private readonly urlLogin = 'User/login';
+  private readonly urlLoginWithGoogle = 'OAuth/login-google';
   constructor(private httpClient: HttpClient) {}
   public login(user: UserLoginDto): Observable<ResponseDto> {
     return this.httpClient.post<ResponseDto>(
       `${environment.urlApi}/${this.urlLogin}`,
       user
     );
+  }
+  public loginWithGoogle(code : string) : Observable<ResponseDto> {
+    return this.httpClient.get<ResponseDto>(
+      `${environment.urlApi}/${this.urlLoginWithGoogle}?code=${code}`
+    )
   }
   public getToken(): string | null {
     return localStorage.getItem('access_token');
