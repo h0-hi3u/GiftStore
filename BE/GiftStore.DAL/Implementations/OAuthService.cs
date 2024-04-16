@@ -9,6 +9,7 @@ using GiftStore.DAL.Model.Dto.User;
 using GiftStore.DAL.Model.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -107,38 +108,17 @@ public class OAuthService : GenericService, IOAuthService
     {
         try
         {
-            //MailMessage message = new MailMessage();
-            //SmtpClient smtp = new SmtpClient();
-            //message.From = new MailAddress("giftstore.hohieu@gmail.com");
-            //message.To.Add(new MailAddress(toMailAddress));
-            //message.Subject = "Password for GiftStore accout";
-            //message.Body = "<h1>" + password + "</h1>";
-            //message.IsBodyHtml = true;
-            //smtp.Port = 587;
-            //smtp.Host = "smtp.gmail.com"; //for gmail host
-            //smtp.EnableSsl = true;
-            //smtp.UseDefaultCredentials = false;
-            //smtp.Credentials = new NetworkCredential("giftstore.hohieu@gmail.com", "pvft pdsa flwb jxuq");
-            //smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //smtp.Send(message);
-            var smtpClient = new SmtpClient("smtp.gmail.com")
+            MailMessage mailMessage = new MailMessage("giftstore.hohieu@gmail.com", toMailAddress, "Password for GiftStore accout", "Your password:" + password);
+            using (var client = new SmtpClient("smtp.gmail.com", 587))
             {
-                Port = 587,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                Credentials = new NetworkCredential("giftstore.hohieu@gmail.com", "pvft pdsa flwb jxuq"),
-                EnableSsl = true,
-            };
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress("giftstore.hohieu@gmail.com"),
-                Subject = "Password for GiftStore accout",
-                Body = "<h1>" + password + "</h1>",
-                IsBodyHtml = true,
-            };
-            mailMessage.To.Add(toMailAddress);
-            if (smtpClient != null)
-                smtpClient.Send(mailMessage);
-            return true;
+                client.EnableSsl = true;
+                mailMessage.To.Add(toMailAddress);
+                NetworkCredential credential = new NetworkCredential("giftstore.hohieu@gmail.com", "lkym lruh njnd oqrt");
+                client.UseDefaultCredentials = false;
+                client.Credentials = credential;
+                client.Send(mailMessage);
+                return true;
+            }
         } catch (Exception ex)
         {
             var a = ex.Message;

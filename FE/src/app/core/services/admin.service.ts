@@ -4,6 +4,7 @@ import { ResponseDto } from "../models/responseDto";
 import { Observable } from "rxjs";
 import { environment } from "src/environment/environment";
 import { ProductWithChildrenDto } from "../models/Product/productWithChildrenDto";
+import { ProductParentCreateDto } from "../models/Product/productParentCreateDto";
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class AdminService {
     private readonly urlBestSeller = 'Admin/best-seller';
     private readonly urlGetFullProduct = 'Admin/all-info-product';
     private readonly urlGetAllParent = 'Admin/all-parent';
+    private readonly urlAddParentProduct = 'Admin/add-parent-product';
     constructor(private http: HttpClient) {}
 
     public reportOrderInMonth() : Observable<ResponseDto> {
@@ -59,6 +61,11 @@ export class AdminService {
     public getAllParent(): Observable<ResponseDto> {
         return this.http.get<ResponseDto>(
             `${environment.urlApi}/${this.urlGetAllParent}`
+        )
+    }
+    public createParentProduct(parentProduct: ProductParentCreateDto) : Observable<ResponseDto> {
+        return this.http.post<ResponseDto> (
+            `${environment.urlApi}/${this.urlAddParentProduct}`, parentProduct
         )
     }
 }
