@@ -122,7 +122,7 @@ public class UserService : GenericService, IUserService
         string token = CreateToken(user);
         return actionResult.BuildResult(token);
     }
-    private string CreateToken(User user)
+    public string CreateToken(User user)
     {
         string fullName = user.FirstName + " " + user.LastName;
         List<Claim> claims = new List<Claim>
@@ -130,14 +130,20 @@ public class UserService : GenericService, IUserService
             new Claim(ClaimTypes.Name, fullName),
             new Claim(ClaimTypes.Email, user.Email)
         };
+        if(user.Email.Equals("admin@gmail.com"))
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+        }
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            _configuration.GetSection("AppSettings:Token").Value!));
+            _configuration.GetSection("Jwt:Secret").Value!));
 
-        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
 
         var token = new JwtSecurityToken(
             claims: claims,
             expires: DateTime.Now.AddHours(1),
+            audience: _configuration.GetSection("Jwt:ValidAudience").Value,
+            issuer: _configuration.GetSection("Jwt:ValidIssuer").Value,
             signingCredentials: cred
             );
 

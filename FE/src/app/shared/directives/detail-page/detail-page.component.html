@@ -86,9 +86,9 @@
                 </div>
                 <div class="cart-product">
                     <div class="input-form">
-                        <button (click)="changeDefaultValue(-1)">-</button>
-                        <input id="inputAddMany" type="number" value="{{defaultNumber}}">
-                        <button (click)="changeDefaultValue(+1)">+</button>
+                        <button (click)="changeDefaultValue(-1)" [disabled]="currentProduct.quantity == 0">-</button>
+                        <input id="inputAddMany" type="number" value="{{defaultNumber}}"  [disabled]="currentProduct.quantity == 0">
+                        <button (click)="changeDefaultValue(+1)" [disabled]="currentProduct.quantity == 0">+</button>
                     </div>
                     <div class="option-add-cart">
                         <div *ngIf="currentProduct.quantity != 0" class="add-to-cart" (click)="addManyToCart(currentProduct.id)">Thêm vào giỏ hàng</div>

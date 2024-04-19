@@ -81,6 +81,7 @@ export class CreateProductComponent implements OnInit{
           newParentProduct.variant = this.getForm.variant.value || '';
           newParentProduct.categoryId = this.getForm.category.value || '';
           newParentProduct.supplierId = this.getForm.supplier.value || '';
+          newParentProduct.description = this.getForm.description.value || '';
           const listImageProduct: ImageProduct[] = [];
           let imageProduct = {} as ImageProduct;
           imageProduct.productId = '3d87fc99-bd82-4640-ace6-46e29cb368fa';

@@ -4,5 +4,12 @@
     align-items: center;
     height: 200px;
     width: 100%;
-    
+    .register-success {
+        font-size: 18px;
+        .link-login {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+    }
 }

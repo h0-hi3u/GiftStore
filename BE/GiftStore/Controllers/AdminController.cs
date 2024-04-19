@@ -1,10 +1,12 @@
 ﻿using Autofac;
 using GiftStore.DAL.Contracts;
 using GiftStore.DAL.Model.Dto.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GiftStore.Controllers;
 
+[Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class AdminController : ControllerBase

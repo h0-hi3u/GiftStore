@@ -7,6 +7,11 @@ using GiftStore.DAL.Implementations;
 using System.Reflection;
 using AutoMapper;
 using GiftStore.DAL.Model.Mapping;
+using Autofac.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+//using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -60,6 +65,22 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 
     });
 
+// Register jwt
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+   .AddJwtBearer(options =>
+   {
+       options.TokenValidationParameters = new TokenValidationParameters
+       {
+           ValidateIssuer = true,
+           ValidateAudience = true,
+           ValidateLifetime = true,
+           ValidateIssuerSigningKey = true,
+           ValidIssuer = builder.Configuration["Jwt:ValidIssuer"],
+           ValidAudience = builder.Configuration["Jwt:ValidAudience"],
+           IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"])),
+           ClockSkew = TimeSpan.Zero
+       };
+   });
 var app = builder.Build();
 
 // Execute DbUp
@@ -74,7 +95,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors();
 app.MapControllers();

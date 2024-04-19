@@ -31,6 +31,7 @@ public class OAuthService : GenericService, IOAuthService
     private readonly IRepository<User> _userRepo;
     private readonly IMapper _mapper; 
     private readonly IConfiguration _configuration;
+    private readonly IUserService _userService;
     private readonly Random _random = new Random();
 
     public OAuthService(IMapper mapper, ILifetimeScope scope) : base(scope)
@@ -38,6 +39,7 @@ public class OAuthService : GenericService, IOAuthService
         _configuration = Resolve<IConfiguration>();
         _unitOfWork = Resolve<IUnitOfWork>();
         _userRepo = _unitOfWork.Repository<User>();
+        _userService = Resolve<IUserService>();
         _mapper = mapper;
 
     } 
@@ -80,7 +82,7 @@ public class OAuthService : GenericService, IOAuthService
         var user = await _userRepo.Entities().SingleOrDefaultAsync(u => u.Email == email);
         if (user != null) 
         {
-            var token = "User existing and return token";
+            var token = _userService.CreateToken(user);
             return actionResult.BuildResult(token);
         }
 
@@ -98,7 +100,7 @@ public class OAuthService : GenericService, IOAuthService
             userNew.VIP = VIPConstants.VIP_0;
             await _userRepo.AddAsync(userNew);
             await _unitOfWork.Commit();
-            return actionResult.BuildResult("Check mail and login with password in mail");
+            return actionResult.SetInfo(true, "Check mail and login with password in mail");
         } catch
         {
             return actionResult.BuildError("Can't add user");

@@ -24,7 +24,7 @@ export class AuthService {
     )
   }
   public getToken(): string | null {
-    return localStorage.getItem('access_token');
+    return localStorage.getItem('access_token') || '';
   }
   public getInfoToken(token: string): any {
     const expiry = JSON.parse(window.atob(token.split('.')[1]));

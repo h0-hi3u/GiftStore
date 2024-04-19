@@ -1,3 +1,6 @@
 <div class="wrapper">
-    <i class="text-9xl text-[#D2492A] fas fa-spinner fa-pulse"></i>
+    <i *ngIf="!isRegisterSuccess" class="text-9xl text-[#D2492A] fas fa-spinner fa-pulse"></i>
+    <div *ngIf="isRegisterSuccess" class="register-success">
+        Register success. Please check your mail and login in <div (click)="goToLogin()" class="link-login">here</div>
+    </div>
 </div>
