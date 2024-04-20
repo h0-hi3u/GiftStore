@@ -23,6 +23,7 @@ import { TestFirebaseComponent } from './shared/directives/test-firebase/test-fi
 import { ProductDetailComponent } from './shared/directives/admin-page/product-detail/product-detail.component';
 import { CreateProductComponent } from './shared/directives/admin-page/create-product/create-product.component';
 import { LoginWithGoogleComponent } from './shared/directives/login-with-google/login-with-google.component';
+import { RoleGuardService } from './core/guards/roleAuthGuard';
 
 const routes: Routes = [
   { path: 'firebase', component: TestFirebaseComponent},
@@ -34,7 +35,11 @@ const routes: Routes = [
       { path: 'product', component: AdminProductComponent},
       { path: 'product-detail/:id', component: ProductDetailComponent},
       { path: 'create-product', component: CreateProductComponent}
-    ]
+    ],
+    canActivate: [RoleGuardService],
+    data: {
+      expectedRole: 'Admin'
+    }
   },
   { path: 'checkout', component: CheckoutPageComponent },
   { path: 'check-quantity', component: CheckQuantityComponent },

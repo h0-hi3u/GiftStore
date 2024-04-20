@@ -133,6 +133,9 @@ public class UserService : GenericService, IUserService
         if(user.Email.Equals("admin@gmail.com"))
         {
             claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+        } else
+        {
+            claims.Add(new Claim(ClaimTypes.Role, "User"));
         }
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
             _configuration.GetSection("Jwt:Secret").Value!));
